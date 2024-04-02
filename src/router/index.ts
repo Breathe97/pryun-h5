@@ -9,6 +9,7 @@ const routes: RouteRecordRaw[] = [
     redirect: '/load',
     meta: {
       keepAlive: false,
+      animationTypes: { in: 'none', out: 'none' },
     },
   },
   {
@@ -17,6 +18,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '欢迎',
       keepAlive: false,
+      animationTypes: { in: 'none', out: 'none' },
     },
     component: () => import('@/views/load/load-index.vue'),
   },
@@ -26,6 +28,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '首页',
       keepAlive: false,
+      animationTypes: { in: 'none', out: 'none' },
     },
     component: () => import('@/views/home/home-index.vue'),
   },
@@ -35,6 +38,8 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '登录',
       keepAlive: false,
+      zIndex: 1000,
+      animationTypes: { in: 'pop-from-left', out: 'pop-from-right' },
     },
     component: () => import('@/views/login/login-index.vue'),
   },
@@ -55,7 +60,7 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   next()
 })
 

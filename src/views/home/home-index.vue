@@ -3,7 +3,7 @@
     <van-nav-bar title="首页" :fixed="true" :placeholder="true" />
     <div class="page-content">
       <div style="height: 200px; background-color: red">2222</div>
-      <div style="height: 200px; background-color: rgb(255, 238, 0)">2222</div>
+      <div style="height: 200px; background-color: rgb(255, 238, 0)" @click="router.push({ path: '/login' })">登录</div>
       <div style="height: 200px; background-color: red"></div>
       <div style="height: 200px; background-color: rgb(88, 156, 81)"></div>
       <div style="height: 200px; background-color: red"></div>
@@ -20,6 +20,9 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const active = ref(0)
 </script>
