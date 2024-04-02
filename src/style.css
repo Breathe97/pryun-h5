@@ -17,8 +17,10 @@ body {
 }
 
 .page {
+  position: relative;
   width: 100%;
   min-height: 100vh;
+  height: 100vh;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -27,6 +29,7 @@ body {
   width: 100%;
   flex: 1;
   background-color: antiquewhite;
+  overflow-y: auto;
 }
 
 /* 高斯模糊 */

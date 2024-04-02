@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const init = () => {
   // router.push('/login')
-  router.push('/home')
+  router.push('/home-index')
 }
 init()
 </script>

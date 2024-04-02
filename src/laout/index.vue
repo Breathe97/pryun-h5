@@ -14,9 +14,14 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const KeepRoutes = computed(() => {
-  return []
-  // let arr: any = Array.from(keepRoutes.value, (item) => item.name)
-  // return arr
+  let arr: any = []
+  for (const route of router.options.routes) {
+    if (route.meta?.keepAlive) {
+      arr.push(route.name)
+    }
+  }
+  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:arr`, arr)
+  return arr
 })
 
 const transitionName = ref('')

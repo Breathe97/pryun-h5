@@ -6,15 +6,15 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/load',
+    redirect: '/load-index',
     meta: {
       keepAlive: false,
       animationTypes: { in: 'none', out: 'none' },
     },
   },
   {
-    name: 'load',
-    path: '/load',
+    name: 'load-index',
+    path: '/load-index',
     meta: {
       title: '欢迎',
       keepAlive: false,
@@ -23,8 +23,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/load/load-index.vue'),
   },
   {
-    name: 'home',
-    path: '/home',
+    name: 'home-index',
+    path: '/home-index',
     meta: {
       title: '首页',
       keepAlive: true,
@@ -33,13 +33,13 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/home/home-index.vue'),
   },
   {
-    name: 'login',
-    path: '/login',
+    name: 'login-index',
+    path: '/login-index',
     meta: {
       title: '登录',
-      keepAlive: false,
+      keepAlive: true,
       zIndex: 1000,
-      animationTypes: { in: 'pop-from-left', out: 'pop-from-right' },
+      // animationTypes: { in: 'pop-from-left', out: 'pop-from-right' },
     },
     component: () => import('@/views/login/login-index.vue'),
   },
