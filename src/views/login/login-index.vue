@@ -23,9 +23,10 @@ const active = ref(0)
 //   inf.value.account = 'admin'
 //   inf.value.password = '123456'
 // }
-const aaa = ref(new Date().getTime())
+const aaa = ref(0)
 
 onActivated(() => {
+  aaa.value = new Date().getTime()
   console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:onActivated`)
 })
 </script>
