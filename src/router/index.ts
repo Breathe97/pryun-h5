@@ -27,8 +27,8 @@ const routes: RouteRecordRaw[] = [
     path: '/home',
     meta: {
       title: '首页',
-      keepAlive: false,
-      animationTypes: { in: 'none', out: 'none' },
+      keepAlive: true,
+      animationTypes: { in: 'fade-in', out: 'none' },
     },
     component: () => import('@/views/home/home-index.vue'),
   },
