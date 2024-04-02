@@ -1,7 +1,8 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import type { ProxyOptions } from 'vite'
-import postcsspxtoviewport from 'postcss-px-to-viewport'
+// @ts-ignore
+import px2vw from 'postcss-px-to-viewport'
 
 type Type_mode_keys = 'development' | 'production' // 定义当前环境
 
@@ -27,7 +28,7 @@ const proxyObject: ProxyObject = {
   },
 }
 
-const option_postcsspxtoviewport = {
+const px2vw_options = {
   unitToConvert: 'px', // (String) 需要转换的单位，默认为"px"
   viewportWidth: 375, // 设计稿的视口宽度
   unitPrecision: 5, //  (Number) 单位转换后保留的精度
@@ -48,7 +49,6 @@ const option_postcsspxtoviewport = {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:mode`, mode)
-
   // 根据不同的环境获取不同的base_path
   const { VITE_BASE_PATH = '' } = loadEnv(mode, './')
 
@@ -71,7 +71,7 @@ export default defineConfig(({ mode }) => {
     },
     css: {
       postcss: {
-        plugins: [postcsspxtoviewport(option_postcsspxtoviewport)],
+        plugins: [px2vw(px2vw_options)],
       },
     },
   }

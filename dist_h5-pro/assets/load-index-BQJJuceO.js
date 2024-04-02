@@ -1,0 +1,1 @@
+import{d as o,o as n,c as t,u as s}from"./index-qXrqFOZ5.js";const l=o({__name:"load-index",setup(a){const e=s();return(()=>{e.push("/home")})(),(c,i)=>(n(),t("div",null,"loading"))}});export{l as default};
