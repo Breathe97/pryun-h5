@@ -1,5 +1,5 @@
 <template>
-  <page-view class="home-index">
+  <PrPageView class="home-index">
     <template #navbar>
       <van-nav-bar title="首页" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
     </template>
@@ -20,7 +20,7 @@
         <van-tabbar-item icon="setting-o">标签4</van-tabbar-item>
       </van-tabbar>
     </template>
-  </page-view>
+  </PrPageView>
 </template>
 <script lang="ts" setup>
 import { ref, onActivated } from 'vue'
