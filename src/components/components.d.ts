@@ -1,11 +1,11 @@
 import Footer from '@/components/Footer/Footer.vue'
-import PageView from '@/components/PageView/PageView.vue'
+import PrPageView from '@/components/PrPageView/PrPageView.vue'
 import ContentTable from '@/components/ContentTable/ContentTable.vue'
 
 declare module 'vue' {
   export interface GlobalComponents {
     Footer: typeof Footer
-    PageView: typeof PageView
+    PrPageView: typeof PrPageView
     ContentTable: typeof ContentTable
   }
 }
