@@ -1,17 +1,21 @@
 <template>
-  <router-view v-slot="{ Component, route }">
-    <Transition :name="transitionName">
-      <KeepAlive :include="KeepRoutes">
-        <component :is="Component" :key="route.fullPath" />
-      </KeepAlive>
-    </Transition>
-  </router-view>
+  <div ref="layoutPageRef" class="layout-page">
+    <router-view v-slot="{ Component, route }">
+      <Transition :name="transitionName">
+        <KeepAlive :include="KeepRoutes">
+          <component :is="Component" :key="route.fullPath" />
+        </KeepAlive>
+      </Transition>
+    </router-view>
+  </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+
+const layoutPageRef = ref()
 
 const KeepRoutes = computed(() => {
   let arr: any = []
@@ -20,16 +24,24 @@ const KeepRoutes = computed(() => {
       arr.push(route.name)
     }
   }
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:arr`, arr)
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:arr`, arr)
   return arr
 })
 
 const transitionName = ref('')
+const scrollInfos = ref<{ name: unknown; scrollTop: number }[]>([])
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:from`, from, to)
   const { zIndex: from_meta_zIndex = 99, animationTypes: from_animationTypes = { in: 'pop-from-right', out: 'pop-from-left' } } = from.meta || {}
   const { zIndex: to_meta_zIndex = 99, animationTypes: to_animationTypes = { in: 'pop-from-right', out: 'pop-from-left' } } = to.meta || {}
+
+  if (from.name) {
+    let scrollTop = layoutPageRef.value.scrollTop
+    let scrollInfo = { name: from.name, scrollTop }
+    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:scrollInfo`, scrollInfo)
+    scrollInfos.value.push(scrollInfo)
+  }
 
   const zIndexOffset = to_meta_zIndex - from_meta_zIndex
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:zIndexOffset`, zIndexOffset)
@@ -44,8 +56,28 @@ router.beforeEach((to, from, next) => {
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:to, from`, from, to)
   next()
 })
+
+router.afterEach(async (to, from) => {
+  let scrollInfo = scrollInfos.value.find((item) => item.name === to.name)
+  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:scrollInfo`, scrollInfo)
+  if (scrollInfo) {
+    await nextTick()
+    layoutPageRef.value.scrollTop = scrollInfo.scrollTop
+  }
+})
 </script>
 <style scoped>
+.layout-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
 /* 页面从右侧挤入 */
 .pop-from-right-enter-active,
 .pop-from-right-leave-active {

@@ -16,22 +16,6 @@ body {
   overflow-y: overlay;
 }
 
-.page {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  height: 100vh;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.page-content {
-  width: 100%;
-  flex: 1;
-  background-color: antiquewhite;
-  overflow-y: auto;
-}
-
 /* 高斯模糊 */
 .g-blur {
   backdrop-filter: saturate(180%) blur(20px);
@@ -43,3 +27,14 @@ body {
   padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
   padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
 }
+
+/* .van-nav-bar {
+  background-color: rgba(242, 241, 246, 0.5);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+.van-tabbar {
+  background-color: rgba(242, 241, 246, 0.5);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+} */
