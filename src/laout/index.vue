@@ -1,13 +1,13 @@
 <template>
-  <div ref="layoutPageRef" class="layout-page">
-    <router-view v-slot="{ Component, route }">
-      <Transition :name="transitionName">
-        <KeepAlive :include="KeepRoutes">
-          <component :is="Component" :key="route.fullPath" />
-        </KeepAlive>
-      </Transition>
-    </router-view>
-  </div>
+  <!-- <div ref="layoutPageRef" class="layout-page"> -->
+  <router-view v-slot="{ Component, route }">
+    <Transition :name="transitionName">
+      <KeepAlive :include="KeepRoutes">
+        <component :is="Component" :key="route.fullPath" />
+      </KeepAlive>
+    </Transition>
+  </router-view>
+  <!-- </div> -->
 </template>
 <script lang="ts" setup>
 import { ref, computed, nextTick } from 'vue'
@@ -36,12 +36,12 @@ router.beforeEach(async (to, from, next) => {
   const { zIndex: from_meta_zIndex = 99, animationTypes: from_animationTypes = { in: 'pop-from-right', out: 'pop-from-left' } } = from.meta || {}
   const { zIndex: to_meta_zIndex = 99, animationTypes: to_animationTypes = { in: 'pop-from-right', out: 'pop-from-left' } } = to.meta || {}
 
-  if (from.name) {
-    let scrollTop = layoutPageRef.value.scrollTop
-    let scrollInfo = { name: from.name, scrollTop }
-    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:scrollInfo`, scrollInfo)
-    scrollInfos.value.push(scrollInfo)
-  }
+  // if (from.name) {
+  //   let scrollTop = layoutPageRef.value.scrollTop
+  //   let scrollInfo = { name: from.name, scrollTop }
+  //   console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:scrollInfo`, scrollInfo)
+  //   scrollInfos.value.push(scrollInfo)
+  // }
 
   const zIndexOffset = to_meta_zIndex - from_meta_zIndex
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:zIndexOffset`, zIndexOffset)
@@ -57,14 +57,14 @@ router.beforeEach(async (to, from, next) => {
   next()
 })
 
-router.afterEach(async (to, from) => {
-  let scrollInfo = scrollInfos.value.find((item) => item.name === to.name)
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:scrollInfo`, scrollInfo)
-  if (scrollInfo) {
-    await nextTick()
-    layoutPageRef.value.scrollTop = scrollInfo.scrollTop
-  }
-})
+// router.afterEach(async (to, from) => {
+//   let scrollInfo = scrollInfos.value.find((item) => item.name === to.name)
+//   console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:scrollInfo`, scrollInfo)
+//   if (scrollInfo) {
+//     await nextTick()
+//     layoutPageRef.value.scrollTop = scrollInfo.scrollTop
+//   }
+// })
 </script>
 <style scoped>
 .layout-page {
