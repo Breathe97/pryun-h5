@@ -54,7 +54,7 @@ export default defineConfig(({ mode }) => {
 
   const base = `/${VITE_BASE_PATH}`
 
-  const outDir = `dist_${VITE_BASE_PATH}` // 打包路径的命名区分
+  const outDir = `dist${VITE_BASE_PATH && '_'}${VITE_BASE_PATH}` // 打包路径的命名区分
 
   return {
     plugins: [vue()],
