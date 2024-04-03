@@ -1,7 +1,8 @@
 <template>
   <PrPageView class="login-index">
     <template #navbar>
-      <van-nav-bar :left-arrow="true" @click-left="$router.back()" title="登录" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
+      <van-nav-bar :left-arrow="true" @click-left="$router.back()" title="登录" :safe-area-inset-top="true" />
+      <!-- <van-nav-bar :left-arrow="true" @click-left="$router.back()" title="登录" :fixed="true" :placeholder="true" :safe-area-inset-top="true" /> -->
     </template>
     <!-- <div style="height: 200px; display: flex; align-items: center; justify-content: center">{{ aaa }}</div> -->
     <!-- <div style="height: 200px; display: flex; align-items: center; justify-content: center" @click="router.push({ path: '/error-404', query: { type: 2 } })">登录页面</div> -->

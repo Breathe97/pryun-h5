@@ -1,7 +1,8 @@
 <template>
   <PrPageView class="home-index">
     <template #navbar>
-      <van-nav-bar title="首页" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
+      <!-- <van-nav-bar title="首页" :fixed="true" :placeholder="true" :safe-area-inset-top="true" /> -->
+      <van-nav-bar title="首页" :safe-area-inset-top="true" />
     </template>
     <div class="content">
       <div style="height: 200px; background-color: red">{{ aaa }}</div>
@@ -13,7 +14,8 @@
       <div style="height: 200px; background-color: rgb(98, 0, 255)"></div>
     </div>
     <template #tabbar>
-      <van-tabbar v-model="active" :fixed="true" :placeholder="true" :safe-area-inset-bottom="true">
+      <van-tabbar v-model="active" :safe-area-inset-bottom="true">
+        <!-- <van-tabbar v-model="active" :fixed="true" :placeholder="true" :safe-area-inset-bottom="true"> -->
         <van-tabbar-item icon="home-o">标签1</van-tabbar-item>
         <van-tabbar-item icon="search">标签2</van-tabbar-item>
         <van-tabbar-item icon="friends-o">标签3</van-tabbar-item>

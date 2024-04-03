@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import { nextTick } from 'vue'
 
 // 静态路由
 // 静态路由不会校验权限如果没有找到路由会跳转到404、403
@@ -56,7 +57,12 @@ const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH
 const router = createRouter({
   history: true ? createWebHistory(`/${VITE_BASE_PATH}`) : createWebHashHistory(`/${VITE_BASE_PATH}`), // 路由模式
   routes,
-  // scrollBehavior: (to, from, savedPosition) => savedPosition || { top: 0 }, // 保持原先的滚动位置
+  scrollBehavior: async (to, from, savedPosition) => {
+    await nextTick()
+    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:savedPosition`, savedPosition)
+    if (savedPosition) return savedPosition
+    return { top: 0 }
+  }, // 保持原先的滚动位置
 })
 
 router.beforeEach((to, from, next) => {

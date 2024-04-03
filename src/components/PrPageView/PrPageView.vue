@@ -19,8 +19,6 @@ import { ref } from 'vue'
 
 const pageViewRef = ref()
 
-const innerHeight = window.innerHeight
-console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:innerHeight`, innerHeight)
 </script>
 <style scoped lang="scss">
 .page-view {

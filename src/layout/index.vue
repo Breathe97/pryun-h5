@@ -1,11 +1,11 @@
 <template>
   <div class="layout-page">
     <router-view v-slot="{ Component, route }">
-      <Transition :name="route.meta.transition || 'fade'">
-        <KeepAlive :include="KeepRoutes">
+      <KeepAlive :include="KeepRoutes">
+        <Transition :name="route.meta.transition || 'fade'">
           <component :is="Component" :key="route.fullPath" />
-        </KeepAlive>
-      </Transition>
+        </Transition>
+      </KeepAlive>
     </router-view>
   </div>
 </template>
