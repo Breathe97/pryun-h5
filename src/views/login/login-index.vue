@@ -1,12 +1,14 @@
 <template>
-  <div class="login">
-    <van-nav-bar :left-arrow="true" @click-left="$router.back()" title="登录" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
-    <div style="height: 200px; display: flex; align-items: center; justify-content: center">{{ aaa }}</div>
-    <div style="height: 200px; display: flex; align-items: center; justify-content: center" @click="router.push({ path: '/error-404', query: { type: 2 } })">登录页面</div>
+  <PrPageView class="login-index">
+    <template #navbar>
+      <van-nav-bar :left-arrow="true" @click-left="$router.back()" title="登录" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
+    </template>
+    <!-- <div style="height: 200px; display: flex; align-items: center; justify-content: center">{{ aaa }}</div> -->
+    <!-- <div style="height: 200px; display: flex; align-items: center; justify-content: center" @click="router.push({ path: '/error-404', query: { type: 2 } })">登录页面</div> -->
     <div style="height: 200px; background-color: rgb(88, 156, 81)"></div>
     <div style="height: 200px; background-color: rgb(46, 16, 16)"></div>
     <div style="height: 200px; background-color: rgb(98, 0, 255)"></div>
-  </div>
+  </PrPageView>
 </template>
 <script lang="ts" setup>
 import { ref, onActivated } from 'vue'
@@ -38,7 +40,8 @@ onActivated(() => {
 })
 </script>
 <style lang="scss" scoped>
-.login {
-  background-color: #0097ff;
+.login-index {
+  min-height: 100vh;
+  background-color: red;
 }
 </style>

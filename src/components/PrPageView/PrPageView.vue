@@ -1,13 +1,16 @@
 <template>
-  <div ref="pageViewRef" class="page-view">
-    <div class="page-view-navbar">
-      <slot name="navbar"></slot>
-    </div>
-    <div class="page-view-content">
-      <slot></slot>
-    </div>
-    <div class="page-view-tabbar">
-      <slot name="tabbar"></slot>
+  <div>
+    <div ref="pageViewRef" class="page-view">
+      <div class="page-view-navbar">
+        <slot name="navbar"></slot>
+      </div>
+      <div class="page-view-content">
+        <slot></slot>
+      </div>
+      <!-- <div class="page-view-tabbar" :style="[{ top: `${ 300}px` }]"> -->
+      <div class="page-view-tabbar">
+        <slot name="tabbar"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -16,20 +19,23 @@ import { ref } from 'vue'
 
 const pageViewRef = ref()
 
-
+const innerHeight = window.innerHeight
+console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:innerHeight`, innerHeight)
 </script>
 <style scoped lang="scss">
 .page-view {
   position: relative;
   width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  background-color: #0097ff;
 }
 .page-view-navbar {
   position: sticky;
   left: 0;
   top: 0;
+  bottom: 0;
   width: 100%;
   transform: scale(1);
   z-index: 9;
@@ -40,7 +46,12 @@ const pageViewRef = ref()
   z-index: 1;
 }
 .page-view-tabbar {
+  position: sticky;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 100%;
+  transform: scale(1);
   z-index: 9;
 }
 </style>
