@@ -1,26 +1,26 @@
 <template>
-  <PrPageView class="home-index">
-    <template #navbar>
-      <van-nav-bar title="首页" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
-    </template>
+  <div class="home-index">
+    <!-- <template #navbar> -->
+    <van-nav-bar title="首页" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
+    <!-- </template> -->
     <div class="content">
       <div style="height: 200px; background-color: red">{{ aaa }}</div>
-      <div style="height: 200px; background-color: rgb(255, 238, 0)" @click="router.push({ path: '/login-index' })">登录页面</div>
+      <div style="height: 200px; background-color: rgb(255, 238, 0)" @click="router.push({ path: '/login-index', query: { type: 1 } })">登录页面</div>
       <div style="height: 200px; background-color: red"></div>
       <div style="height: 200px; background-color: rgb(88, 156, 81)"></div>
       <div style="height: 200px; background-color: red"></div>
       <div style="height: 200px; background-color: rgb(46, 16, 16)"></div>
       <div style="height: 200px; background-color: rgb(98, 0, 255)"></div>
     </div>
-    <template #tabbar>
-      <van-tabbar v-model="active" :safe-area-inset-bottom="true">
-        <van-tabbar-item icon="home-o">标签1</van-tabbar-item>
-        <van-tabbar-item icon="search">标签2</van-tabbar-item>
-        <van-tabbar-item icon="friends-o">标签3</van-tabbar-item>
-        <van-tabbar-item icon="setting-o">标签4</van-tabbar-item>
-      </van-tabbar>
-    </template>
-  </PrPageView>
+    <!-- <template #tabbar> -->
+    <van-tabbar v-model="active" :safe-area-inset-bottom="true">
+      <van-tabbar-item icon="home-o">标签1</van-tabbar-item>
+      <van-tabbar-item icon="search">标签2</van-tabbar-item>
+      <van-tabbar-item icon="friends-o">标签3</van-tabbar-item>
+      <van-tabbar-item icon="setting-o">标签4</van-tabbar-item>
+    </van-tabbar>
+    <!-- </template> -->
+  </div>
 </template>
 <script lang="ts" setup>
 import { ref, onActivated } from 'vue'
@@ -40,10 +40,11 @@ onActivated(() => {
 </script>
 <style lang="scss" scoped>
 .home-index {
+  position: relative;
   display: flex;
   flex-direction: column;
+
   .content {
-    // opacity: 0.5;
     div {
       display: flex;
       align-items: center;

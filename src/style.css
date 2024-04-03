@@ -27,14 +27,3 @@ body {
   padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
   padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
 }
-
-/* .van-nav-bar {
-  background-color: rgba(242, 241, 246, 0.5);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-}
-.van-tabbar {
-  background-color: rgba(242, 241, 246, 0.5);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-} */

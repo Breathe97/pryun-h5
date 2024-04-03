@@ -1,5 +1,5 @@
 <template>
-  <div class="page-view">
+  <div ref="pageViewRef" class="page-view">
     <div class="page-view-navbar">
       <slot name="navbar"></slot>
     </div>
@@ -11,17 +11,20 @@
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const pageViewRef = ref()
+
+
+</script>
 <style scoped lang="scss">
 .page-view {
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: red;
-  // transform: scale(1);
 }
 .page-view-navbar {
   position: sticky;
@@ -29,13 +32,15 @@
   top: 0;
   width: 100%;
   transform: scale(1);
+  z-index: 9;
 }
 .page-view-content {
   min-height: 100%;
   flex: 1;
+  z-index: 1;
 }
 .page-view-tabbar {
   width: 100%;
-  // transform: scale(1);
+  z-index: 9;
 }
 </style>

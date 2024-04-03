@@ -2,10 +2,17 @@
   <div class="login">
     <van-nav-bar :left-arrow="true" @click-left="$router.back()" title="登录" :fixed="true" :placeholder="true" :safe-area-inset-top="true" />
     <div style="height: 200px; display: flex; align-items: center; justify-content: center">{{ aaa }}</div>
+    <div style="height: 200px; display: flex; align-items: center; justify-content: center" @click="router.push({ path: '/error-404', query: { type: 2 } })">登录页面</div>
+    <div style="height: 200px; background-color: rgb(88, 156, 81)"></div>
+    <div style="height: 200px; background-color: rgb(46, 16, 16)"></div>
+    <div style="height: 200px; background-color: rgb(98, 0, 255)"></div>
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, onActivated } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const active = ref(0)
 // const inf = ref({
@@ -30,4 +37,8 @@ onActivated(() => {
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:onActivated`, aaa.value)
 })
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.login {
+  background-color: #0097ff;
+}
+</style>

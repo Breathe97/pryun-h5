@@ -9,7 +9,6 @@ const routes: RouteRecordRaw[] = [
     redirect: '/load-index',
     meta: {
       keepAlive: false,
-      animationTypes: { in: 'none', out: 'none' },
     },
   },
   {
@@ -18,7 +17,6 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '欢迎',
       keepAlive: false,
-      animationTypes: { in: 'none', out: 'none' },
     },
     component: () => import('@/views/load/load-index.vue'),
   },
@@ -28,7 +26,6 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '首页',
       keepAlive: true,
-      animationTypes: { in: 'fade-in', out: 'none' },
     },
     component: () => import('@/views/home/home-index.vue'),
   },
@@ -38,8 +35,8 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '登录',
       keepAlive: true,
-      zIndex: 1000,
-      // animationTypes: { in: 'pop-from-left', out: 'pop-from-right' },
+      zIndex: 999,
+      transition: 'slide-left',
     },
     component: () => import('@/views/login/login-index.vue'),
   },
@@ -48,6 +45,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '页面找不到',
       keepAlive: false,
+      zIndex: 99999,
     },
     component: () => import('@/views/error/error-404.vue'),
   },
@@ -58,9 +56,21 @@ const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH
 const router = createRouter({
   history: true ? createWebHistory(`/${VITE_BASE_PATH}`) : createWebHashHistory(`/${VITE_BASE_PATH}`), // 路由模式
   routes,
+  scrollBehavior: (to, from, savedPosition) => savedPosition || { top: 0 }, // 保持原先的滚动位置
 })
 
 router.beforeEach((to, from, next) => {
+  const toDepth = to.meta.zIndex || 99
+  const fromDepth = from.meta.zIndex || 99
+  const isAbove = toDepth > fromDepth
+  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:isAbove`, isAbove)
+  if (isAbove) {
+    to.meta.transition = 'slide-right'
+    from.meta.transition = 'slide-left'
+  } else {
+    to.meta.transition = 'slide-left'
+    from.meta.transition = 'slide-right'
+  }
   next()
 })
 

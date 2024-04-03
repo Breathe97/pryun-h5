@@ -1,0 +1,17 @@
+/* 页面从左侧挤入 */
+.slide-left-enter-active,
+.slide-left-leave-active {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transition: all 0.5s ease;
+  transform: scale(1);
+}
+.slide-left-enter-from {
+  transform: translateX(-100%);
+  opacity: 1;
+}
+.slide-left-leave-to {
+  transform: translateX(100%);
+}
