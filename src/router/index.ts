@@ -57,12 +57,7 @@ const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH
 const router = createRouter({
   history: true ? createWebHistory(`/${VITE_BASE_PATH}`) : createWebHashHistory(`/${VITE_BASE_PATH}`), // 路由模式
   routes,
-  scrollBehavior: async (to, from, savedPosition) => {
-    await nextTick()
-    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:savedPosition`, savedPosition)
-    if (savedPosition) return savedPosition
-    return { top: 0 }
-  }, // 保持原先的滚动位置
+  scrollBehavior: (to, from, savedPosition) => savedPosition || { left: 0, top: 0, behavior: 'smooth' },
 })
 
 router.beforeEach((to, from, next) => {
