@@ -57,7 +57,10 @@ const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH
 const router = createRouter({
   history: true ? createWebHistory(`/${VITE_BASE_PATH}`) : createWebHashHistory(`/${VITE_BASE_PATH}`), // 路由模式
   routes,
-  scrollBehavior: (to, from, savedPosition) => savedPosition || { left: 0, top: 0, behavior: 'smooth' },
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) return savedPosition
+    return { top: 0 }
+  },
 })
 
 router.beforeEach((to, from, next) => {
