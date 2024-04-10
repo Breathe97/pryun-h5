@@ -9,15 +9,14 @@
         <van-field label-width="100" :required="true" v-model="inf.corpUser" name="法定代表人" label="法定代表人" placeholder="请输入法定代表人" :rules="[{ required: true, message: '请填写法定代表人' }]" />
         <van-field label-width="100" :required="true" v-model="inf.corpMobile" name="联系电话" label="联系电话" placeholder="请输入联系电话" :rules="[{ required: true, message: '请填写联系电话' }]" />
         <van-field label-width="100" :required="true" v-model="inf.corpCardNo" name="身份证号" label="身份证号" placeholder="请输入身份证号" :rules="[{ required: true, message: '请填写身份证号' }]" />
-        <van-field label-width="100" :required="true" v-model="inf.corpCredit" is-link readonly name="法人征信情况" label="法人征信情况" placeholder="点击选择征信情况" @click="select('picker', 'corpCredit')" :rules="[{ required: true, message: '请填写法人征信情况' }]" />
+
+        <pr-select-van-field label-width="100" :required="true" v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="法人征信情况" label="法人征信情况" placeholder="点击选择征信情况" :rules="[{ required: true, message: '请填写法人征信情况' }]" />
+
         <van-field label-width="100" :required="true" v-model="inf.contactUser" name="联系人" label="联系人" placeholder="请输入联系人" :rules="[{ required: true, message: '请填写联系人' }]" />
         <van-field label-width="100" :required="true" v-model="inf.contactMobile" name="联系人电话" label="联系人电话" placeholder="请输入联系人电话" :rules="[{ required: true, message: '请填写联系人电话' }]" />
       </van-cell-group>
     </van-form>
     <van-calendar v-model:show="showCalendar" @confirm="selectConfirm" />
-    <van-popup v-model:show="showPicker" position="bottom">
-      <van-picker :columns="columns" @confirm="selectConfirm" @cancel="showPicker = false" />
-    </van-popup>
   </cardVue>
 </template>
 <script lang="ts" setup>
@@ -25,7 +24,7 @@ import { timeFormat } from 'pr-tools'
 import cardVue from '../../components/card/card.vue'
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
-import { dictConfigRes, transformObj, getDetail, throttle } from '../../static/index'
+import { dictConfigRes, getDetail, throttle } from '../../static/index'
 
 const vanFormRef = ref()
 
@@ -45,7 +44,7 @@ const inf: any = ref({
   contactMobile: '', // 联系人电话
   contactUser: '', // 联系人
   corpCardNo: '', // 法定代表人身份证号
-  corpCredit: '', // 法人征信情况（提交时需要转为 KEY）
+  corpCredit: '', // 法人征信情况
   corpMobile: '', // 	法定代表人电话
   corpUser: '', // 法定代表人姓名
 
@@ -59,7 +58,6 @@ const init = async () => {
   let keys = Object.keys(inf.value)
   let obj: any = await getDetail(props.orderDetail.caseInId, keys)
   obj.orderId = props.orderDetail?.orderId
-  obj = transformObj(obj, 'down') // 转化为客户端能用的数据
   inf.value = obj
 }
 init()
@@ -104,7 +102,6 @@ const save = async ({ last = false, next = false } = {}) => {
   let obj = JSON.parse(JSON.stringify(inf.value))
   obj = { ...obj, last, next }
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:obj`, obj)
-  obj = transformObj(obj, 'up') // 转换为服务端需要的数据
   api.step1Post({ data: obj, showErrMsg }).then((res) => {
     const { code = 0, message, data } = res
     if (code !== 200) {

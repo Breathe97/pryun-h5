@@ -1,13 +1,13 @@
 <template>
   <div class="steps">
-    <div v-for="(item, index) in list" :key="index" @click="changeIndex(index)" class="step-item" :class="[{ 'step-item-active': index === modelValue }]">
+    <div v-for="(item, index) in list" :key="index" @click="changeIndex(index)" class="step-item" :class="[{ 'step-item-active': index <= modelValue }]">
       <div class="index">{{ index + 1 }}</div>
       <div class="name">{{ item }}</div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { nextTick } from 'vue'
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
@@ -23,7 +23,15 @@ const props = defineProps({
   },
 })
 
-const changeIndex = (index = 0) => {
+const changeIndex = async (index = 0) => {
+  await nextTick()
+  let offsetIndex = index - props.modelValue
+  if (offsetIndex > 0) {
+    index = props.modelValue + 1
+  }
+  if (offsetIndex < 0) {
+    index = props.modelValue - 1
+  }
   emit('change', index)
   emit('update:modelValue', index)
 }

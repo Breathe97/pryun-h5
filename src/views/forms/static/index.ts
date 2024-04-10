@@ -6,9 +6,6 @@ export const form_types = [
   { key: 'grjj', name: '个人进件' },
 ]
 
-export const transformKeys = ['corpCredit', 'companyAttr', 'businessStatus', 'industrialNature', 'isProceed', 'payType', 'debtType', 'jugProcess'] // 需要转换的key
-export const arr2StrKeys = ['otherInfo']
-
 export const dictConfigRes: any = {
   // 第一步
   corpCredit: [], // 法人征信情况（提交时需要转为 KEY）
@@ -30,52 +27,6 @@ export const dictConfigRes: any = {
     { text: '否', value: false },
   ],
 }
-
-// 把obj转为为 上传/本地 前的数据
-export const transformObj = (obj: any = {}, mode = 'up') => {
-  // 转为上传
-  let keys = Object.keys(obj)
-  if (mode === 'up') {
-    for (const key of keys) {
-      // 需要把数组变为字符串拼接
-      if (arr2StrKeys.includes(key)) {
-        let arr = obj[key]
-        obj[key] = arr.join(',')
-      }
-      // 需要转化
-      if (transformKeys.includes(key)) {
-        const arr = dictConfigRes[key] || []
-        // 不存在转换数据
-        if (!arr.length) continue
-        let text = obj[key]
-        const { value = '' } = arr.find((item: any) => item.text === text) || {}
-        obj[key] = value
-      }
-    }
-  }
-  // 转为本地
-  if (mode === 'down') {
-    for (const key of keys) {
-      // 需要把字符串拼接变为数组
-      if (arr2StrKeys.includes(key)) {
-        let str = obj[key]
-        obj[key] = str ? str.split(',') : []
-      }
-      // 需要转化
-      if (transformKeys.includes(key)) {
-        const arr = dictConfigRes[key] || []
-        // 不存在转换数据
-        if (!arr.length) continue
-        let value = obj[key]
-        const { text = '' } = arr.find((item: any) => item.value === value) || {}
-        obj[key] = text
-      }
-    }
-  }
-  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:obj`, obj)
-  return obj
-}
-
 // 获取字典表
 export const dictConfigGet = async () => {
   return api.dictConfigGet().then((res) => {

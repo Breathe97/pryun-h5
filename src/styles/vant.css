@@ -19,6 +19,17 @@
   background-color: rgba(246, 246, 246, 1);
   border-radius: 8px;
 }
-.pr-form .van-cell__right-icon {
-  /* transform: rotate(90deg); */
+
+/* 修复对不齐 */
+.pr-form .van-field__control {
+  padding: 2px 0;
+}
+.pr-form .van-cell__right-icon::after {
+  padding: 2px 0;
+}
+.pr-form .van-cell__right-icon::before {
+  padding: 2px 0;
+}
+.pr-form .van-field__right-icon {
+  padding: 2px 0;
 }

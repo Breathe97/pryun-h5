@@ -1,6 +1,8 @@
 <template>
   <div class="forms-qyjj">
-    <stepsVue v-model="stepsIndex" :list="stepsList" @change="(index) => stepClick(index)"> </stepsVue>
+    <div class="steps">
+      <stepsVue v-model="stepsIndex" :list="stepsList" @change="(index) => stepClick(index)"> </stepsVue>
+    </div>
     <div class="form-content">
       <tipVue title="请仔细填写以下信息" rightBtnText="查看示例" @rightClick="rightClick"> </tipVue>
       <template v-if="stepItemShow">
@@ -65,7 +67,7 @@ const stepClick = async (newIndex = 0) => {
       saveFunc = stepItem3VueRef.value?.save
       break
   }
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newIndex`, newIndex, obj)
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newIndex`, newIndex, obj)
   // 如果保存的方法存在
   if (saveFunc) {
     await saveFunc(obj) // 保存并校验
@@ -107,6 +109,11 @@ const onSubmit = () => {}
 .forms-qyjj {
   position: relative;
   padding: 12px;
+  .steps {
+    // position: sticky;
+    // top: 12px;
+    // z-index: 9;
+  }
 }
 .form-content {
   .form-content-tips {
