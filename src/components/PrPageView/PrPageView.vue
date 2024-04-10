@@ -18,7 +18,6 @@
 import { ref } from 'vue'
 
 const pageViewRef = ref()
-
 </script>
 <style scoped lang="scss">
 .page-view {
@@ -27,7 +26,6 @@ const pageViewRef = ref()
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #0097ff;
 }
 .page-view-navbar {
   position: sticky;
@@ -36,12 +34,12 @@ const pageViewRef = ref()
   bottom: 0;
   width: 100%;
   transform: scale(1);
-  z-index: 9;
+  z-index: 1;
 }
 .page-view-content {
   min-height: 100%;
   flex: 1;
-  z-index: 1;
+  z-index: 0;
 }
 .page-view-tabbar {
   position: sticky;
@@ -50,6 +48,6 @@ const pageViewRef = ref()
   bottom: 0;
   width: 100%;
   transform: scale(1);
-  z-index: 9;
+  z-index: 1;
 }
 </style>

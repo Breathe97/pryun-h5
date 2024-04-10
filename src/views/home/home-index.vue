@@ -6,6 +6,7 @@
     <div class="content">
       <div style="height: 200px; background-color: red">{{ aaa }}</div>
       <div style="height: 200px; background-color: rgb(255, 238, 0)" @click="router.push({ path: '/login-index', query: { type: 1 } })">登录页面</div>
+      <div style="height: 200px; background-color: rgb(98, 0, 255)" @click="router.push({ path: '/forms-index', query: { navbar: 'show', token: '123' } })">表单页面</div>
       <div style="height: 200px; background-color: red"></div>
       <div style="height: 200px; background-color: rgb(88, 156, 81)"></div>
       <div style="height: 200px; background-color: red"></div>

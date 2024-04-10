@@ -25,10 +25,20 @@ const routes: RouteRecordRaw[] = [
     name: 'home-index',
     path: '/home-index',
     meta: {
+      zIndex: 9,
       title: '首页',
       keepAlive: true,
     },
     component: () => import('@/views/home/home-index.vue'),
+  },
+  {
+    name: 'forms-index',
+    path: '/forms-index',
+    meta: {
+      title: '表单',
+      keepAlive: true,
+    },
+    component: () => import('@/views/forms/forms-index.vue'),
   },
   {
     name: 'login-index',
