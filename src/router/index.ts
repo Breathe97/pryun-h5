@@ -65,7 +65,7 @@ const routes: RouteRecordRaw[] = [
 const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH
 
 const router = createRouter({
-  history: true ? createWebHistory(`/${VITE_BASE_PATH}`) : createWebHashHistory(`/${VITE_BASE_PATH}`), // 路由模式
+  history: false ? createWebHistory(`/${VITE_BASE_PATH}`) : createWebHashHistory(`/${VITE_BASE_PATH}`), // 路由模式
   routes,
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) return savedPosition
