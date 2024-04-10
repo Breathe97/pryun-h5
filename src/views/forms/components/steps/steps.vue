@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
 const props = defineProps({
   modelValue: {
@@ -24,6 +24,7 @@ const props = defineProps({
 })
 
 const changeIndex = (index = 0) => {
+  emit('change', index)
   emit('update:modelValue', index)
 }
 </script>

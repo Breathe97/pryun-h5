@@ -4,9 +4,10 @@
       <van-nav-bar :left-arrow="true" :title="Title" :safe-area-inset-top="true" />
     </template>
     <div class="content">
-      <formsQyjjVue></formsQyjjVue>
+      <formsQyjjVue :orderId="orderId"></formsQyjjVue>
     </div>
-    <div class="safe-area-inset-bottom"></div>
+    <!-- 开启底部安全区适配 -->
+    <van-number-keyboard safe-area-inset-bottom />
   </PrPageView>
 </template>
 <script lang="ts" setup>
@@ -20,19 +21,14 @@ import { StoreUser } from '@/store/user'
 const storeUser = StoreUser()
 
 const route = useRoute()
-const router = useRouter()
 
 const form_type = ref<Type_form_types>('qyjj')
 
-const Title = computed(() => {
-  let { name = '表单录入' } = form_types.find((item) => item.key === form_type.value) || {}
-  return name
-})
-
+const orderId = ref('')
 const showNavbar = ref(true)
 const init = () => {
-  const { token = '', orderId, navbar } = route.query
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:{ token, orderId, navbar }`, { token, orderId, navbar })
+  const { token = '', orderId: id, navbar } = route.query
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:{ token, orderId, navbar }`, { token, orderId, navbar })
   if (navbar === 'hide') {
     showNavbar.value = false
   }
@@ -41,10 +37,14 @@ const init = () => {
   // 对query参数进行处理 加载用户登录信息
   storeUser.setToken(token as string)
   storeUser.usersGetInfo()
+  orderId.value = id as string
 }
 init()
 
-// const
+const Title = computed(() => {
+  let { name = '表单录入' } = form_types.find((item) => item.key === form_type.value) || {}
+  return name
+})
 </script>
 <style lang="scss" scoped>
 .forms-index {

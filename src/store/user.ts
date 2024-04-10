@@ -24,7 +24,8 @@ export const StoreUser = defineStore('StoreUser', {
     // 获取用户信息
     async usersGetInfo() {
       const res = await userApi.usersGetInfo()
-      const { code = 0, msg, data } = res
+      // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:res`, res);
+      const { code = 0, message, data } = res
       if (code === 200) {
         this['userInfo'] = data
       } else {

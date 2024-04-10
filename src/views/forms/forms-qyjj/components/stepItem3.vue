@@ -1,69 +1,80 @@
 <template>
   <div class="list">
-    <div class="list-item" v-for="(item, index) in list" :key="index">
-      <cardVue :title="`债务信息${item.index}`" :leftIconClick="() => delItem(index)">
-        <van-form @submit="onSubmit">
+    <van-form ref="vanFormRef">
+      <div class="list-item" v-for="(item, index) in inf.debtList" :key="index">
+        <cardVue :title="`债务信息${item.index || index + 1}`" :leftIconClick="() => delItem(index)">
           <van-cell-group inset>
-            <van-field label-width="100" :required="true" v-model="item.debtType" is-link readonly name="债务性质" label="债务性质" placeholder="请选择" @click="select('picker', 'username')" :rules="[{ required: true, message: '请选择债务性质' }]" />
+            <van-field label-width="100" :required="true" v-model="item.debtType" is-link readonly name="债务性质" label="债务性质" placeholder="请选择" @click="select('picker', 'debtType', index)" :rules="[{ required: true, message: '请选择债务性质' }]" />
             <van-field label-width="100" :required="true" v-model="item.debtPrincipal" name="债务本金" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
               <template #right-icon>万元</template>
             </van-field>
             <van-field label-width="100" :required="true" v-model="item.debtInterest" name="利息加罚息" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]">
               <template #right-icon>万元</template>
             </van-field>
-            <van-field label-width="100" :required="true" v-model="item.debtInterest" name="债权人名称" label="债权人名称" placeholder="例：XX银行XX支行" :rules="[{ required: true, message: '请填写债权人名称' }]"> </van-field>
-            <van-field label-width="100" :required="true" v-model="item.debtCreditUser" name="逾期时间" label="逾期时间" placeholder="例：M20，表示逾期20个月" :rules="[{ required: true, message: '请填写逾期时间' }]"> </van-field>
+            <van-field label-width="100" :required="true" v-model="item.debtCreditUser" name="债权人名称" label="债权人名称" placeholder="例：XX银行XX支行" :rules="[{ required: true, message: '请填写债权人名称' }]"> </van-field>
+            <van-field label-width="100" :required="true" v-model="item.overdue" name="逾期时间" label="逾期时间" placeholder="例：M20，表示逾期20个月" :rules="[{ required: true, message: '请填写逾期时间' }]"> </van-field>
             <van-field label-width="100" :required="true" v-model="item.hockWorth" name="可变现价值" label="可变现价值" placeholder="请输入可变现价值" :rules="[{ required: true, message: '请填写可变现价值' }]"> </van-field>
             <van-field class="textarea-bg" label-width="100" label-align="top" type="textarea" v-model="item.hockIntro" name="抵押物介绍" label="抵押物介绍" placeholder="请输入抵押物介绍" :rules="[{ required: true, message: '请填写主营业务描述' }]"> </van-field>
-            <van-field label-width="100" :required="true" v-model="item.jugProcess" is-link readonly name="司法程序进度" label="司法程序进度" placeholder="请选择" @click="select('picker', 'username')" :rules="[{ required: true, message: '请选择司法程序进度' }]" />
+            <van-field label-width="100" :required="true" v-model="item.jugProcess" is-link readonly name="司法程序进度" label="司法程序进度" placeholder="请选择" @click="select('picker', 'jugProcess', index)" :rules="[{ required: true, message: '请选择司法程序进度' }]" />
             <van-field label-width="100" :required="true" v-model="item.debtSurplus" name="抵偿后剩余债务" label="剩余债务" placeholder="请输入抵偿后剩余债务" :rules="[{ required: true, message: '请填写可变现价值' }]"> </van-field>
           </van-cell-group>
-        </van-form>
-      </cardVue>
-    </div>
-    <div style="height: 12px"></div>
-    <van-button round block plain type="default" native-type="submit" @click="addItem"><van-icon name="plus" color="rgba(74, 199, 74, 1)" /> <span style="color: rgba(74, 199, 74, 1)">添加债务信息</span> </van-button>
-    <div style="height: 12px"></div>
-    <cardVue :collapse="false" title="其他资料">
-      <van-form>
+        </cardVue>
+      </div>
+      <div style="height: 12px"></div>
+      <van-button round block plain type="default" native-type="submit" @click="addItem"><van-icon name="plus" color="rgba(74, 199, 74, 1)" /> <span style="color: rgba(74, 199, 74, 1)">添加债务信息</span> </van-button>
+      <div style="height: 12px"></div>
+      <cardVue :collapse="false" title="其他资料">
         <van-field name="uploader" label="" label-align="top">
           <template #input>
             <van-uploader v-model="inf.otherInfo" />
           </template>
         </van-field>
         <div class="tip">建议上传大小不超过5M的PNG、JPG格备份</div>
-      </van-form>
-      <van-calendar v-model:show="showCalendar" @confirm="onConfirm" />
-      <van-popup v-model:show="showPicker" position="bottom">
-        <van-picker :columns="columns" @confirm="onConfirm" @cancel="showPicker = false" />
-      </van-popup>
-    </cardVue>
-    <div style="height: 12px"></div>
-    <cardVue :collapse="false" title="信息确认">
-      <van-form>
+      </cardVue>
+      <div style="height: 12px"></div>
+      <cardVue :collapse="false" title="信息确认">
         <van-cell-group inset>
           <van-field label-width="100" :required="true" v-model="inf.sign" is-link readonly name="picker" label="法定代表签字" placeholder="去签字" :rules="[{ required: true, message: '请法定代表签字' }]" />
           <van-field label-width="100" :required="true" v-model="inf.businessMan" name="业务人" label="业务人" placeholder="请输入业务人名字" :rules="[{ required: true, message: '请填写业务人' }]" />
           <van-field label-width="100" :required="true" v-model="inf.businessTel" name="业务人电话" label="业务人电话" placeholder="请输入业务人电话" :rules="[{ required: true, message: '请填写业务人电话' }]" />
           <div class="checkbox">
-            <van-checkbox v-model="inf.checked"> 承诺：(1) 公司即法定代表人自愿填写此信息统计表，并征得全体股东同意。(2) 公司即法定代表人均保证信息的真实性、完整性；理解和同意业务咨询，并承诺风险自担。 </van-checkbox>
+            <van-checkbox v-model="checked" @change="(e) => emit('checkedChange', e)"> 承诺：(1) 公司即法定代表人自愿填写此信息统计表，并征得全体股东同意。(2) 公司即法定代表人均保证信息的真实性、完整性；理解和同意业务咨询，并承诺风险自担。 </van-checkbox>
           </div>
         </van-cell-group>
-      </van-form>
-      <van-calendar v-model:show="showCalendar" @confirm="onConfirm" />
-      <van-popup v-model:show="showPicker" position="bottom">
-        <van-picker :columns="columns" @confirm="onConfirm" @cancel="showPicker = false" />
-      </van-popup>
-    </cardVue>
-    <van-calendar v-model:show="showCalendar" @confirm="onConfirm" />
+      </cardVue>
+    </van-form>
+    <van-calendar v-model:show="showCalendar" @confirm="selectConfirm" />
     <van-popup v-model:show="showPicker" position="bottom">
-      <van-picker :columns="columns" @confirm="onConfirm" @cancel="showPicker = false" />
+      <van-picker :columns="columns" @confirm="selectConfirm" @cancel="showPicker = false" />
     </van-popup>
   </div>
 </template>
 <script lang="ts" setup>
 import cardVue from '../../components/card/card.vue'
-import { ref, computed } from 'vue'
+import { timeFormat } from 'pr-tools'
+import { ref, watch } from 'vue'
+import * as api from '@/api/modules/forms_qyjj'
+import { dictConfigRes, transformObj, getDetail, throttle } from '../../static/index'
+
+const emit = defineEmits(['checkedChange'])
+
+const vanFormRef = ref()
+
+const props = defineProps({
+  orderDetail: {
+    type: [Object],
+    require: true,
+    default: () => {},
+  },
+  // 确认协议
+  checked: {
+    type: [Boolean],
+    require: true,
+    default: () => false,
+  },
+})
+
+const checked = ref(false)
 
 const debtListItem = {
   index: 0,
@@ -71,72 +82,128 @@ const debtListItem = {
   debtInterest: '', // 利息加罚息
   debtPrincipal: '', // 债务本金
   debtSurplus: '', // 抵偿后剩余债务
-  debtType: '', // 债务性质
+  debtType: '', // 债务性质（提交时需要转为 KEY）
   hockIntro: '', // 抵押物介绍
   hockWorth: '', // 抵押物可变现价值
-  jugProcess: '', // 司法程序进展
+  jugProcess: '', // 司法程序进展（提交时需要转为 KEY）
   overdue: '', // 逾期时间
 }
 
-const inf = ref({
+const inf: any = ref({
   businessMan: '', // 业务人
   businessTel: '', // 业务人电话
   debtList: [], // 债务信息
-  id: '', // 进件ID
-  last: true, // 是否为上一步
-  next: true, // 是否为下一步
   otherInfo: [], // 其他资料（提交时需要转 为字符串 英文逗号分割）
   sign: '', // 签字
-  checked: false, // 确认协议
+
+  last: false, // 是否为上一步
+  next: false, // 是否为下一步
+  id: '', // 进件ID
+  orderId: '', // 订单ID
 })
-
-const list = ref<(typeof debtListItem)[]>([])
-
-const columns = ref([
-  { text: '杭州', value: 'Hangzhou' },
-  { text: '宁波', value: 'Ningbo' },
-  { text: '温州', value: 'Wenzhou' },
-  { text: '绍兴', value: 'Shaoxing' },
-  { text: '湖州', value: 'Huzhou' },
-])
 
 const delItem = (index: number) => {
   if (index >= 0) {
-    list.value.splice(index, 1)
+    inf.value.debtList.splice(index, 1)
   }
 }
 
 const addItem = () => {
   let obj = JSON.parse(JSON.stringify(debtListItem))
   let lastIndex = 0
-  let listLength = list.value.length
+  let listLength = inf.value.debtList.length
   if (listLength) {
-    lastIndex = list.value[listLength - 1].index
+    lastIndex = inf.value.debtList[listLength - 1].index
   }
   obj.index = lastIndex + 1
-  list.value.push(obj)
+  inf.value.debtList.push(obj)
 }
-addItem()
+
+const columns = ref([])
+
+const init = async () => {
+  let keys = Object.keys(inf.value)
+  let obj: any = await getDetail(props.orderDetail.caseInId, keys)
+  obj.orderId = props.orderDetail?.orderId
+  obj = transformObj(obj, 'down') // 转化为客户端能用的数据
+  inf.value = obj
+  // 如果没有 债务信息 添加一个
+  if (inf.value.debtList.length === 0) {
+    addItem()
+  }
+}
+init()
 
 const showPicker = ref(false)
 const showCalendar = ref(false)
 const selectKey = ref('')
-const select = (type = '', key = '') => {
+const selectIndex = ref(-1)
+const select = (type = '', key = '', index = -1) => {
+  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:index`, index)
+  selectIndex.value = index
   if (type === 'calendar') {
     showCalendar.value = true
   }
   if (type === 'picker') {
+    columns.value = dictConfigRes[key]
     showPicker.value = true
   }
   selectKey.value = key
 }
 
-const onConfirm = (e: any) => {
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
-  // inf[showCalendarKey.value] =
+const selectConfirm = (e: any) => {
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
+  // 选择的是列表
+  if (showPicker.value) {
+    const [{ text, value }] = e.selectedOptions
+    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:selectIndex`, selectIndex.value)
+    // 选的是列表
+    if (selectIndex.value !== -1) {
+      inf.value.debtList[selectIndex.value][selectKey.value] = text
+    } else {
+      inf.value[selectKey.value] = text
+    }
+    showPicker.value = false
+  }
+  // 选择的是日期
+  if (showCalendar.value) {
+    inf.value[selectKey.value] = timeFormat(e, 'yyyy-mm-dd')
+    showCalendar.value = false
+  }
 }
 
-const onSubmit = () => {}
+// 保存
+const save = async ({ last = false, next = false } = {}) => {
+  let showErrMsg = false
+  if (last || next) {
+    await vanFormRef.value.validate()
+    showErrMsg = true
+  }
+  let obj = JSON.parse(JSON.stringify(inf.value))
+  obj = { ...obj, last, next }
+  obj = transformObj(obj, 'up') // 转换为服务端需要的数据
+  api.step3Post({ data: obj, showErrMsg }).then((res) => {
+    const { code = 0, message, data } = res
+    if (code !== 200) {
+      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
+      return
+    }
+  })
+}
+
+// 监听当前表单
+watch(
+  () => inf.value,
+  (newObj, oldObj) => {
+    // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newObj, oldObj`, newObj, oldObj)
+    throttle(save, 500)
+  },
+  {
+    deep: true,
+  }
+)
+
+defineExpose({ save })
 </script>
 <style lang="scss" scoped>
 .list {
