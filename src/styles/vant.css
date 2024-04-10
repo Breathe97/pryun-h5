@@ -1,0 +1,24 @@
+.pr-form .van-field__label--required {
+  position: relative;
+}
+.pr-form .van-field__label--required::before {
+  position: absolute;
+  opacity: 0;
+}
+.pr-form .van-field__label--required::after {
+  color: var(--van-field-required-mark-color);
+  position: relative;
+  content: '*';
+  font-size: 20px;
+  pointer-events: none;
+  top: 6px;
+  left: 2px;
+}
+.pr-form .textarea-bg .van-field__control {
+  padding: 12px;
+  background-color: rgba(246, 246, 246, 1);
+  border-radius: 8px;
+}
+.pr-form .van-cell__right-icon {
+  /* transform: rotate(90deg); */
+}
