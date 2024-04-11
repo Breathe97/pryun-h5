@@ -99,7 +99,7 @@ defineExpose({ show })
     }
   }
   .signature-content {
-    // --van-signature-content-height: 700px;
+    --van-signature-content-height: 80vh;
   }
 }
 </style>

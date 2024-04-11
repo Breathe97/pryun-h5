@@ -24,21 +24,13 @@
       <van-button v-if="inf.debtList.length <= 10" round block plain type="default" native-type="submit" @click="addItem"><van-icon name="plus" color="rgba(74, 199, 74, 1)" /> <span style="color: rgba(74, 199, 74, 1)">添加债务信息</span> </van-button>
       <div style="height: 12px"></div>
       <cardVue :collapse="false" title="其他资料">
-        <!-- <van-field name="uploader" label="" label-align="top">
-          <template #input>
-            <van-uploader v-model="inf.otherInfo" />
-          </template>
-        </van-field> -->
+        <pr-uploader-van-field name="uploader" label="" v-model="inf.otherInfo" label-align="top"> </pr-uploader-van-field>
         <div class="tip">建议上传大小不超过5M的PNG、JPG格备份</div>
       </cardVue>
       <div style="height: 12px"></div>
       <cardVue :collapse="false" title="信息确认">
         <van-cell-group inset>
-          <van-field label-width="100" :required="true" v-model="inf.sign" is-link readonly name="法定代表签字" label="法定代表签字" placeholder="去签字" :rules="[{ required: true, message: '请法定代表签字' }]">
-            <template #input>
-              <pr-signature-view v-model="inf.sign"></pr-signature-view>
-            </template>
-          </van-field>
+          <pr-signature-van-field label-width="100" :required="true" v-model="inf.sign" is-link readonly name="法定代表签字" label="法定代表签字" placeholder="去签字" :rules="[{ required: true, message: '请法定代表签字' }]"> </pr-signature-van-field>
           <van-field label-width="100" :required="true" v-model="inf.businessMan" name="业务人" label="业务人" placeholder="请输入业务人名字" :rules="[{ required: true, message: '请填写业务人' }]" />
           <van-field label-width="100" :required="true" v-model="inf.businessTel" name="业务人电话" label="业务人电话" placeholder="请输入业务人电话" :rules="[{ required: true, message: '请填写业务人电话' }]" />
           <div class="checkbox">
@@ -92,7 +84,7 @@ const inf: any = ref({
   businessMan: '', // 业务人
   businessTel: '', // 业务人电话
   debtList: [], // 债务信息
-  otherInfo: [], // 其他资料（提交时需要转 为字符串 英文逗号分割）
+  otherInfo: '', // 其他资料（提交时需要转 为字符串 英文逗号分割）
   sign: '', // 签字
 
   last: false, // 是否为上一步
