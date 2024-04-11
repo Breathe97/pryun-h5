@@ -19,6 +19,12 @@
   background-color: rgba(246, 246, 246, 1);
   border-radius: 8px;
 }
+.pr-form .textarea-bg .van-field__word-limit {
+  position: absolute;
+  right: 12px;
+  top: 44px;
+  pointer-events: none;
+}
 
 /* 修复对不齐 */
 .pr-form .van-field__control {

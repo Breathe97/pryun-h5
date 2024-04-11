@@ -5,8 +5,8 @@
         <cardVue :title="`债务信息${item.index}`" :leftIconClick="() => delItem(index)">
           <van-cell-group inset>
             <pr-select-van-field label-width="100" :required="true" v-model="item.debtType" :columns="dictConfigRes.debtType" is-link readonly name="债务性质" label="债务性质" placeholder="请选择" :rules="[{ required: true, message: '请选择债务性质' }]" />
-            <van-field label-width="100" :required="true" v-model="item.debtPrincipal" name="债务本金" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
-              <template #right-icon>万元</template>
+            <van-field label-width="100" :required="true" right-icon="万元" v-model="item.debtPrincipal" name="债务本金" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
+              <!-- <template #right-icon>万元</template> -->
             </van-field>
             <van-field label-width="100" :required="true" v-model="item.debtInterest" name="利息加罚息" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]">
               <template #right-icon>万元</template>
@@ -159,13 +159,8 @@ const validate = () => {
 // 监听当前表单
 watch(
   () => inf.value,
-  (newObj, oldObj) => {
-    // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newObj, oldObj`, newObj, oldObj)
-    throttle(save, 500)
-  },
-  {
-    deep: true,
-  }
+  () => throttle(save, 500),
+  { deep: true }
 )
 
 defineExpose({ save, validate })

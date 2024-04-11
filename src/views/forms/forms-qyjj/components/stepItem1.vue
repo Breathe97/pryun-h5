@@ -5,7 +5,7 @@
         <van-field label-width="100" :required="true" v-model="inf.companyName" name="企业名称" label="企业名称" placeholder="请输入企业名称" :rules="[{ required: true, message: '请填写企业名称' }]" />
         <van-field label-width="100" :required="true" v-model="inf.companyCreditCode" name="统一社会代码" label="统一社会代码" placeholder="统一社会代码" :rules="[{ required: true, message: '请填写统一社会代码' }]" />
         <van-field label-width="100" :required="true" v-model="inf.companyAddr" name="公司地址" label="公司地址" placeholder="公司地址（省/市/区/门牌号）" :rules="[{ required: true, message: '请填写公司地址' }]" />
-        <van-field label-width="100" :required="true" v-model="inf.companyRegisterAt" is-link readonly name="注册时间" label="注册时间" placeholder="点击选择日期" @click="select('calendar', 'companyRegisterAt')" :rules="[{ required: true, message: '请选择注册时间' }]" />
+        <pr-calendar-van-field label-width="100" :required="true" v-model="inf.companyRegisterAt" is-link readonly name="注册时间" label="注册时间" placeholder="点击选择日期" :rules="[{ required: true, message: '请选择注册时间' }]" />
         <van-field label-width="100" :required="true" v-model="inf.corpUser" name="法定代表人" label="法定代表人" placeholder="请输入法定代表人" :rules="[{ required: true, message: '请填写法定代表人' }]" />
         <van-field label-width="100" :required="true" v-model="inf.corpMobile" name="联系电话" label="联系电话" placeholder="请输入联系电话" :rules="[{ required: true, message: '请填写联系电话' }]" />
         <van-field label-width="100" :required="true" v-model="inf.corpCardNo" name="身份证号" label="身份证号" placeholder="请输入身份证号" :rules="[{ required: true, message: '请填写身份证号' }]" />
@@ -14,11 +14,9 @@
         <van-field label-width="100" :required="true" v-model="inf.contactMobile" name="联系人电话" label="联系人电话" placeholder="请输入联系人电话" :rules="[{ required: true, message: '请填写联系人电话' }]" />
       </van-cell-group>
     </van-form>
-    <van-calendar v-model:show="showCalendar" @confirm="selectConfirm" />
   </cardVue>
 </template>
 <script lang="ts" setup>
-import { timeFormat } from 'pr-tools'
 import cardVue from '../../components/card/card.vue'
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
@@ -60,36 +58,6 @@ const init = async () => {
 }
 init()
 
-const showPicker = ref(false)
-const showCalendar = ref(false)
-const selectKey = ref('')
-const columns = ref([])
-
-const select = (type = '', key = '') => {
-  if (type === 'calendar') {
-    showCalendar.value = true
-  }
-  if (type === 'picker') {
-    columns.value = dictConfigRes[key]
-    showPicker.value = true
-  }
-  selectKey.value = key
-}
-const selectConfirm = (e: any) => {
-  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
-  // 选择的是列表
-  if (showPicker.value) {
-    const [{ text, value }] = e.selectedOptions
-    inf.value[selectKey.value] = text
-    showPicker.value = false
-  }
-  // 选择的是日期
-  if (showCalendar.value) {
-    inf.value[selectKey.value] = timeFormat(e, 'yyyy-mm-dd')
-    showCalendar.value = false
-  }
-}
-
 // 保存
 const save = async ({ last = false, next = false, showErrMsg = false } = {}) => {
   let obj = JSON.parse(JSON.stringify(inf.value))
@@ -105,13 +73,8 @@ const validate = () => {
 // 监听当前表单
 watch(
   () => inf.value,
-  (newObj, oldObj) => {
-    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newObj, oldObj`, newObj, oldObj)
-    throttle(save, 500)
-  },
-  {
-    deep: true,
-  }
+  () => throttle(save, 500),
+  { deep: true }
 )
 
 defineExpose({ save, validate })

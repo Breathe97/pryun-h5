@@ -28,8 +28,8 @@
         <van-field label-width="100" :required="true" v-model="inf.lastYearProfit" name="上年度净利润" label="上年度净利润" placeholder="请输入上年度净利润" :rules="[{ required: true, message: '请填写上年度净利润' }]">
           <template #right-icon>万元</template>
         </van-field>
-        <van-field class="textarea-bg" label-width="100" label-align="top" type="textarea" v-model="inf.businessScopes" name="主营业务描述" label="主营业务描述" placeholder="请输入主营业务描述" :rules="[{ required: true, message: '请填写主营业务描述' }]"> </van-field>
-        <van-field class="textarea-bg" label-width="100" label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="企业现状说明" label="企业现状说明" placeholder="请输入企业现状说明" :rules="[{ required: true, message: '请填写企业现状说明' }]"> </van-field>
+        <van-field class="textarea-bg" maxlength="200" show-word-limit label-width="100" label-align="top" type="textarea" v-model="inf.businessScopes" name="主营业务描述" label="主营业务描述" placeholder="请输入主营业务描述"> </van-field>
+        <van-field class="textarea-bg" maxlength="200" show-word-limit label-width="100" label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="企业现状说明" label="企业现状说明" placeholder="请输入企业现状说明"> </van-field>
       </van-cell-group>
     </van-form>
   </cardVue>
@@ -95,13 +95,8 @@ const validate = () => {
 // 监听当前表单
 watch(
   () => inf.value,
-  (newObj, oldObj) => {
-    // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newObj, oldObj`, newObj, oldObj)
-    throttle(save, 500)
-  },
-  {
-    deep: true,
-  }
+  () => throttle(save, 500),
+  { deep: true }
 )
 
 defineExpose({ save, validate })
