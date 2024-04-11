@@ -2,7 +2,7 @@
   <div class="pr-uploader-van-field">
     <van-field v-bind="attrs">
       <template #input>
-        <van-uploader v-model="fileList" :max-size="maxSize" reupload max-count="9" multiple :after-read="afterRead" @delete="change" />
+        <van-uploader v-model="fileList" :max-size="maxSize" max-count="9" multiple :after-read="afterRead" @delete="change" />
       </template>
     </van-field>
   </div>
@@ -21,6 +21,10 @@ const props = defineProps({
     require: true,
     default: () => '',
   },
+  imageBaseUrl: {
+    type: [String],
+    default: () => imageBaseUrl,
+  },
   maxSize: {
     type: [Number],
     default: () => 5 * 1024 * 1024,
@@ -32,9 +36,9 @@ const fileList = ref<any>([])
 const init = async (newProps: any = {}) => {
   await nextTick()
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newProps`, newProps)
-  const { modelValue = '' } = newProps
+  const { modelValue = '', imageBaseUrl } = newProps
   let arr = modelValue ? modelValue.split(',') : []
-  arr = Array.from(arr, (url) => ({ status: '', message: '', url }))
+  arr = Array.from(arr, (url) => ({ status: '', message: '', url: `${imageBaseUrl}${url}` }))
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:arr`, arr)
   fileList.value = arr
 }
@@ -43,6 +47,7 @@ const change = () => {
   let arr = []
   for (const item of fileList.value) {
     let { url = '' } = item
+    url = url.replace(props.imageBaseUrl, '')
     if (url) {
       arr.push(url)
     }
@@ -53,13 +58,14 @@ const change = () => {
 }
 
 const upload = async (fileInfo: any) => {
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileInfo`, fileInfo)
   const { file } = fileInfo
   fileInfo['status'] = 'uploading'
   fileInfo['message'] = '上传中...'
   await new Promise((a) => setTimeout(() => a(true), 500))
   let formdata = new FormData()
   formdata.append('file', file)
-  uploadPost({ data: formdata })
+  await uploadPost({ data: formdata })
     .then((res) => {
       const { code = 0, message, data } = res
       if (code !== 200) {
@@ -69,11 +75,10 @@ const upload = async (fileInfo: any) => {
         return
       }
       let [url] = data
-      fileInfo['url'] = `${imageBaseUrl}${url}`
+      fileInfo['url'] = url
       fileInfo['status'] = ''
       fileInfo['message'] = ''
       // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileList.value`, fileList.value)
-      change()
     })
     .catch((err) => {
       fileInfo['status'] = 'failed'
@@ -81,16 +86,31 @@ const upload = async (fileInfo: any) => {
     })
 }
 
-const afterRead = (fileInfo: any) => {
+const afterRead = async (fileInfo: any) => {
   // 此时可以自行将文件上传至服务器
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileInfo`, fileInfo)
-  upload(fileInfo)
+  let fileInfos: any = fileInfo
+  let isArray = Array.isArray(fileInfo)
+  if (!isArray) {
+    fileInfos = [fileInfo]
+  }
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileInfos`, fileInfos)
+  let funcs = []
+  for (const item of fileInfos) {
+    let func = upload(item)
+    funcs.push(func)
+  }
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:funcs`, funcs)
+  await Promise.all(funcs).then((res) => {
+    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:res`, res)
+  })
+  change()
 }
 
 const propsObj = computed(() => {
-  const { modelValue } = props
+  const { modelValue, imageBaseUrl } = props
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:modelValue`, modelValue)
-  return { modelValue }
+  return { modelValue, imageBaseUrl }
 })
 
 // 监听 props变化后对组件内数据进行初始化

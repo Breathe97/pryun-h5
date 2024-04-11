@@ -72,8 +72,6 @@ const inf = ref<any>({
   orderId: '', // 订单ID
 })
 
-const columns = ref([])
-
 const init = async () => {
   let keys = Object.keys(inf.value)
   let obj: any = await getDetail(props.orderDetail.caseInId, keys)
@@ -83,21 +81,15 @@ const init = async () => {
 init()
 
 // 保存
-const save = async ({ last = false, next = false } = {}) => {
-  let showErrMsg = false
-  if (last || next) {
-    await vanFormRef.value.validate()
-    showErrMsg = true
-  }
+const save = async ({ last = false, next = false, showErrMsg = false } = {}) => {
   let obj = JSON.parse(JSON.stringify(inf.value))
   obj = { ...obj, last, next }
-  api.step2Post({ data: obj, showErrMsg }).then((res) => {
-    const { code = 0, message, data } = res
-    if (code !== 200) {
-      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
-      return
-    }
-  })
+  return api.step2Post({ data: obj, showErrMsg })
+}
+
+// 校验表单
+const validate = () => {
+  return vanFormRef.value.validate()
 }
 
 // 监听当前表单
@@ -105,13 +97,13 @@ watch(
   () => inf.value,
   (newObj, oldObj) => {
     // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newObj, oldObj`, newObj, oldObj)
-    // throttle(save, 500)
+    throttle(save, 500)
   },
   {
     deep: true,
   }
 )
 
-defineExpose({ save })
+defineExpose({ save, validate })
 </script>
 <style lang="scss" scoped></style>

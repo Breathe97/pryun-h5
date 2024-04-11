@@ -2,7 +2,7 @@
   <div class="list">
     <van-form ref="vanFormRef">
       <div class="list-item" v-for="(item, index) in inf.debtList" :key="index">
-        <cardVue :title="`债务信息${item.index || index + 1}`" :leftIconClick="() => delItem(index)">
+        <cardVue :title="`债务信息${item.index}`" :leftIconClick="() => delItem(index)">
           <van-cell-group inset>
             <pr-select-van-field label-width="100" :required="true" v-model="item.debtType" :columns="dictConfigRes.debtType" is-link readonly name="债务性质" label="债务性质" placeholder="请选择" :rules="[{ required: true, message: '请选择债务性质' }]" />
             <van-field label-width="100" :required="true" v-model="item.debtPrincipal" name="债务本金" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
@@ -23,12 +23,12 @@
       <div style="height: 12px"></div>
       <van-button v-if="inf.debtList.length <= 10" round block plain type="default" native-type="submit" @click="addItem"><van-icon name="plus" color="rgba(74, 199, 74, 1)" /> <span style="color: rgba(74, 199, 74, 1)">添加债务信息</span> </van-button>
       <div style="height: 12px"></div>
-      <cardVue :collapse="false" title="其他资料">
+      <cardVue :collapse="true" title="其他资料">
         <pr-uploader-van-field name="uploader" label="" v-model="inf.otherInfo" label-align="top"> </pr-uploader-van-field>
         <div class="tip">建议上传大小不超过5M的PNG、JPG格备份</div>
       </cardVue>
       <div style="height: 12px"></div>
-      <cardVue :collapse="false" title="信息确认">
+      <cardVue :collapse="true" title="信息确认">
         <van-cell-group inset>
           <pr-signature-van-field label-width="100" :required="true" v-model="inf.sign" is-link readonly name="法定代表签字" label="法定代表签字" placeholder="去签字" :rules="[{ required: true, message: '请法定代表签字' }]"> </pr-signature-van-field>
           <van-field label-width="100" :required="true" v-model="inf.businessMan" name="业务人" label="业务人" placeholder="请输入业务人名字" :rules="[{ required: true, message: '请填写业务人' }]" />
@@ -42,6 +42,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { showConfirmDialog, showToast, showDialog } from 'vant'
 import cardVue from '../../components/card/card.vue'
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
@@ -93,12 +94,29 @@ const inf: any = ref({
   orderId: '', // 订单ID
 })
 
+// 删除债务信息
 const delItem = (index: number) => {
+  if (inf.value.debtList.length <= 1) {
+    return showDialog({ message: '请至少填写一条债务信息。', theme: 'round-button', confirmButtonText: '好的', confirmButtonColor: 'rgba(74, 199, 74, 1)' })
+  }
   if (index >= 0) {
-    inf.value.debtList.splice(index, 1)
+    showConfirmDialog({
+      title: '温馨提示',
+      message: '确定要删除这条债务信息吗？',
+      confirmButtonColor: 'rgba(74, 199, 74, 1)',
+      theme: 'round-button',
+    })
+      .then(() => {
+        // on confirm
+        inf.value.debtList.splice(index, 1)
+      })
+      .catch(() => {
+        // on cancel
+      })
   }
 }
 
+// 新增债务信息
 const addItem = () => {
   let obj = JSON.parse(JSON.stringify(debtListItem))
   let lastIndex = 0
@@ -114,6 +132,10 @@ const init = async () => {
   let keys = Object.keys(inf.value)
   let obj: any = await getDetail(props.orderDetail.caseInId, keys)
   obj.orderId = props.orderDetail?.orderId
+  // 生成序号
+  for (const [index, item] of obj.debtList.entries()) {
+    item.index = index + 1
+  }
   inf.value = obj
   // 如果没有 债务信息 添加一个
   if (inf.value.debtList.length === 0) {
@@ -123,21 +145,15 @@ const init = async () => {
 init()
 
 // 保存
-const save = async ({ last = false, next = false } = {}) => {
-  let showErrMsg = false
-  if (last || next) {
-    // await vanFormRef.value.validate()
-    showErrMsg = true
-  }
+const save = async ({ last = false, next = false, showErrMsg = false } = {}) => {
   let obj = JSON.parse(JSON.stringify(inf.value))
   obj = { ...obj, last, next }
-  api.step3Post({ data: obj, showErrMsg }).then((res) => {
-    const { code = 0, message, data } = res
-    if (code !== 200) {
-      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
-      return
-    }
-  })
+  api.step3Post({ data: obj, showErrMsg })
+}
+
+// 校验表单
+const validate = () => {
+  return vanFormRef.value.validate()
 }
 
 // 监听当前表单
@@ -152,7 +168,7 @@ watch(
   }
 )
 
-defineExpose({ save })
+defineExpose({ save, validate })
 </script>
 <style lang="scss" scoped>
 .list {

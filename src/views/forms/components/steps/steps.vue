@@ -33,7 +33,7 @@ const changeIndex = async (index = 0) => {
     index = props.modelValue - 1
   }
   emit('change', index)
-  emit('update:modelValue', index)
+  // emit('update:modelValue', index)
 }
 </script>
 <style lang="scss" scoped>

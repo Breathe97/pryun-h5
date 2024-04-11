@@ -1,96 +1,110 @@
 <template>
-  <div class="pr-select-van-field">
-    <van-field v-bind="attrs" v-model="inValue" @click="open"> </van-field>
+  <div class="pr-signature-van-field">
+    <van-field v-bind="attrs">
+      <template #input>
+        <div class="pr-signature-view">
+          <div class="res-img" @click="show">
+            <van-image class="res-img-view" v-if="modelValue" :src="modelValue" />
+            <div v-else class="res-img-text">去签字</div>
+          </div>
+        </div>
+      </template>
+    </van-field>
     <template v-if="visible">
-      <van-popup v-model:show="showPicker" position="bottom">
-        <van-picker v-model="pickerVal" :columns="columns" @confirm="selectConfirm" @cancel="close" />
+      <van-popup v-model:show="showPopup" position="bottom">
+        <div class="signature-content">
+          <van-signature class="signature-content-view" @submit="onSubmit" />
+        </div>
       </van-popup>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, computed, nextTick, useAttrs } from 'vue'
+import { ref, nextTick, useAttrs } from 'vue'
+import { imageBaseUrl, uploadPost } from '@/api/modules/common'
 
 const attrs = useAttrs()
 
-const emit = defineEmits(['update:modelValue', 'click'])
-
-type Type_column = { text: string; value: any }
-
+const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue: {
-    type: [String, Number, Boolean],
+    type: [String],
     require: true,
     default: () => '',
-  },
-  columns: {
-    type: [Array<Type_column>],
-    require: true,
-    default: () => [],
-  },
-  showKey: {
-    type: [String],
-    default: () => 'text',
   },
 })
 
 const visible = ref(false)
-const showPicker = ref(false)
-
-const open = async () => {
+const showPopup = ref(false)
+const show = async () => {
   visible.value = true
   await nextTick()
-  showPicker.value = true
+  showPopup.value = true
+}
+// Base64 转 File
+const base64ToFile = (base64 = '', fileName = '') => {
+  let arr = base64.split(',')
+  // @ts-ignore
+  let type = arr[0].match(/:(.*?);/)[1]
+  let bstr = atob(arr[1])
+  let n = bstr.length
+  let u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  return new File([u8arr], fileName, { type })
 }
 
-const close = async () => {
-  showPicker.value = false
-  await nextTick()
+const onSubmit = async (data: any) => {
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:data`, data)
+  let imageUrl = ''
+  let file = base64ToFile(data.image, 'pr-signature')
+  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:file`, file)
+  let formdata = new FormData()
+  formdata.append('file', file)
+  uploadPost({ data: formdata })
+    .then((res) => {
+      const { code = 0, message, data } = res
+      if (code !== 200) {
+        console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
+        return
+      }
+      let [url] = data
+      imageUrl = `${imageBaseUrl}${url}`
+      emit('update:modelValue', imageUrl)
+      // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileList.value`, fileList.value)
+    })
+    .catch((err) => {
+      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, err)
+    })
+
+  showPopup.value = false
   setTimeout(() => {
     visible.value = false
   }, 500)
 }
-
-const inValue = ref('')
-const pickerVal: any = ref([]) // 默认选中
-const selectConfirm = (e: any) => {
-  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
-  const { selectedOptions = [] } = e
-  const { showKey } = props
-  let column1 = selectedOptions[0]
-  if (column1) {
-    let val = column1[showKey]
-    inValue.value = val
-    emit('update:modelValue', column1.value)
-  }
-  close()
-}
-
-const init = async (newProps: any = {}) => {
-  await nextTick()
-  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newProps`, newProps)
-  const { modelValue, showKey, columns = [] } = newProps
-  let info: any = columns.find((item: any) => item.value === modelValue)
-  if (info) {
-    let val = info['value']
-    inValue.value = info[showKey]
-    pickerVal.value.push(val)
-  }
-}
-
-const propsObj = computed(() => {
-  const { modelValue, columns, showKey } = props
-  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:modelValue`, modelValue)
-  return { modelValue, columns, showKey }
-})
-
-// 监听 props变化后对组件内数据进行初始化
-watch(
-  () => propsObj.value,
-  (a) => init(a),
-  {
-    immediate: true,
-  }
-)
 </script>
+<style scoped lang="scss">
+.pr-signature-van-field {
+  --van-signature-content-background: transparent;
+  .pr-signature-view {
+    position: relative;
+    width: 100%;
+    .res-img {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      .res-img-view {
+        height: 24px;
+      }
+      .res-img-text {
+        color: #999999;
+      }
+    }
+    .signature-content {
+      --van-signature-content-height: 80vh;
+    }
+  }
+}
+</style>
