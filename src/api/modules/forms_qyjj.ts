@@ -60,3 +60,14 @@ export const step3Post = (options?: AxiosRequestConfig) => {
     ...options,
   })
 }
+
+// 提交进件
+export const submitPost = (options?: AxiosRequestConfig) => {
+  const { caseInId } = options?.params || ''
+  return http({
+    method: 'POST',
+    showErrMsg: false,
+    url: `/api/biz/case/company/submit/${caseInId}`,
+    ...options,
+  })
+}

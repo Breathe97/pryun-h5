@@ -138,7 +138,10 @@ export const getDetail = async (caseInId = '', keys: string[]) => {
       const { code = 0, message, data } = res
       if (code !== 200) {
         console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
-        return
+        return resolve({})
+      }
+      if (keys.length === 0) {
+        return resolve(data)
       }
       // 把详情填写到现在的表单中
       try {

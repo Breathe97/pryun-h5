@@ -1,6 +1,6 @@
 <template>
   <div class="pr-signature-van-field">
-    <van-field v-bind="attrs">
+    <van-field v-bind="attrs" v-model="inValue">
       <template #input>
         <div class="pr-signature-view">
           <div class="res-img" @click="show">
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, nextTick, useAttrs } from 'vue'
+import { ref, watch, computed, nextTick, useAttrs } from 'vue'
 import { imageBaseUrl, uploadPost } from '@/api/modules/common'
 
 const attrs = useAttrs()
@@ -34,6 +34,13 @@ const props = defineProps({
     default: () => '',
   },
 })
+
+const inValue = ref('')
+
+const init = async (newProps: any = {}) => {
+  await nextTick()
+  inValue.value = newProps.modelValue
+}
 
 const visible = ref(false)
 const showPopup = ref(false)
@@ -60,7 +67,7 @@ const onSubmit = async (data: any) => {
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:data`, data)
   let imageUrl = ''
   let file = base64ToFile(data.image, 'pr-signature')
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:file`, file)
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:file`, file)
   let formdata = new FormData()
   formdata.append('file', file)
   uploadPost({ data: formdata })
@@ -84,6 +91,20 @@ const onSubmit = async (data: any) => {
     visible.value = false
   }, 500)
 }
+
+const propsObj = computed(() => {
+  const { modelValue } = props
+  return { modelValue }
+})
+
+// 监听 props变化后对组件内数据进行初始化
+watch(
+  () => propsObj.value,
+  (a) => init(a),
+  {
+    immediate: true,
+  }
+)
 </script>
 <style scoped lang="scss">
 .pr-signature-van-field {
