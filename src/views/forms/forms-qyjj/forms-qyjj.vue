@@ -2,10 +2,9 @@
   <div class="forms-qyjj">
     <van-overlay :show="!stepItemShow" z-index="99">
       <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center"><van-loading size="24px" vertical>加载中...</van-loading></div>
-      <!-- <div style="height: 100%; width: 100%;background-color: red"><van-loading type="spinner" size="24px" /></div> -->
     </van-overlay>
     <div v-if="[0, 1, 2].includes(stepsIndex)" class="steps">
-      <stepsVue v-model="stepsIndex" :list="stepsList" @change="(index) => stepClick(index)"> </stepsVue>
+      <stepsVue v-model="stepsIndex" :list="stepsList"> </stepsVue>
     </div>
     <div class="form-content">
       <tipVue v-if="[0, 1, 2].includes(stepsIndex)" title="请仔细填写以下信息" rightBtnText="查看示例" @rightClick="rightClick"> </tipVue>
@@ -153,7 +152,7 @@ const onSubmit = () => {
 }
 .form-content {
   flex: 1;
-  min-height: 80vh;
+  min-height: 60vh;
   .form-content-tips {
     padding: 0 12px;
     height: 40px;

@@ -35,8 +35,8 @@ export const dictConfigRes: any = {
 
   // 其他通用
   default: [
-    { text: '是', value: true },
-    { text: '否', value: false },
+    { text: '是', value: 1 },
+    { text: '否', value: 0 },
   ],
 }
 // 获取字典表
