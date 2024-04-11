@@ -11,7 +11,7 @@
             <van-field type="digit" maxlength="11" v-model="item.debtInterest" name="debtInterest" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
             </van-field>
-            <van-field maxlength="50" v-model="item.debtCreditUser" name="debtCreditUser" label="债权人名称" placeholder="例：XX银行XX支行" :rules="[{ required: true, message: '请填写债权人名称' }]"> </van-field>
+            <van-field maxlength="50" v-model="item.debtCreditUser" name="debtCreditUser" label="债权人名称" placeholder="请输入债权人名称" :rules="[{ required: true, message: '请填写债权人名称' }]"> </van-field>
             <van-field type="digit" maxlength="11" v-model="item.overdue" name="overdue" label="逾期时间" placeholder="例：20，表示逾期20个月" :rules="[{ required: true, message: '请填写逾期时间' }]">
               <template #right-icon> <span style="margin-right: 12px">月</span> </template>
             </van-field>
