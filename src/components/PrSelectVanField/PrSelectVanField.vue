@@ -16,7 +16,7 @@ const attrs = useAttrs()
 
 const emit = defineEmits(['update:modelValue', 'click'])
 
-type Type_column = { text: string; value: any }
+type Type_column = { text: string; value: string }
 
 const props = defineProps({
   modelValue: {

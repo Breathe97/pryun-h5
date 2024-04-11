@@ -5,10 +5,10 @@
         <cardVue :title="`债务信息${item.index}`" :leftIconClick="() => delItem(index)">
           <van-cell-group inset>
             <pr-select-van-field v-model="item.debtType" :columns="dictConfigRes.debtType" is-link readonly name="debtType" label="债务性质" placeholder="请选择" :rules="[{ required: true, message: '请选择债务性质' }]" />
-            <van-field v-model="item.debtPrincipal" name="debtPrincipal" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
+            <van-field v-model="item.debtPrincipal" name="debtPrincipal" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]" type="digit">
               <template #right-icon>万元</template>
             </van-field>
-            <van-field v-model="item.debtInterest" name="debtInterest" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]">
+            <van-field v-model="item.debtInterest" name="debtInterest" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]" type="digit">
               <template #right-icon>万元</template>
             </van-field>
             <van-field v-model="item.debtCreditUser" name="debtCreditUser" label="债权人名称" placeholder="例：XX银行XX支行" :rules="[{ required: true, message: '请填写债权人名称' }]"> </van-field>
@@ -32,7 +32,7 @@
         <van-cell-group inset>
           <pr-signature-van-field v-model="inf.sign" is-link readonly name="sign" label="法定代表签字" placeholder="去签字" :rules="[{ required: true, message: '请法定代表签字' }]"> </pr-signature-van-field>
           <van-field v-model="inf.businessMan" name="businessMan" label="业务人" placeholder="请输入业务人名字" :rules="[{ required: true, message: '请填写业务人' }]" />
-          <van-field v-model="inf.businessTel" name="businessTel" label="业务人电话" placeholder="请输入业务人电话" :rules="[{ required: true, message: '请填写业务人电话' }]" />
+          <van-field v-model="inf.businessTel" name="businessTel" label="业务人电话" placeholder="请输入业务人电话" :rules="[{ required: true, message: '请填写业务人电话' }]" type="tel" />
           <div class="checkbox">
             <van-checkbox v-model="checked" @change="(e) => emit('checkedChange', e)"> 承诺：(1) 公司即法定代表人自愿填写此信息统计表，并征得全体股东同意。(2) 公司即法定代表人均保证信息的真实性、完整性；理解和同意业务咨询，并承诺风险自担。 </van-checkbox>
           </div>
@@ -46,7 +46,7 @@ import { showConfirmDialog, showToast, showDialog } from 'vant'
 import cardVue from '../../components/card/card.vue'
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
-import { dictConfigRes, getDetail, throttle } from '../../static/index'
+import { dictConfigRes, getDetail, throttle, rules } from '../../static/index'
 
 const emit = defineEmits(['checkedChange'])
 

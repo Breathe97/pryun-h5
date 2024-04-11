@@ -7,11 +7,11 @@
         <van-field v-model="inf.companyAddr" name="公司地址" label="公司地址" placeholder="公司地址（省/市/区/门牌号）" :rules="[{ required: true, message: '请填写公司地址' }]" />
         <pr-calendar-van-field v-model="inf.companyRegisterAt" is-link readonly name="注册时间" label="注册时间" placeholder="点击选择日期" :rules="[{ required: true, message: '请选择注册时间' }]" />
         <van-field v-model="inf.corpUser" name="法定代表人" label="法定代表人" placeholder="请输入法定代表人" :rules="[{ required: true, message: '请填写法定代表人' }]" />
-        <van-field v-model="inf.corpMobile" name="联系电话" label="联系电话" placeholder="请输入联系电话" :rules="[{ required: true, message: '请填写联系电话' }]" />
-        <van-field v-model="inf.corpCardNo" name="身份证号" label="身份证号" placeholder="请输入身份证号" :rules="[{ required: true, message: '请填写身份证号' }]" />
+        <van-field v-model="inf.corpMobile" name="联系电话" label="联系电话" placeholder="请输入联系电话" :rules="rules.mobile" type="tel" />
+        <van-field v-model="inf.corpCardNo" name="身份证号" label="身份证号" placeholder="请输入身份证号" :rules="rules.idCard" />
         <pr-select-van-field v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="法人征信情况" label="法人征信情况" placeholder="点击选择征信情况" :rules="[{ required: true, message: '请填写法人征信情况' }]" />
         <van-field v-model="inf.contactUser" name="联系人" label="联系人" placeholder="请输入联系人" :rules="[{ required: true, message: '请填写联系人' }]" />
-        <van-field v-model="inf.contactMobile" name="联系人电话" label="联系人电话" placeholder="请输入联系人电话" :rules="[{ required: true, message: '请填写联系人电话' }]" />
+        <van-field v-model="inf.contactMobile" name="联系人电话" label="联系人电话" placeholder="请输入联系人电话" :rules="rules.mobile" type="tel" />
       </van-cell-group>
     </van-form>
   </cardVue>
@@ -20,7 +20,7 @@
 import cardVue from '../../components/card/card.vue'
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
-import { dictConfigRes, getDetail, throttle } from '../../static/index'
+import { dictConfigRes, getDetail, throttle, rules } from '../../static/index'
 
 const vanFormRef = ref()
 

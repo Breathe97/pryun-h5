@@ -1,5 +1,17 @@
 import * as api from '@/api/modules/forms_qyjj'
+import { regTest } from 'pr-tools'
 export type Type_form_types = 'grjj' | 'qyjj'
+
+export const rules = {
+  mobile: [
+    { required: true, message: '请填写联系电话' },
+    { message: '请填写正确的号码', validator: (e = '') => regTest.mobile(e) },
+  ],
+  idCard: [
+    { required: true, message: '请填写身份证号' },
+    { message: '请填写身份证号', validator: (e = '') => regTest.idCard(e) },
+  ],
+}
 
 export const form_types = [
   { key: 'qyjj', name: '企业进件' },

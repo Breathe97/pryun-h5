@@ -30,7 +30,9 @@
   top: 44px;
   pointer-events: none;
 }
-
+.pr-form .van-calendar__selected-day {
+  background: rgba(74, 199, 74, 1);
+}
 /* 修复对不齐 */
 .pr-form .van-field__control {
   padding: 2px 0;

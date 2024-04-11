@@ -1,5 +1,9 @@
 <template>
   <div class="forms-qyjj">
+    <van-overlay :show="!stepItemShow" z-index="99">
+      <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center"><van-loading size="24px" vertical>加载中...</van-loading></div>
+      <!-- <div style="height: 100%; width: 100%;background-color: red"><van-loading type="spinner" size="24px" /></div> -->
+    </van-overlay>
     <div v-if="[0, 1, 2].includes(stepsIndex)" class="steps">
       <stepsVue v-model="stepsIndex" :list="stepsList" @change="(index) => stepClick(index)"> </stepsVue>
     </div>
