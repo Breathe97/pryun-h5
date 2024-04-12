@@ -25,6 +25,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useRoute } from 'vue-router'
 import { showImagePreview, showToast } from 'vant'
 import stepsVue from '../components/steps/steps.vue'
 import tipVue from '../components/tip/tip.vue'
@@ -37,15 +38,12 @@ import { ref } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
 import { getDetail, dictConfigGet } from '../static/index'
 
+const route = useRoute()
+
 const stepsList = ref(['债务人信息', '企业简介', '债务信息', ''])
 // const stepsList = ref(['债务人信息', '企业简介', '债务信息', '预览'])
 
 const props = defineProps({
-  orderId: {
-    type: [String],
-    require: true,
-    default: () => ''
-  },
   isPreview: {
     type: [Boolean],
     default: () => false
@@ -101,19 +99,22 @@ const stepItemShow = ref(false)
 const orderDetail = ref({ caseInId: '' })
 // 获取订单详情 这里只用于区分当前用户应该继续填写第几步
 const orderDetailGet = async () => {
-  await api.orderDetailGet({ params: { orderId: props.orderId } }).then((res) => {
-    const { code = 0, message, data } = res
-    if (code !== 200) {
-      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
-      return
-    }
-    const { order = {} } = data
-    orderDetail.value = order
-    // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:res`, res)
-  })
+  // 如果url上有相关id
+  let { orderId = '', caseInId = '' } = route.query as any
+  orderDetail.value.caseInId = caseInId
+  if (orderId) {
+    await api.orderDetailGet({ params: { orderId } }).then((res) => {
+      const { code = 0, message, data } = res
+      if (code !== 200) {
+        console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
+        return
+      }
+      const { order = {} } = data
+      orderDetail.value.caseInId = order.caseInId
+    })
+  }
   // 查询当前进件步骤
-  const { caseInId = '' } = orderDetail.value
-  await getDetail(caseInId, ['status']).then((res: any) => {
+  await getDetail(orderDetail.value.caseInId, ['status']).then((res: any) => {
     const { status = '' } = res || {}
     // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:status`, status)
     let num = status.replace('STEP', '')

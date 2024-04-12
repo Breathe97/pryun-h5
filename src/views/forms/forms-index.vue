@@ -4,7 +4,7 @@
       <van-nav-bar :left-arrow="true" @click-left="$router.back()" :title="Title" :safe-area-inset-top="true" />
     </template>
     <div class="content">
-      <formsQyjjVue :orderId="orderId" :isPreview="isPreview"></formsQyjjVue>
+      <formsQyjjVue :isPreview="isPreview"></formsQyjjVue>
     </div>
     <!-- 开启底部安全区适配 -->
     <van-number-keyboard safe-area-inset-bottom />
@@ -12,7 +12,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { form_types } from './static/index'
 import type { Type_form_types } from './static/index'
 import formsQyjjVue from './forms-qyjj/forms-qyjj.vue'
@@ -24,11 +24,10 @@ const route = useRoute()
 
 const form_type = ref<Type_form_types>('qyjj')
 
-const orderId = ref('')
-const isPreview = ref(true) // 是否为预览模式
 const showNavbar = ref(true)
+const isPreview = ref(false)
 const init = () => {
-  const { token = '', orderId: id, navbar, mode = 'edit' } = route.query
+  const { token = '', navbar, mode = 'edit' } = route.query
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:{ token, orderId, navbar }`, { token, orderId, navbar })
   if (navbar === 'hide') {
     showNavbar.value = false
@@ -36,14 +35,13 @@ const init = () => {
   let { name = '表单录入' } = form_types.find((item) => item.key === form_type.value) || {}
   // 判断是否为预览模式
   if (mode === 'preview') {
-    isPreview.value = true
     name = `${name}预览`
+    isPreview.value = true
   }
   document.title = name
   // 对query参数进行处理 加载用户登录信息
   storeUser.setToken(token as string)
   storeUser.usersGetInfo()
-  orderId.value = id as string
 }
 init()
 
