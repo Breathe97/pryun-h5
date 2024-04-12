@@ -2,7 +2,7 @@
   <div class="pr-uploader-van-field">
     <van-field v-bind="attrs">
       <template #input>
-        <van-uploader v-model="fileList" :max-size="maxSize" max-count="9" multiple :after-read="afterRead" @delete="change" />
+        <van-uploader v-model="fileList" :max-size="maxSize" max-count="9" multiple :after-read="afterRead" @delete="change" @oversize="oversize" />
       </template>
     </van-field>
   </div>
@@ -11,6 +11,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, nextTick, useAttrs } from 'vue'
 import { uploadPost, filePreviewUrl } from '@/api/modules/common'
+import { showToast } from 'vant'
 
 const attrs = useAttrs()
 
@@ -42,6 +43,11 @@ const init = async (newProps: any = {}) => {
   arr = Array.from(arr, (url) => ({ status: '', message: '', url: `${imageBaseUrl}${url}` }))
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:arr`, arr)
   fileList.value = arr
+}
+
+const oversize = () => {
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:`)
+  showToast('已过滤不合大小规范的图片文件')
 }
 
 const change = () => {

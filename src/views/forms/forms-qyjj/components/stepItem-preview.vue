@@ -63,7 +63,7 @@ const init = async () => {
     const { corpUser, corpMobile } = obj
     let row = [
       { text: '法定代表人姓名', value: corpUser },
-      { text: '法定代表人电话', value: corpMobile }
+      { text: '法定代表人电话', value: mapValue(corpMobile, 'corpMobile') }
     ]
     cells.value.push(row)
   }
