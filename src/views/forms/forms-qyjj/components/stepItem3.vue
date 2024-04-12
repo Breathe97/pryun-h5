@@ -5,22 +5,22 @@
         <cardVue :title="`债务信息${item.index}`" :leftIconClick="() => delItem(index)">
           <van-cell-group inset>
             <pr-select-van-field v-model="item.debtType" :columns="dictConfigRes.debtType" is-link readonly name="debtType" label="债务性质" placeholder="请选择" :rules="[{ required: true, message: '请选择债务性质' }]" />
-            <van-field type="number" maxlength="11" v-model="item.debtPrincipal" name="debtPrincipal" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
+            <van-field type="number" maxlength="12" v-model="item.debtPrincipal" name="debtPrincipal" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
             </van-field>
-            <van-field type="number" maxlength="11" v-model="item.debtInterest" name="debtInterest" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]">
+            <van-field type="number" maxlength="12" v-model="item.debtInterest" name="debtInterest" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
             </van-field>
             <van-field maxlength="50" v-model="item.debtCreditUser" name="debtCreditUser" label="债权人名称" placeholder="请输入债权人名称" :rules="[{ required: true, message: '请填写债权人名称' }]"> </van-field>
-            <van-field type="number" maxlength="11" v-model="item.overdue" name="overdue" label="逾期时间" placeholder="例：20，表示逾期20个月" :rules="[{ required: true, message: '请填写逾期时间' }]">
+            <van-field type="number" maxlength="12" v-model="item.overdue" name="overdue" label="逾期时间" placeholder="例：20，表示逾期20个月" :rules="[{ required: true, message: '请填写逾期时间' }]">
               <template #right-icon> <span style="margin-right: 12px">月</span> </template>
             </van-field>
-            <van-field type="number" maxlength="11" v-model="item.hockWorth" name="hockWorth" label="可变现价值" placeholder="请输入可变现价值" :rules="[{ required: true, message: '请填写可变现价值' }]">
+            <van-field type="number" maxlength="12" v-model="item.hockWorth" name="hockWorth" label="可变现价值" placeholder="请输入可变现价值" :rules="[{ required: true, message: '请填写可变现价值' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
             </van-field>
             <van-field maxlength="500" class="textarea-bg" show-word-limit label-width="73" label-align="top" type="textarea" v-model="item.hockIntro" name="hockIntro" label="抵押物介绍" placeholder="请输入抵押物介绍" :rules="[{ required: true, message: '请填写抵押物介绍' }]"> </van-field>
             <pr-select-van-field v-model="item.jugProcess" :columns="dictConfigRes.jugProcess" is-link readonly name="jugProcess" label="司法程序进度" placeholder="请选择" :rules="[{ required: true, message: '请选择司法程序进度' }]" />
-            <van-field type="number" maxlength="11" v-model="item.debtSurplus" name="debtSurplus" label="剩余债务" placeholder="请输入抵偿后剩余债务" :rules="[{ required: true, message: '请输入抵偿后剩余债务' }]">
+            <van-field type="number" maxlength="12" v-model="item.debtSurplus" name="debtSurplus" label="剩余债务" placeholder="请输入抵偿后剩余债务" :rules="[{ required: true, message: '请输入抵偿后剩余债务' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
             </van-field>
           </van-cell-group>
