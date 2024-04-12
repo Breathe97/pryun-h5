@@ -28,8 +28,8 @@ const props = defineProps({
   orderDetail: {
     type: [Object],
     require: true,
-    default: () => {},
-  },
+    default: () => {}
+  }
 })
 
 const inf: any = ref({
@@ -47,7 +47,7 @@ const inf: any = ref({
   last: false, // 是否为上一步
   next: false, // 是否为下一步
   id: '', // 进件ID
-  orderId: '', // 订单ID
+  orderId: '' // 订单ID
 })
 
 const init = async () => {
@@ -62,6 +62,9 @@ init()
 const save = async ({ last = false, next = false, showErrMsg = false } = {}) => {
   let obj = JSON.parse(JSON.stringify(inf.value))
   obj = { ...obj, last, next }
+  if (!obj.id) {
+    obj.orderId = props.orderDetail?.orderId
+  }
   return api.step1Post({ data: obj, showErrMsg })
 }
 
