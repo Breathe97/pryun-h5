@@ -110,7 +110,7 @@ const orderDetailGet = async () => {
         return
       }
       const { order = {} } = data
-      orderDetail.value.caseInId = order.caseInId
+      orderDetail.value = order
     })
   }
   // 查询当前进件步骤
