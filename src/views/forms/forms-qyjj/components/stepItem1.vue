@@ -18,7 +18,7 @@
 </template>
 <script lang="ts" setup>
 import cardVue from '../../components/card/card.vue'
-import { ref, watch } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
 import { dictConfigRes, getDetail, throttle, rules } from '../../static/index'
 
@@ -57,15 +57,13 @@ const init = async () => {
   inf.value = { ...inf.value, ...obj }
 }
 init()
+console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:orderDetail`, props.orderDetail);
 
 // 保存
 const save = async ({ last = false, next = false, showErrMsg = false } = {}) => {
   let obj = JSON.parse(JSON.stringify(inf.value))
   obj = { ...obj, last, next }
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:props.orderDetail`, props.orderDetail)
-  if (!obj.id) {
-    obj.orderId = props.orderDetail?.orderId
-  }
   return api.step1Post({ data: obj, showErrMsg })
 }
 

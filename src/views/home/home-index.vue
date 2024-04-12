@@ -31,8 +31,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const active = ref(0)
-
-const token = 'eyJhbGciOiJIUzUxMiJ9.eyJwayI6IjE3Njc4NjMwOTAxNDAwMzcxMjAiLCJ0eXBlIjoiU0hPUCIsInRlbmFudElkIjpudWxsLCJuYW1lIjoi6ZW_5a2Z5pePIiwiaW1Vc2VySWQiOm51bGwsImV4cCI6MTcxMzQyNjU5OX0.g5hS_7-so2dFNd4M-1jJ0hWMjN1UzHKKKe_yJhMV6IVUltaDMhGDSnTKkeN-xaclYtklOJdgoY1AC3PRVdBgHg'
+const token = 'eyJhbGciOiJIUzUxMiJ9.eyJwayI6IjE3Njc4NjMwOTAxNDAwMzcxMjAiLCJ0eXBlIjoiU0hPUCIsInRlbmFudElkIjpudWxsLCJuYW1lIjoi6ZW_5a2Z5pePIiwiaW1Vc2VySWQiOm51bGwsImV4cCI6MTcxMzUzMDExMX0.Rtiwb4JRiwwMmcpd-zbLmKfj6biDcM-VYeDbgAOcYPoKuHkEJkmKlUtYAMrYFxmIKH8LTKBUFj6U4Fe8XyyL1g'
 
 const query = ref({ token, orderId: '1778330146022064128', navbar: 'show' })
 const query2 = ref({ token, caseInId: '1778330859544477696', navbar: 'show', mode: 'preview' })

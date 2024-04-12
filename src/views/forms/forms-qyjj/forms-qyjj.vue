@@ -97,11 +97,12 @@ const stepClick = async (newIndex = 0) => {
 
 const stepItemShow = ref(false)
 const orderDetail = ref({ caseInId: '' })
-// 获取订单详情 这里只用于区分当前用户应该继续填写第几步
-const orderDetailGet = async () => {
+//
+const init = async () => {
   // 如果url上有相关id
   let { orderId = '', caseInId = '' } = route.query as any
   orderDetail.value.caseInId = caseInId
+  // 获取订单详情
   if (orderId) {
     await api.orderDetailGet({ params: { orderId } }).then((res) => {
       const { code = 0, message, data } = res
@@ -113,6 +114,13 @@ const orderDetailGet = async () => {
       orderDetail.value = order
     })
   }
+  // 如果进件id不存在 需要先生成一个进件id
+  if (!orderDetail.value.caseInId) {
+    await api.step1Post({ data: { orderId } })
+    init()
+    return
+  }
+
   // 查询当前进件步骤
   await getDetail(orderDetail.value.caseInId, ['status']).then((res: any) => {
     const { status = '' } = res || {}
@@ -128,7 +136,7 @@ const orderDetailGet = async () => {
   await dictConfigGet()
   stepItemShow.value = true
 }
-orderDetailGet()
+init()
 
 // 查看示例
 const rightClick = () => {
