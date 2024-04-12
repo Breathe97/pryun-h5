@@ -5,7 +5,7 @@
     </div>
     <div style="height: 12px"></div>
     <van-cell-group inset>
-      <van-field is-link readonly name="otherInfo" label="其他资料" placeholder="去查看" @click="previews('otherInfo')" />
+      <van-field v-if="detail.otherInfo" is-link readonly name="otherInfo" label="其他资料" placeholder="去查看" @click="previews('otherInfo')" />
     </van-cell-group>
   </div>
 </template>

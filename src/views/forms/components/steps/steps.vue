@@ -1,13 +1,13 @@
 <template>
   <div class="steps">
-    <div v-for="(item, index) in list" :key="index" @click="changeIndex(index)" class="step-item" :class="[{ 'step-item-active': index <= modelValue }]">
+    <div v-for="(item, index) in List" :key="index" @click="changeIndex(index)" class="step-item" :class="[{ 'step-item-active': index <= modelValue }]">
       <div class="index">{{ index + 1 }}</div>
       <div class="name">{{ item }}</div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { nextTick } from 'vue'
+import { computed, nextTick } from 'vue'
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
@@ -15,12 +15,12 @@ const props = defineProps({
   modelValue: {
     type: [Number],
     required: true,
-    default: () => 0,
+    default: () => 0
   },
   list: {
     type: [Array<String>],
-    default: () => ['步骤一', '步骤二', '步骤三'],
-  },
+    default: () => ['步骤一', '步骤二', '步骤三']
+  }
 })
 
 const changeIndex = async (index = 0) => {
@@ -35,6 +35,12 @@ const changeIndex = async (index = 0) => {
   emit('change', index)
   // emit('update:modelValue', index)
 }
+
+const List = computed(() => {
+  let arr = props.list.filter((item) => (item ? true : false))
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:arr`, arr)
+  return arr
+})
 </script>
 <style lang="scss" scoped>
 .steps {

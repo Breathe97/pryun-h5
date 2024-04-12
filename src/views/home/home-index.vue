@@ -7,7 +7,7 @@
       <div style="height: 200px; background-color: red">{{ aaa }}</div>
       <div style="height: 200px; background-color: rgb(255, 238, 0)" @click="router.push({ path: '/login-index', query: { type: 1 } })">登录页面</div>
       <div style="height: 200px; background-color: rgb(98, 0, 255)" @click="router.push({ path: '/forms-index', query })">表单页面</div>
-      <div style="height: 200px; background-color: rgb(98, 0, 255)" @click="router.push({ path: '/forms-index', query: query2 })">表单页面空白</div>
+      <div style="height: 200px; background-color: rgb(98, 0, 255)" @click="router.push({ path: '/forms-index', query: query2 })">表单预览</div>
       <div style="height: 200px; background-color: red"></div>
       <div style="height: 200px; background-color: rgb(88, 156, 81)"></div>
       <div style="height: 200px; background-color: red"></div>
@@ -34,8 +34,8 @@ const active = ref(0)
 
 const token = 'eyJhbGciOiJIUzUxMiJ9.eyJwayI6IjE3Njc4NjMwOTAxNDAwMzcxMjAiLCJ0eXBlIjoiU0hPUCIsInRlbmFudElkIjpudWxsLCJuYW1lIjoi6ZW_5a2Z5pePIiwiaW1Vc2VySWQiOm51bGwsImV4cCI6MTcxMzQyNjU5OX0.g5hS_7-so2dFNd4M-1jJ0hWMjN1UzHKKKe_yJhMV6IVUltaDMhGDSnTKkeN-xaclYtklOJdgoY1AC3PRVdBgHg'
 
-const query = ref({ token, orderId: '1777887985072181248', navbar: 'show' })
-const query2 = ref({ token, orderId: '1778330146022064128', navbar: 'show' })
+const query = ref({ token, orderId: '1778330146022064128', navbar: 'show' })
+const query2 = ref({ token, orderId: '1778330146022064128', navbar: 'show', mode: 'preview' })
 
 const aaa = ref(new Date().getTime())
 

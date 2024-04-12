@@ -16,11 +16,11 @@
         <stepItemPreviewVue ref="stepItemPreviewVueRef" v-if="stepsIndex === 3" :orderDetail="orderDetail"> </stepItemPreviewVue>
       </template>
     </div>
-    <div style="margin-top: 20px; display: flex; gap: 20px">
+    <div v-if="!isPreview && stepsIndex !== -1" style="margin-top: 20px; display: flex; gap: 20px">
       <van-button v-if="stepsIndex > 0" round block type="default" native-type="submit" @click="stepClick(stepsIndex - 1)"> 上一步 </van-button>
-      <van-button v-if="stepsIndex < stepsList.length - 1 && stepsIndex !== -1" round block type="primary" native-type="submit" @click="stepClick(stepsIndex + 1)"> 下一步 </van-button>
-      <van-button v-if="stepsIndex === stepsList.length - 1" round block type="primary" native-type="submit" @click="preview"> 预览 </van-button>
-      <van-button v-if="stepsIndex === 3" round block type="primary" native-type="submit" @click="onSubmit"> 提交 </van-button>
+      <van-button v-if="stepsIndex < 2" round block type="primary" native-type="submit" @click="stepClick(stepsIndex + 1)"> 下一步 </van-button>
+      <van-button v-else-if="stepsIndex === stepsList.length - 2" round block type="primary" native-type="submit" @click="preview"> 预览 </van-button>
+      <van-button v-else-if="stepsIndex === stepsList.length - 1" round block type="primary" native-type="submit" @click="onSubmit"> 提交 </van-button>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ import { ref } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
 import { getDetail, dictConfigGet } from '../static/index'
 
-const stepsList = ref(['债务人信息', '企业简介', '债务信息'])
+const stepsList = ref(['债务人信息', '企业简介', '债务信息', ''])
 // const stepsList = ref(['债务人信息', '企业简介', '债务信息', '预览'])
 
 const props = defineProps({
@@ -45,6 +45,10 @@ const props = defineProps({
     type: [String],
     require: true,
     default: () => ''
+  },
+  isPreview: {
+    type: [Boolean],
+    default: () => false
   }
 })
 
@@ -113,7 +117,12 @@ const orderDetailGet = async () => {
     const { status = '' } = res || {}
     // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:status`, status)
     let num = status.replace('STEP', '')
-    stepsIndex.value = Math.max(num - 1, 0)
+    num = Math.max(num - 1, 0)
+    // 如果是预览模式
+    if (props.isPreview) {
+      num = 3
+    }
+    stepsIndex.value = num
   })
   await dictConfigGet()
   stepItemShow.value = true
