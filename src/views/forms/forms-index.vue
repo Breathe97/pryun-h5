@@ -1,7 +1,7 @@
 <template>
   <PrPageView class="forms-index pr-form">
     <template v-if="showNavbar" #navbar>
-      <van-nav-bar :left-arrow="true" :title="Title" :safe-area-inset-top="true" />
+      <van-nav-bar :left-arrow="true" @click-left="$router.back()" :title="Title" :safe-area-inset-top="true" />
     </template>
     <div class="content">
       <formsQyjjVue :orderId="orderId"></formsQyjjVue>
