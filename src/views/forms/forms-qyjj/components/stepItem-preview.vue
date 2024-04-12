@@ -12,22 +12,22 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { showImagePreview } from 'vant'
-import { imageBaseUrl } from '@/api/modules/common'
 import { getDetail, dictConfigRes } from '../../static/index'
+import { filePreviewUrl } from '@/api/modules/common'
 
 const props = defineProps({
   orderDetail: {
     type: [Object],
     require: true,
-    default: () => {},
-  },
+    default: () => {}
+  }
 })
 
 // 企业债务纾困信息登记表
 const cells: any = ref([[{ text: '', value: '企业债务纾困信息登记表', style: { 'min-width': '100%', 'font-size': '14px' } }]])
 
 const detail: any = ref({
-  otherInfo: '',
+  otherInfo: ''
 })
 
 type Type_info = { text: string; value: any }
@@ -46,7 +46,7 @@ const init = async () => {
     const { companyName, companyCreditCode } = obj
     let row = [
       { text: '企业名称', value: companyName },
-      { text: '统一社会信用代码', value: companyCreditCode },
+      { text: '统一社会信用代码', value: companyCreditCode }
     ]
     cells.value.push(row)
   }
@@ -55,7 +55,7 @@ const init = async () => {
     const { companyAddr, companyRegisterAt } = obj
     let row = [
       { text: '公司地址', value: companyAddr },
-      { text: '注册时间', value: companyRegisterAt },
+      { text: '注册时间', value: companyRegisterAt }
     ]
     cells.value.push(row)
   }
@@ -63,7 +63,7 @@ const init = async () => {
     const { corpUser, corpMobile } = obj
     let row = [
       { text: '法定代表人姓名', value: corpUser },
-      { text: '法定代表人电话', value: corpMobile },
+      { text: '法定代表人电话', value: corpMobile }
     ]
     cells.value.push(row)
   }
@@ -71,7 +71,7 @@ const init = async () => {
     const { corpCardNo, corpCredit } = obj
     let row = [
       { text: '法定代表人身份证号', value: corpCardNo },
-      { text: '法人征信情况', value: corpCredit },
+      { text: '法人征信情况', value: corpCredit }
     ]
     cells.value.push(row)
   }
@@ -79,7 +79,7 @@ const init = async () => {
     const { contactUser, contactMobile } = obj
     let row = [
       { text: '联系人', value: contactUser },
-      { text: '联系人电话', value: contactMobile },
+      { text: '联系人电话', value: contactMobile }
     ]
     cells.value.push(row)
   }
@@ -92,7 +92,7 @@ const init = async () => {
     let row = [
       { text: '企业属性', value: mapValue(companyAttr, 'companyAttr') },
       { text: '企业涉诉情况', value: mapValue(isProceed, 'isProceed') },
-      { text: '企业经营状况', value: mapValue(businessStatus, 'businessStatus') },
+      { text: '企业经营状况', value: mapValue(businessStatus, 'businessStatus') }
     ]
     cells.value.push(row)
   }
@@ -102,7 +102,7 @@ const init = async () => {
     let row = [
       { text: '注册资本', value: registerMoney },
       { text: '缴纳方式', value: mapValue(payType, 'payType') },
-      { text: '产业性质', value: mapValue(industrialNature, 'industrialNature') },
+      { text: '产业性质', value: mapValue(industrialNature, 'industrialNature') }
     ]
     cells.value.push(row)
   }
@@ -111,7 +111,7 @@ const init = async () => {
     let row = [
       { text: '企业总资产', value: totalAssets },
       { text: '企业总负债', value: totalDebt },
-      { text: '诉讼总金额', value: totalProceed },
+      { text: '诉讼总金额', value: totalProceed }
     ]
     cells.value.push(row)
   }
@@ -120,7 +120,7 @@ const init = async () => {
     let row = [
       { text: '上年度营收', value: lastYearIncome },
       { text: '上年度纳税', value: lastYearTax },
-      { text: '上年度净利润', value: lastYearProfit },
+      { text: '上年度净利润', value: lastYearProfit }
     ]
     cells.value.push(row)
   }
@@ -143,7 +143,7 @@ const init = async () => {
         let row = [
           { text: '债务性质', value: mapValue(debtType, 'debtType') },
           { text: '债务本金', value: debtPrincipal },
-          { text: '利息加罚息', value: debtInterest },
+          { text: '利息加罚息', value: debtInterest }
         ]
         cells.value.push(row)
       }
@@ -151,7 +151,7 @@ const init = async () => {
         const { debtCreditUser, overdue } = debtItem
         let row = [
           { text: '债权人名称', value: debtCreditUser },
-          { text: '逾期时间', value: overdue },
+          { text: '逾期时间', value: overdue }
         ]
         cells.value.push(row)
       }
@@ -159,7 +159,7 @@ const init = async () => {
         const { hockIntro, hockWorth } = debtItem
         let row = [
           { text: '抵押物介绍', value: hockIntro },
-          { text: '抵押物可变现价值', value: hockWorth },
+          { text: '抵押物可变现价值', value: hockWorth }
         ]
         cells.value.push(row)
       }
@@ -167,7 +167,7 @@ const init = async () => {
         const { jugProcess, debtSurplus } = debtItem
         let row = [
           { text: '司法程序进展', value: mapValue(jugProcess, 'jugProcess') },
-          { text: '抵偿后剩余债务', value: debtSurplus },
+          { text: '抵偿后剩余债务', value: debtSurplus }
         ]
         cells.value.push(row)
       }
@@ -182,7 +182,7 @@ init()
 const previews = (key = '') => {
   const str = detail.value[key]
   let arr = str ? str.split(',') : []
-  arr = Array.from(arr, (url) => `${imageBaseUrl}${url}`)
+  arr = Array.from(arr, (url) => `${filePreviewUrl}${url}`)
   showImagePreview(arr)
 }
 </script>

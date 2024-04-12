@@ -2,13 +2,11 @@ import axios from 'axios'
 import { showNotify } from 'vant'
 import { StoreUser } from '@/store/user'
 
-// 因为没有使用代理 所以直连
-const { VITE_BASE_HOST, VITE_BASE_PATH } = import.meta.env
+const { VITE_BASE_PATH } = import.meta.env
 
 const http = axios.create({
-  // baseURL: `/api-${VITE_BASE_PATH}`,
-  baseURL: VITE_BASE_HOST,
-  showErrMsg: true, //是否显示消息
+  baseURL: `/api-${VITE_BASE_PATH}`,
+  showErrMsg: true //是否显示消息
 })
 
 // 添加请求拦截器

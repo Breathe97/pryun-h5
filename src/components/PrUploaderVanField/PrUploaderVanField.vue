@@ -10,7 +10,8 @@
 
 <script lang="ts" setup>
 import { ref, watch, computed, nextTick, useAttrs } from 'vue'
-import { imageBaseUrl, uploadPost } from '@/api/modules/common'
+import { uploadPost, filePreviewUrl } from '@/api/modules/common'
+
 const attrs = useAttrs()
 
 const emit = defineEmits(['update:modelValue'])
@@ -19,16 +20,16 @@ const props = defineProps({
   modelValue: {
     type: [String],
     require: true,
-    default: () => '',
+    default: () => ''
   },
   imageBaseUrl: {
     type: [String],
-    default: () => imageBaseUrl,
+    default: () => filePreviewUrl
   },
   maxSize: {
     type: [Number],
-    default: () => 5 * 1024 * 1024,
-  },
+    default: () => 5 * 1024 * 1024
+  }
 })
 
 const fileList = ref<any>([])
@@ -44,10 +45,11 @@ const init = async (newProps: any = {}) => {
 }
 
 const change = () => {
+  const { imageBaseUrl } = props
   let arr = []
   for (const item of fileList.value) {
     let { url = '' } = item
-    url = url.replace(props.imageBaseUrl, '')
+    url = url.replace(imageBaseUrl, '')
     if (url) {
       arr.push(url)
     }
@@ -118,7 +120,7 @@ watch(
   () => propsObj.value,
   (a) => init(a),
   {
-    immediate: true,
+    immediate: true
   }
 )
 </script>

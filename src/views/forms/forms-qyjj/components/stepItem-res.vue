@@ -6,10 +6,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import cardVue from '../../components/card/card.vue'
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
-import { dictConfigRes, getDetail, throttle } from '../../static/index'
+import { getDetail, throttle } from '../../static/index'
 
 const vanFormRef = ref()
 
@@ -17,8 +16,8 @@ const props = defineProps({
   orderDetail: {
     type: [Object],
     require: true,
-    default: () => {},
-  },
+    default: () => {}
+  }
 })
 
 const inf: any = ref({
@@ -36,7 +35,7 @@ const inf: any = ref({
   last: false, // 是否为上一步
   next: false, // 是否为下一步
   id: '', // 进件ID
-  orderId: '', // 订单ID
+  orderId: '' // 订单ID
 })
 
 const init = async () => {

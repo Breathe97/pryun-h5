@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import { ref, watch, computed, nextTick, useAttrs } from 'vue'
-import { imageBaseUrl, uploadPost } from '@/api/modules/common'
+import { filePreviewUrl, uploadPost } from '@/api/modules/common'
 
 const attrs = useAttrs()
 
@@ -31,8 +31,8 @@ const props = defineProps({
   modelValue: {
     type: [String],
     require: true,
-    default: () => '',
-  },
+    default: () => ''
+  }
 })
 
 const inValue = ref('')
@@ -78,7 +78,7 @@ const onSubmit = async (data: any) => {
         return
       }
       let [url] = data
-      imageUrl = `${imageBaseUrl}${url}`
+      imageUrl = `${filePreviewUrl}${url}`
       emit('update:modelValue', imageUrl)
       // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileList.value`, fileList.value)
     })
@@ -102,7 +102,7 @@ watch(
   () => propsObj.value,
   (a) => init(a),
   {
-    immediate: true,
+    immediate: true
   }
 )
 </script>

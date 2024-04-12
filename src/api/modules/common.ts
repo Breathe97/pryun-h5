@@ -1,8 +1,10 @@
 import http from '../core/http'
 import type { AxiosRequestConfig } from 'axios'
 
-export const imageBaseUrl = 'https://hbzx-shop.oss-cn-chengdu.aliyuncs.com'
-export const uploadBaseUrl = 'https://gateway.api.huabeistore.com'
+const { VITE_UPLOAD_BASE, VITE_FILE_PREVIEW_BASE } = import.meta.env // 以下请求为直连模式 当url为完整路径时axios 不会进行追加baseUrl
+
+export const fileUploadUrl = VITE_UPLOAD_BASE // 文件上传地址
+export const filePreviewUrl = VITE_FILE_PREVIEW_BASE // 文件预览地址
 
 // 文件上传
 export const uploadPost = (options?: AxiosRequestConfig) => {
@@ -10,8 +12,8 @@ export const uploadPost = (options?: AxiosRequestConfig) => {
   return http({
     method: 'POST',
     // url: `/api/biz/tool/upload/${bucket}`,
-    url: `${uploadBaseUrl}/api/tool/oss/upload/uni`,
+    url: `${fileUploadUrl}/api/tool/oss/upload/uni`,
     headers: { 'Content-Type': 'multipart/form-data' },
-    ...options,
+    ...options
   })
 }

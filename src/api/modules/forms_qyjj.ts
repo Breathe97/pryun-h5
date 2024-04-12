@@ -1,12 +1,14 @@
 import http from '../core/http'
 import type { AxiosRequestConfig } from 'axios'
 
+const { VITE_BASE } = import.meta.env // 以下请求为直连模式 当url为完整路径时axios 不会进行追加baseUrl
+
 // 获取字典数据
 export const dictConfigGet = (options?: AxiosRequestConfig) => {
   return http({
     method: 'GET',
-    url: '/api/biz/case/company/dict/config',
-    ...options,
+    url: `${VITE_BASE}/api/biz/case/company/dict/config`,
+    ...options
   })
 }
 
@@ -16,8 +18,8 @@ export const orderDetailGet = (options?: AxiosRequestConfig) => {
   return http({
     method: 'GET',
     showErrMsg: false,
-    url: `/api/biz//order/detail/${orderId}`,
-    ...options,
+    url: `${VITE_BASE}/api/biz//order/detail/${orderId}`,
+    ...options
   })
 }
 // 查询进件详情
@@ -26,8 +28,8 @@ export const caseDetailGet = (options?: AxiosRequestConfig) => {
   return http({
     method: 'GET',
     showErrMsg: false,
-    url: `/api/biz/case/company/detail/${caseInId}`,
-    ...options,
+    url: `${VITE_BASE}/api/biz/case/company/detail/${caseInId}`,
+    ...options
   })
 }
 
@@ -35,9 +37,9 @@ export const caseDetailGet = (options?: AxiosRequestConfig) => {
 export const step1Post = (options?: AxiosRequestConfig) => {
   return http({
     method: 'POST',
-    url: '/api/biz/case/company/step1',
+    url: `${VITE_BASE}/api/biz/case/company/step1`,
     showErrMsg: false,
-    ...options,
+    ...options
   })
 }
 
@@ -46,8 +48,8 @@ export const step2Post = (options?: AxiosRequestConfig) => {
   return http({
     method: 'POST',
     showErrMsg: false,
-    url: '/api/biz/case/company/step2',
-    ...options,
+    url: `${VITE_BASE}/api/biz/case/company/step2`,
+    ...options
   })
 }
 
@@ -56,8 +58,8 @@ export const step3Post = (options?: AxiosRequestConfig) => {
   return http({
     method: 'POST',
     showErrMsg: false,
-    url: '/api/biz/case/company/step3',
-    ...options,
+    url: `${VITE_BASE}/api/biz/case/company/step3`,
+    ...options
   })
 }
 
@@ -67,7 +69,7 @@ export const submitPost = (options?: AxiosRequestConfig) => {
   return http({
     method: 'POST',
     showErrMsg: false,
-    url: `/api/biz/case/company/submit/${caseInId}`,
-    ...options,
+    url: `${VITE_BASE}/api/biz/case/company/submit/${caseInId}`,
+    ...options
   })
 }

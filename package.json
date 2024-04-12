@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:pro": "vite --mode production",
     "build": "vue-tsc && vite build",
+    "dev:test": "vite --mode test",
     "build:test": "vue-tsc && vite build --mode test",
     "preview": "vite preview"
   },

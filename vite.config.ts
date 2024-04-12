@@ -23,16 +23,19 @@ const px2vw_options = {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // 根据不同的环境获取不同的base_path
-  const { VITE_BASE_HOST = '', VITE_BASE_PATH = '' } = loadEnv(mode, './')
+  // 获取当前环境配置
+  const config = loadEnv(mode, './')
 
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:mode`, mode, { VITE_BASE_HOST, VITE_BASE_PATH })
+  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:当前环境：`, `[${mode}]`)
+  console.log(config)
+
+  const { VITE_BASE = '', VITE_BASE_PATH = '' } = config
 
   const base = `/${VITE_BASE_PATH}`
 
   const proxy = {
     [`/api-${VITE_BASE_PATH}`]: {
-      target: VITE_BASE_HOST,
+      target: VITE_BASE,
       changeOrigin: true,
       rewrite: (path: string) => path.replace(new RegExp(`^/api-${VITE_BASE_PATH}`), '')
     }

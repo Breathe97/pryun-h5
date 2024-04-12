@@ -25,7 +25,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import previewImg from './static/img_forms-qyjj-preview.png'
 import { showImagePreview, showToast } from 'vant'
 import stepsVue from '../components/steps/steps.vue'
 import tipVue from '../components/tip/tip.vue'
@@ -34,7 +33,7 @@ import stepItemRes from './components/stepItem-res.vue'
 import stepItem1Vue from './components/stepItem1.vue'
 import stepItem2Vue from './components/stepItem2.vue'
 import stepItem3Vue from './components/stepItem3.vue'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
 import { getDetail, dictConfigGet } from '../static/index'
 
@@ -45,8 +44,8 @@ const props = defineProps({
   orderId: {
     type: [String],
     require: true,
-    default: () => '',
-  },
+    default: () => ''
+  }
 })
 
 const stepItem1VueRef = ref()

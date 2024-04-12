@@ -9,17 +9,17 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     redirect: '/load-index',
     meta: {
-      keepAlive: false,
-    },
+      keepAlive: false
+    }
   },
   {
     name: 'load-index',
     path: '/load-index',
     meta: {
       title: '欢迎',
-      keepAlive: false,
+      keepAlive: false
     },
-    component: () => import('@/views/load/load-index.vue'),
+    component: () => import('@/views/load/load-index.vue')
   },
   {
     name: 'home-index',
@@ -27,18 +27,18 @@ const routes: RouteRecordRaw[] = [
     meta: {
       zIndex: 9,
       title: '首页',
-      keepAlive: true,
+      keepAlive: true
     },
-    component: () => import('@/views/home/home-index.vue'),
+    component: () => import('@/views/home/home-index.vue')
   },
   {
     name: 'forms-index',
     path: '/forms-index',
     meta: {
       title: '表单',
-      keepAlive: true,
+      keepAlive: true
     },
-    component: () => import('@/views/forms/forms-index.vue'),
+    component: () => import('@/views/forms/forms-index.vue')
   },
   {
     name: 'login-index',
@@ -47,22 +47,22 @@ const routes: RouteRecordRaw[] = [
       title: '登录',
       keepAlive: true,
       zIndex: 999,
-      transition: 'slide-left',
+      transition: 'slide-left'
     },
-    component: () => import('@/views/login/login-index.vue'),
+    component: () => import('@/views/login/login-index.vue')
   },
   {
     path: '/:path(.*)',
     meta: {
       title: '页面找不到',
       keepAlive: false,
-      zIndex: 99999,
+      zIndex: 99999
     },
-    component: () => import('@/views/error/error-404.vue'),
-  },
+    component: () => import('@/views/error/error-404.vue')
+  }
 ]
 
-const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH
+const { VITE_BASE_PATH } = import.meta.env
 
 const router = createRouter({
   history: false ? createWebHistory(`/${VITE_BASE_PATH}`) : createWebHashHistory(`/${VITE_BASE_PATH}`), // 路由模式
@@ -70,7 +70,7 @@ const router = createRouter({
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) return savedPosition
     return { top: 0 }
-  },
+  }
 })
 
 router.beforeEach((to, from, next) => {
