@@ -8,6 +8,8 @@
     "build": "vue-tsc && vite build",
     "dev:test": "vite --mode test",
     "build:test": "vue-tsc && vite build --mode test",
+    "dev:pre": "vite --mode pre",
+    "build:pre": "vue-tsc && vite build --mode pre",
     "preview": "vite preview"
   },
   "dependencies": {
