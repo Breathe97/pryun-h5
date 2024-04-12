@@ -18,7 +18,7 @@
             <van-field type="digit" maxlength="11" v-model="item.hockWorth" name="hockWorth" label="可变现价值" placeholder="请输入可变现价值" :rules="[{ required: true, message: '请填写可变现价值' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
             </van-field>
-            <van-field maxlength="500" class="textarea-bg" label-width="73" label-align="top" type="textarea" v-model="item.hockIntro" name="hockIntro" label="抵押物介绍" placeholder="请输入抵押物介绍" :rules="[{ required: true, message: '请填写主营业务描述' }]"> </van-field>
+            <van-field maxlength="500" class="textarea-bg" label-width="73" label-align="top" type="textarea" v-model="item.hockIntro" name="hockIntro" label="抵押物介绍" placeholder="请输入抵押物介绍" :rules="[{ required: true, message: '请填写抵押物介绍' }]"> </van-field>
             <pr-select-van-field v-model="item.jugProcess" :columns="dictConfigRes.jugProcess" is-link readonly name="jugProcess" label="司法程序进度" placeholder="请选择" :rules="[{ required: true, message: '请选择司法程序进度' }]" />
             <van-field type="digit" maxlength="11" v-model="item.debtSurplus" name="debtSurplus" label="剩余债务" placeholder="请输入抵偿后剩余债务" :rules="[{ required: true, message: '请输入抵偿后剩余债务' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>

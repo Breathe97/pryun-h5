@@ -2,7 +2,7 @@
   <div class="pr-calendar-van-field">
     <van-field v-bind="attrs" @click="open" v-model="inValue"> </van-field>
     <template v-if="visible">
-      <van-calendar v-model:show="showCalendar" @confirm="selectConfirm" @unselect="close" />
+      <van-calendar v-model:show="showCalendar" :min-date="new Date('1970/01/01')" :max-date="new Date()" @confirm="selectConfirm" @unselect="close" />
     </template>
   </div>
 </template>
