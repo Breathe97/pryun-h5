@@ -23,6 +23,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, nextTick, useAttrs } from 'vue'
 import { filePreviewUrl, uploadPost } from '@/api/modules/common'
+import { showToast } from 'vant'
 
 const attrs = useAttrs()
 
@@ -65,6 +66,9 @@ const base64ToFile = (base64 = '', fileName = '') => {
 
 const onSubmit = async (data: any) => {
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:data`, data)
+  if (!data.image) {
+    return showToast({ message: '请签字后再确认', position: 'bottom' })
+  }
   let imageUrl = ''
   let file = base64ToFile(data.image, 'pr-signature')
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:file`, file)
