@@ -23,8 +23,13 @@ const props = defineProps({
   }
 })
 
+type Type_col = { text: string; value: any; textStyle?: {}; valueStyle?: {} }
+
 // 企业债务纾困信息登记表
-const cells: any = ref([[{ text: '', value: '企业债务纾困信息登记表', style: { 'min-width': '100%', 'font-size': '14px' } }]])
+const cells = ref<Array<Type_col[]>>([
+  // 行
+  [{ text: '', value: '企业债务纾困信息登记表', valueStyle: { 'font-size': '12px', 'font-weight': 'bold' } }]
+])
 
 const detail: any = ref({
   otherInfo: ''
@@ -84,7 +89,7 @@ const init = async () => {
     cells.value.push(row)
   }
   {
-    let row = [{ text: '', value: '企业简介', style: { 'min-width': '100%', 'font-size': '10px' } }]
+    let row = [{ text: '', value: '企业简介', valueStyle: { 'font-size': '10px' } }]
     cells.value.push(row)
   }
   {
@@ -134,7 +139,7 @@ const init = async () => {
     const { debtList = [] } = obj
     for (const [index, debtItem] of debtList.entries()) {
       {
-        let row = [{ text: '', value: `债务信息(${index + 1})` }]
+        let row = [{ text: '', value: `债务信息(${index + 1})`, valueStyle: { 'font-size': '10px' } }]
         cells.value.push(row)
       }
 

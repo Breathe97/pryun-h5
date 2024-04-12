@@ -3,10 +3,8 @@
     <div class="preview-view-content">
       <div class="cell-row" v-for="(row, rowIndex) in cells" :index="rowIndex">
         <div class="cell-row-col" v-for="(col, colIndex) in row" :key="colIndex">
-          <span v-if="col.text" class="cell-item-text">{{ col.text }}</span>
-          <span class="cell-item-value">
-            <span>{{ col.value || '' }}</span>
-          </span>
+          <span v-if="col.text" class="cell-item-text" :style="[col.textStyle || {}]">{{ col.text }}</span>
+          <span class="cell-item-value" :style="[col.valueStyle || {}]">{{ col.value || '' }} </span>
         </div>
       </div>
     </div>
@@ -14,14 +12,15 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed, nextTick } from 'vue'
+import type { PropType } from 'vue'
 
 const prTablePreviewViewRef = ref()
 
-type Type_col = { text: string; value: any; style: object }
+type Type_col = { text: string; value: any; textStyle?: {}; valueStyle?: {} }
 
-const props = defineProps({
+defineProps({
   cells: {
-    type: [Array<Type_col[]>],
+    type: Array<Type_col[]>,
     require: true,
     default: () => []
   }
@@ -54,30 +53,31 @@ const Style = computed(() => {
     box-sizing: border-box;
     .cell-row {
       width: 100%;
+      min-height: 32px;
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: stretch;
       box-sizing: border-box;
       .cell-row-col {
+        width: 0;
+        height: auto;
         position: relative;
         flex: 1;
         box-sizing: border-box;
         display: flex;
-        align-items: center;
-        justify-content: stretch;
-        height: max-content;
-
+        align-items: stretch;
         .cell-item-text,
         .cell-item-value {
           margin: 0.5px;
-          flex: 1;
+          box-sizing: border-box;
           padding: 4px 8px;
-          height: 32px;
           position: relative;
           display: flex;
           align-items: center;
           justify-content: center;
           background-color: #ffffff;
+          word-wrap: break-word;
+          word-break: break-all;
           z-index: 1;
           &::after {
             content: '';
@@ -90,17 +90,16 @@ const Style = computed(() => {
           }
         }
         .cell-item-text {
-          width: 80px;
+          width: 70px;
+          text-align: center;
+          font-weight: bold;
         }
         .cell-item-value {
+          flex: 1;
           width: 0;
           margin-left: 0.5px;
           flex: 1;
-          span {
-            overflow: hidden; //超出的文本隐藏
-            text-overflow: ellipsis; //溢出用省略号显示
-            white-space: nowrap; //溢出不换行
-          }
+          text-wrap: wrap;
         }
       }
     }

@@ -18,7 +18,7 @@
             <van-field type="number" maxlength="11" v-model="item.hockWorth" name="hockWorth" label="可变现价值" placeholder="请输入可变现价值" :rules="[{ required: true, message: '请填写可变现价值' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
             </van-field>
-            <van-field maxlength="500" class="textarea-bg" label-width="73" label-align="top" type="textarea" v-model="item.hockIntro" name="hockIntro" label="抵押物介绍" placeholder="请输入抵押物介绍" :rules="[{ required: true, message: '请填写抵押物介绍' }]"> </van-field>
+            <van-field maxlength="500" class="textarea-bg" show-word-limit label-width="73" label-align="top" type="textarea" v-model="item.hockIntro" name="hockIntro" label="抵押物介绍" placeholder="请输入抵押物介绍" :rules="[{ required: true, message: '请填写抵押物介绍' }]"> </van-field>
             <pr-select-van-field v-model="item.jugProcess" :columns="dictConfigRes.jugProcess" is-link readonly name="jugProcess" label="司法程序进度" placeholder="请选择" :rules="[{ required: true, message: '请选择司法程序进度' }]" />
             <van-field type="number" maxlength="11" v-model="item.debtSurplus" name="debtSurplus" label="剩余债务" placeholder="请输入抵偿后剩余债务" :rules="[{ required: true, message: '请输入抵偿后剩余债务' }]">
               <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
@@ -48,7 +48,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { showConfirmDialog, showToast, showDialog } from 'vant'
+import { showConfirmDialog, showDialog } from 'vant'
 import cardVue from '../../components/card/card.vue'
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
@@ -62,17 +62,18 @@ const props = defineProps({
   orderDetail: {
     type: [Object],
     require: true,
-    default: () => {},
+    default: () => {}
   },
   // 确认协议
   checked: {
     type: [Boolean],
     require: true,
-    default: () => false,
-  },
+    default: () => false
+  }
 })
 
 const checked = ref(false)
+emit('checkedChange', checked.value)
 
 const debtListItem = {
   index: 0,
@@ -84,7 +85,7 @@ const debtListItem = {
   hockIntro: '', // 抵押物介绍
   hockWorth: '', // 抵押物可变现价值
   jugProcess: '', // 司法程序进展
-  overdue: '', // 逾期时间
+  overdue: '' // 逾期时间
 }
 
 const inf: any = ref({
@@ -97,7 +98,7 @@ const inf: any = ref({
   last: false, // 是否为上一步
   next: false, // 是否为下一步
   id: '', // 进件ID
-  orderId: '', // 订单ID
+  orderId: '' // 订单ID
 })
 
 // 删除债务信息
@@ -110,7 +111,7 @@ const delItem = (index: number) => {
       title: '温馨提示',
       message: '确定要删除这条债务信息吗？',
       confirmButtonColor: 'rgba(74, 199, 74, 1)',
-      theme: 'round-button',
+      theme: 'round-button'
     })
       .then(() => {
         // on confirm

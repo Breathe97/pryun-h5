@@ -133,7 +133,7 @@ const onSubmit = () => {
   // 查询当前进件步骤
   const { caseInId = '' } = orderDetail.value
   api.submitPost({ params: { caseInId } }).then((res) => {
-    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:res`, res)
+    // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:res`, res)
     const { code = 0, message = '网络繁忙', data } = res
     if (code !== 200) {
       console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
