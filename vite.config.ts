@@ -10,7 +10,7 @@ const px2vw_options = {
   propList: ['*'], // (Array) 能转化为vw的属性列表
   viewportUnit: 'vw', // (String) 希望使用的视口单位
   fontViewportUnit: 'vw', // (String) 字体使用的视口单位
-  selectorBlackList: [], //  (Array) 需要忽略的CSS选择器，不会转为视口单位，使用原有的px等单位。
+  selectorBlackList: ['no-px2vw'], //  (Array) 需要忽略的CSS选择器，不会转为视口单位，使用原有的px等单位。
   minPixelValue: 1, //  (Number) 设置最小的转换数值，如果为1的话，只有大于1的值会被转换
   mediaQuery: false, // (Boolean) 媒体查询里的单位是否需要转换单位
   replace: true, //  (Boolean) 是否直接更换属性值，而不添加备用属性

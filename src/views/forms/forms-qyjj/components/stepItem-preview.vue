@@ -63,7 +63,7 @@ const init = async () => {
     const { corpUser, corpMobile } = obj
     let row = [
       { text: '法定代表人姓名', value: corpUser },
-      { text: '法定代表人电话', value: mapValue(corpMobile, 'corpMobile') }
+      { text: '法定代表人电话', value: corpMobile }
     ]
     cells.value.push(row)
   }
@@ -71,7 +71,7 @@ const init = async () => {
     const { corpCardNo, corpCredit } = obj
     let row = [
       { text: '法定代表人身份证号', value: corpCardNo },
-      { text: '法人征信情况', value: corpCredit }
+      { text: '法人征信情况', value: mapValue(corpCredit, 'corpCredit') }
     ]
     cells.value.push(row)
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="pr-table-preview-view" ref="prTablePreviewViewRef">
+  <div class="pr-table-preview-view no-px2vw" ref="prTablePreviewViewRef">
     <div class="preview-view-content">
       <div class="cell-row" v-for="(row, rowIndex) in cells" :index="rowIndex">
         <div class="cell-row-col" v-for="(col, colIndex) in row" :key="colIndex">
@@ -23,13 +23,13 @@ const props = defineProps({
   cells: {
     type: [Array<Type_col[]>],
     require: true,
-    default: () => [],
-  },
+    default: () => []
+  }
 })
 
 const def = ref({
   offsetWidth: 0,
-  offsetHeight: 0,
+  offsetHeight: 0
 })
 
 const init = async () => {
@@ -49,18 +49,16 @@ const Style = computed(() => {
 .pr-table-preview-view {
   position: relative;
   font-size: 8px;
-  background-color: #333333;
-  padding: 0.5px 0;
   .preview-view-content {
     position: relative;
-
+    box-sizing: border-box;
     .cell-row {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: stretch;
-      width: 100%;
+      box-sizing: border-box;
       .cell-row-col {
-        width: 0;
         position: relative;
         flex: 1;
         box-sizing: border-box;
@@ -80,6 +78,16 @@ const Style = computed(() => {
           align-items: center;
           justify-content: center;
           background-color: #ffffff;
+          z-index: 1;
+          &::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 2;
+            pointer-events: none;
+            box-shadow: 0 0 0px 1px #333333;
+          }
         }
         .cell-item-text {
           width: 80px;
