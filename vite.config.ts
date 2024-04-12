@@ -30,8 +30,6 @@ export default defineConfig(({ mode }) => {
 
   const base = `/${VITE_BASE_PATH}`
 
-  const outDir = `dist${VITE_BASE_PATH && '_'}${VITE_BASE_PATH}` // 打包路径的命名区分
-
   const proxy = {
     [`/api-${VITE_BASE_PATH}`]: {
       target: VITE_BASE_HOST,
@@ -43,7 +41,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [vue()],
     base,
-    build: { outDir },
     server: {
       host: '0.0.0.0', // 暴露本地服务到局域网
       proxy,
