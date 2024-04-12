@@ -18,7 +18,7 @@ const px2vw_options = {
   include: undefined, // (Array or Regexp) 如果设置了include，那将只有匹配到的文件才会被转换，例如只转换 'src/mobile' 下的文件
   landscape: false, //  (Boolean) 是否添加根据 landscapeWidth 生成的媒体查询条件 @media (orientation: landscape)
   landscapeUnit: 'vw', //  (String) 横屏时使用的单位
-  landscapeWidth: 568, //  (Number) 横屏时使用的视口宽度
+  landscapeWidth: 568 //  (Number) 横屏时使用的视口宽度
 }
 
 // https://vitejs.dev/config/
@@ -34,8 +34,8 @@ export default defineConfig(({ mode }) => {
     [`/api-${VITE_BASE_PATH}`]: {
       target: VITE_BASE_HOST,
       changeOrigin: true,
-      rewrite: (path: string) => path.replace(new RegExp(`^/api-${VITE_BASE_PATH}`), ''),
-    },
+      rewrite: (path: string) => path.replace(new RegExp(`^/api-${VITE_BASE_PATH}`), '')
+    }
   }
 
   return {
@@ -43,17 +43,17 @@ export default defineConfig(({ mode }) => {
     base,
     server: {
       host: '0.0.0.0', // 暴露本地服务到局域网
-      proxy,
+      proxy
     },
     resolve: {
       alias: {
-        '@': '/src/',
-      },
+        '@': '/src/'
+      }
     },
     css: {
       postcss: {
-        plugins: [px2vw(px2vw_options)],
-      },
-    },
+        plugins: [px2vw(px2vw_options)]
+      }
+    }
   }
 })
