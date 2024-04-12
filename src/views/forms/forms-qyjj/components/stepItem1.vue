@@ -63,7 +63,7 @@ const save = async ({ last = false, next = false, showErrMsg = false } = {}) => 
   let obj = JSON.parse(JSON.stringify(inf.value))
   obj = { ...obj, last, next }
   if (!obj.id) {
-    obj.orderId = props.orderDetail?.orderId
+    obj.orderId = props.orderDetail?.id
   }
   return api.step1Post({ data: obj, showErrMsg })
 }
