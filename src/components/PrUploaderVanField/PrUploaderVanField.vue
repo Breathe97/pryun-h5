@@ -96,7 +96,7 @@ const upload = async (fileInfo: any) => {
 
 const afterRead = async (fileInfo: any) => {
   // 此时可以自行将文件上传至服务器
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileInfo`, fileInfo)
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:fileInfo`, fileInfo)
   let fileInfos: any = fileInfo
   let isArray = Array.isArray(fileInfo)
   if (!isArray) {
