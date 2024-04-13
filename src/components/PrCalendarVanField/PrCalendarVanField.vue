@@ -1,8 +1,11 @@
 <template>
   <div class="pr-calendar-van-field">
     <van-field v-bind="attrs" @click="open" v-model="inValue"> </van-field>
-    <template v-if="visible">
-      <van-calendar v-model:show="showCalendar" :min-date="new Date('1970/01/01')" :max-date="new Date()" @confirm="selectConfirm" @unselect="close" />
+    <template v-if="visible || true">
+      <!-- <van-calendar v-model:show="showPicker" :min-date="new Date('1970/01/01')" :max-date="new Date()" lazy-render @confirm="selectConfirm" @unselect="close" /> -->
+      <van-popup v-model:show="showPicker" position="bottom">
+        <van-date-picker v-model="currentDate" title="选择日期" :min-date="new Date('1970/01/01')" :max-date="new Date()" @confirm="selectConfirm" @cancel="close" />
+      </van-popup>
     </template>
   </div>
 </template>
@@ -20,21 +23,21 @@ const props = defineProps({
   modelValue: {
     type: [String],
     require: true,
-    default: () => '',
-  },
+    default: () => ''
+  }
 })
 
 const visible = ref(false)
-const showCalendar = ref(false)
-
+const showPicker = ref(false)
+const currentDate = ref(['', '', ''])
 const open = async () => {
   visible.value = true
   await nextTick()
-  showCalendar.value = true
+  showPicker.value = true
 }
 
 const close = async () => {
-  showCalendar.value = false
+  showPicker.value = false
   await nextTick()
   setTimeout(() => {
     visible.value = false
@@ -43,7 +46,10 @@ const close = async () => {
 
 const inValue = ref('')
 const selectConfirm = (e: any) => {
-  let str = timeFormat(e, 'yyyy-mm-dd')
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
+  const { selectedValues = [] } = e as any
+  const [y, m, d] = selectedValues
+  let str = `${y}-${m}-${d}`
   emit('update:modelValue', str)
   close()
 }
@@ -51,6 +57,14 @@ const selectConfirm = (e: any) => {
 const init = async (newProps: any = {}) => {
   await nextTick()
   inValue.value = newProps.modelValue
+  try {
+    let str = newProps.modelValue || ''
+    const arr = str.split('-') || []
+    const [y = '', m = '', d = ''] = arr
+    currentDate.value = [y, m, d]
+  } catch (error) {
+    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:error`, error)
+  }
 }
 
 const propsObj = computed(() => {
@@ -63,7 +77,7 @@ watch(
   () => propsObj.value,
   (a) => init(a),
   {
-    immediate: true,
+    immediate: true
   }
 )
 </script>
