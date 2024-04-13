@@ -39,7 +39,7 @@ type Type_info = { text: string; value: any }
 
 const mapValue = (val: string, key = '') => {
   let arr: Type_info[] = dictConfigRes[key]
-  let { text } = arr.find((item) => item.value) || {}
+  let { text = val } = arr.find((item) => item.value) || {}
   return text
 }
 

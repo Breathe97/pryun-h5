@@ -35,6 +35,15 @@ export const caseDetailGet = (options?: AxiosRequestConfig) => {
 
 // step1-债务人信息录入
 export const step1Post = (options?: AxiosRequestConfig) => {
+  // 以下逻辑理论上可以不要 为了追查本次数据库异常用
+  {
+    const { data } = options || {}
+    const { id } = data || {}
+    if (!id) {
+      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:id不存在`)
+      return
+    }
+  }
   return http({
     method: 'POST',
     url: `${VITE_BASE}/api/biz/case/company/step1`,

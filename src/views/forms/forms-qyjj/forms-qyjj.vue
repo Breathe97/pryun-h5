@@ -1,6 +1,6 @@
 <template>
   <div class="forms-qyjj">
-    <van-overlay :show="!stepItemShow" z-index="99">
+    <van-overlay :show="loading" z-index="99">
       <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center"><van-loading size="24px" vertical>加载中...</van-loading></div>
     </van-overlay>
     <div v-if="[0, 1, 2].includes(stepsIndex)" class="steps">
@@ -8,12 +8,12 @@
     </div>
     <div class="form-content">
       <tipVue v-if="[0, 1, 2].includes(stepsIndex)" title="请仔细填写以下信息" rightBtnText="查看示例" @rightClick="rightClick"> </tipVue>
-      <template v-if="stepItemShow">
+      <template v-if="loading === false">
         <stepItemRes v-if="stepsIndex === -1"> </stepItemRes>
-        <stepItem1Vue ref="stepItem1VueRef" v-if="stepsIndex === 0" :orderDetail="orderDetail"> </stepItem1Vue>
-        <stepItem2Vue ref="stepItem2VueRef" v-if="stepsIndex === 1" :orderDetail="orderDetail"> </stepItem2Vue>
-        <stepItem3Vue ref="stepItem3VueRef" v-if="stepsIndex === 2" :orderDetail="orderDetail" @checkedChange="(e) => (checked = e)"> </stepItem3Vue>
-        <stepItemPreviewVue ref="stepItemPreviewVueRef" v-if="stepsIndex === 3" :orderDetail="orderDetail"> </stepItemPreviewVue>
+        <stepItem1Vue ref="stepItem1VueRef" v-else-if="stepsIndex === 0" :orderDetail="orderDetail"> </stepItem1Vue>
+        <stepItem2Vue ref="stepItem2VueRef" v-else-if="stepsIndex === 1" :orderDetail="orderDetail"> </stepItem2Vue>
+        <stepItem3Vue ref="stepItem3VueRef" v-else-if="stepsIndex === 2" :orderDetail="orderDetail" @checkedChange="(e) => (checked = e)"> </stepItem3Vue>
+        <stepItemPreviewVue ref="stepItemPreviewVueRef" v-else-if="stepsIndex === 3" :orderDetail="orderDetail"> </stepItemPreviewVue>
       </template>
     </div>
     <div v-if="!isPreview && stepsIndex !== -1" style="margin-top: 20px; display: flex; gap: 20px">
@@ -95,7 +95,7 @@ const stepClick = async (newIndex = 0) => {
   })
 }
 
-const stepItemShow = ref(false)
+const loading = ref(true)
 const orderDetail = ref({ caseInId: '' })
 
 // 获取订单详情
@@ -116,30 +116,41 @@ const init = async () => {
   // 如果url上有相关id
   let { orderId = '', caseInId } = route.query as any
   orderDetail.value.caseInId = caseInId // 优先使用
-  await orderDetailGet(orderId) // 获取订单详情
+
+  // 如果有订单id
+  if (orderId) {
+    await orderDetailGet(orderId) // 获取订单详情
+  }
+
+  // 尝试获取进件详情
   {
     const { caseInId } = orderDetail.value
+
     // 如果进件id不存在 需要先生成一个进件id
     if (!caseInId) {
       await api.step1Post({ data: { orderId } }) // 通过报错一个空的数据来获取一个进件id
-      await orderDetailGet(orderId) // 获取订单详情
+      await orderDetailGet(orderId) // 再次获取订单详情
     }
-    // 查询当前进件步骤
+
+    // 获取页面所需选项数据
+    await dictConfigGet()
+
+    // 如果是预览模式
+    if (props.isPreview) {
+      stepsIndex.value = 3
+      loading.value = false
+      return
+    }
+
+    // 查询当前进件填写状态
     await getDetail(caseInId, ['status']).then((res: any) => {
-      const { status = '' } = res || {}
-      // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:status`, status)
-      let num = status.replace('STEP', '')
-      num = Math.max(num - 1, 0)
-      // 如果是预览模式
-      if (props.isPreview) {
-        num = 3
-      }
-      stepsIndex.value = num
+      const { status = '' } = res
+      let index = status.replace('STEP', '')
+      index = Math.max(index - 1, 0)
+      stepsIndex.value = index
+      loading.value = false
     })
   }
-  // 获取页面所需选项数据
-  await dictConfigGet()
-  stepItemShow.value = true
 }
 init()
 

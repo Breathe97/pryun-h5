@@ -46,8 +46,8 @@ const props = defineProps({
   orderDetail: {
     type: [Object],
     require: true,
-    default: () => {},
-  },
+    default: () => {}
+  }
 })
 
 const inf = ref<any>({
@@ -69,12 +69,12 @@ const inf = ref<any>({
   last: false, // 是否为上一步
   next: false, // 是否为下一步
   id: '', // 进件ID
-  orderId: '', // 订单ID
+  orderId: '' // 订单ID
 })
 
 const init = async () => {
   let keys = Object.keys(inf.value)
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:props.orderDetail`, props.orderDetail);
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:props.orderDetail`, props.orderDetail);
   let obj: any = await getDetail(props.orderDetail.caseInId, keys)
   obj.orderId = props.orderDetail?.orderId
   obj.isProceed = Number(obj.isProceed)
@@ -98,7 +98,7 @@ const validate = () => {
 // 监听当前表单
 watch(
   () => inf.value,
-  () => throttle(save, 500),
+  (a, b) => b.id && throttle(save, 500),
   { deep: true }
 )
 

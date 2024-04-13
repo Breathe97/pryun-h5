@@ -74,7 +74,7 @@ const validate = () => {
 // 监听当前表单
 watch(
   () => inf.value,
-  () => throttle(save, 500),
+  (a, b) => b.id && throttle(save, 500),
   { deep: true }
 )
 
