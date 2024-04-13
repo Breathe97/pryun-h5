@@ -97,42 +97,47 @@ const stepClick = async (newIndex = 0) => {
 
 const stepItemShow = ref(false)
 const orderDetail = ref({ caseInId: '' })
-//
+
+// 获取订单详情
+const orderDetailGet = async (orderId = '') => {
+  await api.orderDetailGet({ params: { orderId } }).then((res) => {
+    const { code = 0, message, data } = res
+    if (code !== 200) {
+      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
+      return
+    }
+    const { order = {} } = data
+    orderDetail.value = order
+  })
+}
+
+// 初始化
 const init = async () => {
   // 如果url上有相关id
-  let { orderId = '', caseInId = '' } = route.query as any
-  orderDetail.value.caseInId = caseInId
-  // 获取订单详情
-  if (orderId) {
-    await api.orderDetailGet({ params: { orderId } }).then((res) => {
-      const { code = 0, message, data } = res
-      if (code !== 200) {
-        console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
-        return
+  let { orderId = '', caseInId } = route.query as any
+  orderDetail.value.caseInId = caseInId // 优先使用
+  await orderDetailGet(orderId) // 获取订单详情
+  {
+    const { caseInId } = orderDetail.value
+    // 如果进件id不存在 需要先生成一个进件id
+    if (!caseInId) {
+      await api.step1Post({ data: { orderId } }) // 通过报错一个空的数据来获取一个进件id
+      await orderDetailGet(orderId) // 获取订单详情
+    }
+    // 查询当前进件步骤
+    await getDetail(caseInId, ['status']).then((res: any) => {
+      const { status = '' } = res || {}
+      // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:status`, status)
+      let num = status.replace('STEP', '')
+      num = Math.max(num - 1, 0)
+      // 如果是预览模式
+      if (props.isPreview) {
+        num = 3
       }
-      const { order = {} } = data
-      orderDetail.value = order
+      stepsIndex.value = num
     })
   }
-  // 如果进件id不存在 需要先生成一个进件id
-  if (!orderDetail.value.caseInId) {
-    await api.step1Post({ data: { orderId } })
-    init()
-    return
-  }
-
-  // 查询当前进件步骤
-  await getDetail(orderDetail.value.caseInId, ['status']).then((res: any) => {
-    const { status = '' } = res || {}
-    // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:status`, status)
-    let num = status.replace('STEP', '')
-    num = Math.max(num - 1, 0)
-    // 如果是预览模式
-    if (props.isPreview) {
-      num = 3
-    }
-    stepsIndex.value = num
-  })
+  // 获取页面所需选项数据
   await dictConfigGet()
   stepItemShow.value = true
 }
