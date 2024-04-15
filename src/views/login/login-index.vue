@@ -5,7 +5,7 @@
     </template>
     <div style="height: 200px; display: flex; align-items: center; justify-content: center">{{ aaa }}</div>
     <div style="height: 200px; background-color: rgb(46, 16, 16)"></div>
-    <div style="height: 200px; display: flex; align-items: center; justify-content: center" @click="login">登录</div>
+    <div style="height: 200px; display: flex; align-items: center; justify-content: center" @click="login">使用测试账号登录</div>
     <div style="height: 200px; background-color: rgb(98, 0, 255)"></div>
   </PrPageView>
 </template>
