@@ -1,6 +1,6 @@
 <template>
   <div class="pr-picker-van-field">
-    <van-field v-bind="attrs" v-model="inValue" @click="open"> </van-field>
+    <van-field v-bind="attrs" v-model="showVal" @click="open"> </van-field>
     <template v-if="visible">
       <van-popup v-model:show="showPopup" position="bottom" safe-area-inset-bottom>
         <div class="select-multiple">
@@ -41,15 +41,11 @@ const props = defineProps({
     require: true,
     default: () => []
   },
-  showKey: {
-    type: [String],
-    default: () => 'text'
-  },
-  // 多选
-  maxSelect: {
+  // 多选数量
+  multipleNum: {
     type: [Number],
     require: false,
-    default: () => 1
+    default: () => 0
   }
 })
 
@@ -71,35 +67,20 @@ const close = async () => {
 }
 
 const selectValue = ref<Type_column[]>([])
-const inValue = ref('')
+const showVal = ref('') // 用户看到的数值
 const pickerVal: any = ref([]) // 默认选中
 const selectConfirm = (e: any) => {
   console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
-  // 单选
-  if (props.maxSelect === 1) {
-    const { selectedOptions = [] } = e
-    const { showKey } = props
-    let column1 = selectedOptions[0]
-    if (column1) {
-      let val = column1[showKey]
-      inValue.value = val
-      emit('update:modelValue', column1.value)
-    }
-  }
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:`)
-  // 多选
-  if (props.maxSelect > 1) {
-    let arr = selectValue.value
-    let str_true = Array.from(arr, (item: any) => item.value).join('、') // 真实数值
-    let str_false = Array.from(arr, (item: any) => item.text).join(',') // 显示数组
+  let arr = selectValue.value
+  let str_true = Array.from(arr, (item: any) => item.value).join('、') // 真实数值
+  let str_false = Array.from(arr, (item: any) => item.text).join(',') // 显示数组
 
-    if (str_false.length >= 16) {
-      str_false = `${str_false.slice(0, 9)}等...${arr.length}项`
-    }
-
-    inValue.value = str_false
-    emit('update:modelValue', str_true)
+  if (str_false.length >= 16) {
+    str_false = `${str_false.slice(0, 9)}等...${arr.length}项`
   }
+
+  showVal.value = str_false
+  emit('update:modelValue', str_true)
   close()
 }
 
@@ -108,17 +89,17 @@ const init = async (newProps: any = {}) => {
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newProps`, newProps)
   const { modelValue, showKey, columns = [] } = newProps
   // 单选
-  if (props.maxSelect === 1) {
+  if (props.multipleNum === 1) {
     let info: any = columns.find((item: any) => item.value === modelValue)
     if (info) {
       let val = info['value']
-      inValue.value = info[showKey]
+      showVal.value = info[showKey]
       pickerVal.value.push(val)
     }
   }
 
   // 多选
-  if (props.maxSelect > 1) {
+  if (props.multipleNum > 1) {
   }
 }
 
@@ -134,7 +115,7 @@ const selectRow = (row: any) => {
   if (index !== -1) {
     arr.splice(index, 1)
   } else {
-    if (arr.length >= props.maxSelect) return
+    if (arr.length >= props.multipleNum) return
     arr.push(row)
   }
   selectValue.value = arr

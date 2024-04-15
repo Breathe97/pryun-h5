@@ -1,6 +1,6 @@
 <template>
   <div class="pr-signature-van-field">
-    <van-field v-bind="attrs" v-model="inValue">
+    <van-field v-bind="attrs" v-model="showVal">
       <template #input>
         <div class="pr-signature-view">
           <div class="res-img" @click="show">
@@ -36,11 +36,11 @@ const props = defineProps({
   }
 })
 
-const inValue = ref('')
+const showVal = ref('')
 
 const init = async (newProps: any = {}) => {
   await nextTick()
-  inValue.value = newProps.modelValue
+  showVal.value = newProps.modelValue
 }
 
 const visible = ref(false)

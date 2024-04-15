@@ -1,6 +1,6 @@
 <template>
   <div class="pr-picker-van-field">
-    <van-field v-bind="attrs" v-model="inValue" @click="open"> </van-field>
+    <van-field v-bind="attrs" v-model="showVal" @click="open"> </van-field>
     <template v-if="visible">
       <van-popup v-model:show="showPopup" position="bottom" safe-area-inset-bottom>
         <van-picker v-model="pickerVal" :columns="columns" @confirm="selectConfirm" @cancel="close" />
@@ -52,7 +52,7 @@ const close = async () => {
   }, 500)
 }
 
-const inValue = ref('')
+const showVal = ref('')
 const pickerVal: any = ref([]) // 默认选中
 const selectConfirm = (e: any) => {
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
@@ -61,7 +61,7 @@ const selectConfirm = (e: any) => {
   let column1 = selectedOptions[0]
   if (column1) {
     let val = column1[showKey]
-    inValue.value = val
+    showVal.value = val
     emit('update:modelValue', column1.value)
   }
   close()
@@ -74,7 +74,7 @@ const init = async (newProps: any = {}) => {
   let info: any = columns.find((item: any) => item.value === modelValue)
   if (info) {
     let val = info['value']
-    inValue.value = info[showKey]
+    showVal.value = info[showKey]
     pickerVal.value.push(val)
   }
 }
