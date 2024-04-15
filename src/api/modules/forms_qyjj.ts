@@ -35,6 +35,7 @@ export const caseDetailGet = (options?: AxiosRequestConfig) => {
 
 // step1-债务人信息录入
 export const step1Post = (options?: AxiosRequestConfig) => {
+  return
   // 以下逻辑理论上可以不要 为了追查本次数据库异常用
   {
     const { data } = options || {}
@@ -54,6 +55,7 @@ export const step1Post = (options?: AxiosRequestConfig) => {
 
 // step2-债务人信息录入
 export const step2Post = (options?: AxiosRequestConfig) => {
+  return
   return http({
     method: 'POST',
     showErrMsg: false,
@@ -64,6 +66,7 @@ export const step2Post = (options?: AxiosRequestConfig) => {
 
 // step3-债务人信息录入
 export const step3Post = (options?: AxiosRequestConfig) => {
+  return
   return http({
     method: 'POST',
     showErrMsg: false,

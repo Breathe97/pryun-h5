@@ -58,12 +58,5 @@ const Title = computed(() => {
   display: flex;
   flex-direction: column;
   background-color: rgba(244, 244, 244, 1);
-  --van-cell-group-inset-padding: 0;
-  --van-button-border-width: 0;
-  --van-button-primary-background: rgba(74, 199, 74, 1);
-  --van-primary-color: rgba(74, 199, 74, 1);
-}
-.van-field__label--required::before {
-  position: absolute;
 }
 </style>

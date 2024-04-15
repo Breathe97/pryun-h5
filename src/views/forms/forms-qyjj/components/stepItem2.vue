@@ -1,35 +1,56 @@
 <template>
-  <cardVue :collapse="false" title="企业简介">
-    <van-form ref="vanFormRef" required="auto" label-width="100">
+  <cardVue :collapse="false" title="资产总量">
+    <van-form ref="vanFormRef" required="auto" label-width="130">
       <van-cell-group inset>
-        <pr-picker-van-field v-model="inf.companyAttr" :columns="dictConfigRes.companyAttr" is-link readonly name="企业属性" label="企业属性" placeholder="请选择" :rules="[{ required: true, message: '请选择企业属性' }]" />
-        <pr-picker-van-field v-model="inf.isProceed" :columns="dictConfigRes.isProceed" is-link readonly name="企业涉诉情况" label="企业涉诉情况" placeholder="请选择" :rules="[{ required: true, message: '请选择企业涉诉情况' }]" />
-        <pr-picker-van-field v-model="inf.businessStatus" :columns="dictConfigRes.businessStatus" is-link readonly name="经营状况" label="经营状况" placeholder="请选择" :rules="[{ required: true, message: '请选择经营状况' }]" />
-        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="注册资本" label="注册资本" placeholder="请输入注册资本" :rules="[{ required: true, message: '请填写注册资本' }]">
+        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入不动产名称/数量/市价 (商业)" :rules="[{ required: true, message: '请输入不动产名称/数量/市价 (商业)' }]">
+          <template #label>
+            <div class="pr-form-label">
+              <div class="pr-form-label-text">不动产名称/数量/市价 (商业)</div>
+              <div class="pr-form-tip-text">说明：指不能移动的财产，例如：建筑物、土地、矿产、林权、海域使用权等。</div>
+            </div>
+          </template>
+        </van-field>
+        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+          <template #label>
+            <div class="pr-form-label">
+              <div class="pr-form-label-text">固定资产名称/数量/市价 (企业)</div>
+              <div class="pr-form-tip-text">说明：指企业为生产产品、提供劳务、出租或者经营管理而持有的、使用时间超过 12个月的有形资产。例如房屋、建筑物、机器、机械、运输工具以及其他与生产、经营有关的设备、器具、工具等。</div>
+            </div>
+          </template>
+        </van-field>
+        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+          <template #label>
+            <div class="pr-form-label">
+              <div class="pr-form-label-text">流动资产名称/数量/市价</div>
+              <div class="pr-form-tip-text">说明：指企业可以在一年或者超过一年的一个营业周期内变现或者运用的资产，一般包括库存现金，各种银行存款，以及其他货币资金还有交易性金融资产、应收票据，应收账款，预付账款，其他应收款,待摊费用，预付费用，存货及其他流动性资产。</div>
+            </div>
+          </template>
+        </van-field>
+        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+          <template #label>
+            <div class="pr-form-label">
+              <div class="pr-form-label-text">无形资产名称/数量/市价</div>
+              <div class="pr-form-tip-text">说明：指企业拥有或控制的、没有实物形态的、能够为企业带来经济利益的资产，例如：专利权、商标权、版权等。</div>
+            </div>
+          </template>
+        </van-field>
+        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+          <template #label>
+            <div class="pr-form-label">
+              <div class="pr-form-label-text">其他补充资产</div>
+              <div class="pr-form-tip-text">说明：指除固定资产无形资产和流动资产以外的工他资产。例如：长期待摊费用、递延所得税资产等。</div>
+            </div>
+          </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="固定资产总价" label="固定资产总价" placeholder="请输入固定资产总价" :rules="[{ required: true, message: '请填写固定资产总价' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <pr-picker-van-field v-model="inf.payType" :columns="dictConfigRes.payType" is-link readonly name="缴纳方式" label="缴纳方式" placeholder="请选择" :rules="[{ required: true, message: '请选择缴纳方式' }]" />
-        <pr-picker-van-field v-model="inf.industrialNature" :columns="dictConfigRes.industrialNature" is-link readonly name="产业性质" label="产业性质" placeholder="请选择" :rules="[{ required: true, message: '请选择产业性质' }]" />
-        <van-field type="number" maxlength="12" v-model="inf.totalAssets" name="企业总资产" label="企业总资产" placeholder="请输入企业总资产" :rules="[{ required: true, message: '请填写企业总资产' }]">
+        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="流动/无形资产总价" label="流动/无形资产总价" placeholder="请输入流动/无形资产总价" :rules="[{ required: true, message: '请填写流动/无形资产总价' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.totalDebt" name="企业总负债" label="企业总负债" placeholder="请输入企业总负债" :rules="[{ required: true, message: '请填写企业总负债' }]">
+        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="资产合计" label="资产合计" placeholder="请输入资产合计" :rules="[{ required: true, message: '请填写资产合计' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.totalProceed" name="涉诉总金额" label="涉诉总金额" placeholder="请输入涉诉总金额" :rules="[{ required: true, message: '请填写涉诉总金额' }]">
-          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-        </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.lastYearIncome" name="上年度营收" label="上年度营收" placeholder="请输入上年度营收" :rules="[{ required: true, message: '请填写上年度营收' }]">
-          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-        </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.lastYearTax" name="上年度纳税额" label="上年度纳税额" placeholder="请输入上年度纳税额" :rules="[{ required: true, message: '请填写上年度纳税额' }]">
-          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-        </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.lastYearProfit" name="上年度净利润" label="上年度净利润" placeholder="请输入上年度净利润" :rules="[{ required: true, message: '请填写上年度净利润' }]">
-          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-        </van-field>
-        <van-field label-width="88" class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.businessScopes" name="主营业务描述" label="主营业务描述" placeholder="请输入主营业务描述" :rules="[{ required: true, message: '请输入主营业务描述' }]"> </van-field>
-        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="企业现状说明" label="企业现状说明" placeholder="请输入企业现状说明"> </van-field>
       </van-cell-group>
     </van-form>
   </cardVue>

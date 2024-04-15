@@ -46,6 +46,18 @@ const props = defineProps({
     type: [Number],
     require: false,
     default: () => 0
+  },
+  // 内部分割字符 服务器要的
+  splitInStr: {
+    type: [String],
+    require: false,
+    default: () => ','
+  },
+  // 外部分割字符 用户看到的
+  splitOutStr: {
+    type: [String],
+    require: false,
+    default: () => '、'
   }
 })
 
@@ -67,13 +79,14 @@ const close = async () => {
 }
 
 const selectValue = ref<Type_column[]>([])
+
 const showVal = ref('') // 用户看到的数值
-const pickerVal: any = ref([]) // 默认选中
+
 const selectConfirm = (e: any) => {
-  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:e`, e)
+  const { splitInStr, splitOutStr } = props
   let arr = selectValue.value
-  let str_true = Array.from(arr, (item: any) => item.value).join('、') // 真实数值
-  let str_false = Array.from(arr, (item: any) => item.text).join(',') // 显示数组
+  let str_true = Array.from(arr, (item: any) => item.value).join(splitInStr) // 真实数值
+  let str_false = Array.from(arr, (item: any) => item.text).join(splitOutStr) // 显示数组
 
   if (str_false.length >= 16) {
     str_false = `${str_false.slice(0, 9)}等...${arr.length}项`
@@ -87,40 +100,31 @@ const selectConfirm = (e: any) => {
 const init = async (newProps: any = {}) => {
   await nextTick()
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newProps`, newProps)
-  const { modelValue, showKey, columns = [] } = newProps
-  // 单选
-  if (props.multipleNum === 1) {
-    let info: any = columns.find((item: any) => item.value === modelValue)
-    if (info) {
-      let val = info['value']
-      showVal.value = info[showKey]
-      pickerVal.value.push(val)
+  const { modelValue, splitInStr, columns = [] } = newProps
+  let vals = modelValue.split(splitInStr) || []
+  let arr = []
+  for (const item of columns) {
+    if (vals.includes(item.val)) {
+      arr.push(item)
     }
   }
-
-  // 多选
-  if (props.multipleNum > 1) {
-  }
+  selectValue.value = arr
 }
 
-const propsObj = computed(() => {
-  const { modelValue, columns, showKey } = props
-  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:modelValue`, modelValue)
-  return { modelValue, columns, showKey }
-})
-
+// 选择某一行
 const selectRow = (row: any) => {
   let arr = JSON.parse(JSON.stringify(selectValue.value))
   let index = arr.findIndex((item: any) => item.value === row.value)
   if (index !== -1) {
     arr.splice(index, 1)
   } else {
-    if (arr.length >= props.multipleNum) return
+    if (arr.length >= props.multipleNum && props.multipleNum !== 0) return
     arr.push(row)
   }
   selectValue.value = arr
 }
 
+// 是否选中
 const Selected = computed(() => {
   return function (row: any) {
     let arr = selectValue.value
@@ -133,6 +137,12 @@ const Selected = computed(() => {
     }
     return active
   }
+})
+
+const propsObj = computed(() => {
+  const { modelValue, columns } = props
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:modelValue`, modelValue)
+  return { modelValue, columns }
 })
 
 // 监听 props变化后对组件内数据进行初始化
