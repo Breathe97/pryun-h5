@@ -2,7 +2,7 @@
   <cardVue :collapse="false" title="资产总量">
     <van-form ref="vanFormRef" required="auto" label-width="130">
       <van-cell-group inset>
-        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入不动产名称/数量/市价 (商业)" :rules="[{ required: true, message: '请输入不动产名称/数量/市价 (商业)' }]">
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.unMoveAssets" name="unMoveAssets" label="" placeholder="请输入不动产名称/数量/市价 (商业)" :rules="[{ required: true, message: '请输入不动产名称/数量/市价 (商业)' }]">
           <template #label>
             <div class="pr-form-label">
               <div class="pr-form-label-text">不动产名称/数量/市价 (商业)</div>
@@ -10,7 +10,7 @@
             </div>
           </template>
         </van-field>
-        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.fixedAssets" name="fixedAssets" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
           <template #label>
             <div class="pr-form-label">
               <div class="pr-form-label-text">固定资产名称/数量/市价 (企业)</div>
@@ -18,7 +18,7 @@
             </div>
           </template>
         </van-field>
-        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.flowAssets" name="flowAssets" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
           <template #label>
             <div class="pr-form-label">
               <div class="pr-form-label-text">流动资产名称/数量/市价</div>
@@ -26,7 +26,7 @@
             </div>
           </template>
         </van-field>
-        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.invisibleAssets" name="invisibleAssets" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
           <template #label>
             <div class="pr-form-label">
               <div class="pr-form-label-text">无形资产名称/数量/市价</div>
@@ -34,7 +34,7 @@
             </div>
           </template>
         </van-field>
-        <van-field class="textarea-bg" maxlength="500" show-word-limit label-align="top" type="textarea" v-model="inf.companyCurrInfo" name="companyCurrInfo" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.otherAssets" name="otherAssets" label="" placeholder="请输入固定资产名称/数量/市价 (企业)" :rules="[{ required: true, message: '请输入固定资产名称/数量/市价 (企业)' }]">
           <template #label>
             <div class="pr-form-label">
               <div class="pr-form-label-text">其他补充资产</div>
@@ -42,13 +42,13 @@
             </div>
           </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="固定资产总价" label="固定资产总价" placeholder="请输入固定资产总价" :rules="[{ required: true, message: '请填写固定资产总价' }]">
+        <van-field maxlength="12" type="number" v-model="inf.fixedAssetsTotal" name="fixedAssetsTotal" label="固定资产总价" placeholder="请输入固定资产总价" :rules="[{ required: true, message: '请填写固定资产总价' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="流动/无形资产总价" label="流动/无形资产总价" placeholder="请输入流动/无形资产总价" :rules="[{ required: true, message: '请填写流动/无形资产总价' }]">
+        <van-field maxlength="12" type="number" v-model="inf.flowAssetsTotal" name="flowAssetsTotal" label="流动/无形资产总价" placeholder="请输入流动/无形资产总价" :rules="[{ required: true, message: '请填写流动/无形资产总价' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="资产合计" label="资产合计" placeholder="请输入资产合计" :rules="[{ required: true, message: '请填写资产合计' }]">
+        <van-field maxlength="12" type="number" v-model="inf.totalAssets" name="totalAssets" label="资产合计" placeholder="请输入资产合计" :rules="[{ required: true, message: '请填写资产合计' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
       </van-cell-group>
@@ -72,20 +72,14 @@ const props = defineProps({
 })
 
 const inf = ref<any>({
-  businessScopes: '', // 主营业务描述
-  businessStatus: '', // 企业经营状况
-  companyAttr: '', // 企业属性
-  companyCurrInfo: '', // 企业现状说明
-  industrialNature: '', // 产业性质
-  isProceed: '', // 企业涉诉情况
-  lastYearIncome: '', // 上年度营收
-  lastYearProfit: '', // 上年度净利润
-  lastYearTax: '', // 上年度纳税
-  payType: '', // 缴纳方式
-  registerMoney: '', // 注册资本
-  totalAssets: '', // 企业总资产
-  totalDebt: '', // 企业总负债
-  totalProceed: '', // 诉讼总金额
+  unMoveAssets: '', // 不动产说明
+  fixedAssets: '', // 固定资产说明
+  flowAssets: '', // 流动资产说明
+  invisibleAssets: '', // 无形资产
+  otherAssets: '', // 其他资产
+  fixedAssetsTotal: '', // 固定资产总价
+  flowAssetsTotal: '', // 流动/无形资产总价
+  totalAssets: '', // 资产合计
 
   last: false, // 是否为上一步
   next: false, // 是否为下一步

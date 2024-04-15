@@ -148,7 +148,8 @@ const init = async () => {
       let index = status.replace('STEP', '')
       index = Math.max(index - 1, 0)
       stepsIndex.value = index
-      stepsIndex.value = 2
+      // stepsIndex.value = 1
+      // stepsIndex.value = 2
       loading.value = false
     })
   }

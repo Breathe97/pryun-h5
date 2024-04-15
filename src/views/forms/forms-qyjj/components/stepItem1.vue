@@ -2,31 +2,35 @@
   <cardVue :collapse="false" title="基础信息">
     <van-form ref="vanFormRef" required="auto" label-width="120">
       <van-cell-group inset>
-        <van-field maxlength="200" v-model="inf.companyName" name="提交机构" label="提交机构" placeholder="请输入提交机构" :rules="[{ required: true, message: '请填写提交机构' }]" />
-        <van-field maxlength="200" v-model="inf.companyAddr" name="机构地址" label="机构地址" placeholder="机构地址（省/市/区/门牌号）" :rules="[{ required: true, message: '请填写机构地址' }]" />
-        <van-field maxlength="20" v-model="inf.corpUser" name="机构联系人" label="机构联系人" placeholder="请输入机构联系人" :rules="[{ required: true, message: '请填写机构联系人' }]" />
-        <van-field type="tel" v-model="inf.contactMobile" name="联系人电话" label="联系人电话" placeholder="请输入联系人电话" :rules="rules.mobile" />
-        <van-field maxlength="200" v-model="inf.companyName" name="项目单位名称" label="项目单位名称" placeholder="请输入项目单位名称" :rules="[{ required: true, message: '请填写项目单位名称' }]" />
-        <van-field maxlength="200" v-model="inf.companyAddr" name="项目地址" label="项目地址" placeholder="项目地址（省/市/区/门牌号）" :rules="[{ required: true, message: '请填写项目地址' }]" />
-        <van-field maxlength="20" v-model="inf.corpUser" name="法人/实际控制人" label="法人/实际控制人" placeholder="请输入法人/实际控制人" :rules="[{ required: true, message: '请填写法人/实际控制人' }]" />
-        <van-field type="tel" v-model="inf.contactMobile" name="联系方式" label="联系方式" placeholder="请输入联系方式" :rules="rules.mobile" />
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="股权情况" label="股权情况" placeholder="点击选择股权情况" :rules="[{ required: true, message: '请填写股权情况' }]" />
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="土地性质" label="土地性质" placeholder="点击选择土地性质" :rules="[{ required: true, message: '请填写土地性质' }]" />
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="corpCredit" label="土地使用性质" placeholder="点击选择工业使用类型" :rules="[{ required: true, message: '请填写工业使用类型' }]" />
-        <PrSelectVanField class="required-hide" v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="corpCredit" label=" " placeholder="点击选择房地产使用类型" :rules="[{ required: true, message: '请填写房地产使用类型' }]" />
-        <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="土地面积" label="土地面积" placeholder="请输入土地面积" :rules="[{ required: true, message: '请填写土地面积' }]">
+        <van-field maxlength="100" v-model="inf.companyName" name="companyName" label="机构名称" placeholder="请输入机构名称" :rules="[{ required: true, message: '请填写机构名称' }]" />
+        <van-field maxlength="200" v-model="inf.companyAddr" name="companyAddr" label="机构地址" placeholder="机构地址（省/市/区/门牌号）" :rules="[{ required: true, message: '请填写机构地址' }]" />
+        <van-field maxlength="20" v-model="inf.companyUser" name="companyUser" label="机构联系人" placeholder="请输入机构联系人" :rules="[{ required: true, message: '请填写机构联系人' }]" />
+        <van-field maxlength="12" type="tel" v-model="inf.contactMobile" name="联系人电话" label="联系人电话" placeholder="请输入联系人电话" :rules="rules.mobile" />
+        <van-field maxlength="100" v-model="inf.projectName" name="projectName" label="项目单位名称" placeholder="请输入项目单位名称" :rules="[{ required: true, message: '请填写项目单位名称' }]" />
+        <van-field maxlength="200" v-model="inf.projectAddr" name="projectAddr" label="项目地址" placeholder="项目地址（省/市/区/门牌号）" :rules="[{ required: true, message: '请填写项目地址' }]" />
+        <van-field maxlength="20" v-model="inf.corpUser" name="corpUser" label="法人/实际控制人" placeholder="请输入法人/实际控制人" :rules="[{ required: true, message: '请填写法人/实际控制人' }]" />
+        <van-field maxlength="12" type="tel" v-model="inf.corpMobile" name="corpMobile" label="联系方式" placeholder="请输入联系方式" :rules="rules.mobile" />
+        <PrSelectVanField v-model="inf.ownership" :columns="dictConfigRes.ownership" is-link readonly name="ownership" label="股权情况" placeholder="点击选择股权情况" :rules="[{ required: true, message: '请填写股权情况' }]" />
+        <PrSelectVanField v-model="inf.landNature" :columns="dictConfigRes.landNature" is-link readonly name="landNature" label="土地性质" placeholder="点击选择土地性质" :rules="[{ required: true, message: '请填写土地性质' }]" />
+        <PrSelectVanField v-model="inf.companyBuildNature1" :columns="dictConfigRes.companyBuildNature1" is-link readonly name="companyBuildNature1" label="企业建筑性质" placeholder="点击选择工业类型" :rules="[{ required: true, message: '请填写工业类型' }]" />
+        <PrSelectVanField class="required-hide" v-model="inf.corpCredit" :columns="dictConfigRes.companyBuildNature2" is-link readonly name="companyBuildNature2" label=" " placeholder="点击选择房地产类型" :rules="[{ required: true, message: '请填写房地产类型' }]" />
+        <van-field maxlength="12" type="number" v-model="inf.landArea" name="landArea" label="土地面积" placeholder="请输入土地面积" :rules="[{ required: true, message: '请填写土地面积' }]">
           <template #right-icon>
             <span style="margin-right: 12px">M <sup>2</sup> </span>
           </template>
         </van-field>
-        <van-field maxlength="200" v-model="inf.companyName" name="土地所属单位" label="土地所属单位" placeholder="请输入土地所属单位" :rules="[{ required: true, message: '请填写土地所属单位' }]" />
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="企业建筑物性质" label="企业建筑物性质" placeholder="点击选择企业建筑物性质" :rules="[{ required: true, message: '请填写企业建筑物性质' }]" />
-        <van-field maxlength="200" v-model="inf.companyName" name="产权人" label="产权人" placeholder="请输入产权人" :rules="[{ required: true, message: '请填写产权人' }]" />
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="公司目前情况" label="公司目前情况" placeholder="点击选择公司目前情况" :rules="[{ required: true, message: '请填写公司目前情况' }]" />
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="司法类别" label="司法类别" placeholder="点击选择司法类别" :rules="[{ required: true, message: '请填写司法类别' }]" />
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="目前营业额(年)" label="目前营业额(年)" placeholder="点击选择目前营业额(年)" :rules="[{ required: true, message: '请填写目前营业额(年)' }]" />
-        <van-field maxlength="200" v-model="inf.companyName" name="租赁比(年)" label="租赁比(年)" placeholder="请输入租赁比(年)" :rules="[{ required: true, message: '请填写租赁比(年)' }]" />
-        <van-field type="number" maxlength="12" v-model="inf.corpCredit" name="租赁金额(年)" label="租赁金额(年)" placeholder="请输入租赁金额(年)" :rules="[{ required: true, message: '请填写租赁金额(年)' }]">
+        <van-field maxlength="100" v-model="inf.landUnit" name="landUnit" label="土地所属单位" placeholder="请输入土地所属单位" :rules="[{ required: true, message: '请填写土地所属单位' }]" />
+        <van-field maxlength="20" v-model="inf.owner" name="owner" label="产权人" placeholder="请输入产权人" :rules="[{ required: true, message: '请填写产权人' }]" />
+        <PrSelectVanField v-model="inf.companyCurrInfo" :columns="dictConfigRes.companyCurrInfo" is-link readonly name="companyCurrInfo" label="公司目前情况" placeholder="点击选择公司目前情况" :rules="[{ required: true, message: '请填写公司目前情况' }]" />
+        <PrSelectVanField v-model="inf.lawCategory" :columns="dictConfigRes.lawCategory" is-link readonly name="lawCategory" label="司法类别" placeholder="点击选择司法类别" :rules="[{ required: true, message: '请填写司法类别' }]" />
+        <van-field v-model="inf.thisYearIncome" name="thisYearIncome" label="目前营业额(年)" placeholder="请输入经营毛利" :rules="[{ required: true, message: '请输入经营毛利' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field class="required-hide" v-model="inf.thisYearProfit" name="thisYearProfit" label=" " placeholder="请输入经营净利" :rules="[{ required: true, message: '请输入经营净利' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field maxlength="12" type="number" v-model="inf.rentRate" name="rentRate" label="租赁比(年)" placeholder="请输入租赁比(年)" :rules="[{ required: true, message: '请填写租赁比(年)' }]"> </van-field>
+        <van-field maxlength="12" type="number" v-model="inf.rentMoney" name="rentMoney" label="租赁金额(年)" placeholder="请输入租赁金额(年)" :rules="[{ required: true, message: '请填写租赁金额(年)' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
       </van-cell-group>
@@ -50,16 +54,31 @@ const props = defineProps({
 })
 
 const inf: any = ref({
+  companyName: '', // 机构名称
   companyAddr: '', // 机构地址
-  companyCreditCode: '', // 统一社会信用代码
-  companyName: '', // 提交机构
-  companyRegisterAt: '', // 注册时间
-  contactMobile: '', // 联系人电话
-  contactUser: '', // 联系人
-  corpCardNo: '', // 法定代表人身份证号
-  corpCredit: '', // 法人征信情况
-  corpMobile: '', // 	法定代表人电话
-  corpUser: '', // 法定代表人姓名
+  companyUser: '', // 机构联系人
+  companyContactMobile: '', // 企业联系电话
+
+  projectName: '', // 项目单位名称
+  projectAddr: '', // 项目地址
+  corpUser: '', // 法人姓名
+  corpMobile: '', // 法人电话
+  ownership: '', // 股权情况
+  landNature: '', // 土地性质
+  landUseNature: '', // 土地使用性质
+  companyBuildNature1: '', // 企业建筑性质 - 工业
+  companyBuildNature2: '', // 企业建筑性质 - 房地产
+  landArea: '', // 土地面积
+  landUnit: '', // 土地所属单位
+  owner: '', // 产权人
+  companyCurrInfo: '', // 公司目前情况
+  lawCategory: '', // 司法类别
+
+  thisYearIncome: '', // 目前营业额（年） 毛利
+  thisYearProfit: '', // 目前营业额（年） 净利
+
+  rentRate: '', // 租赁比（年）
+  rentMoney: '', // 租赁金额（年）
 
   last: false, // 是否为上一步
   next: false, // 是否为下一步

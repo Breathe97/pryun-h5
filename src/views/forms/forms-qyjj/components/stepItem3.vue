@@ -2,36 +2,36 @@
   <div class="list">
     <van-form ref="vanFormRef" required="auto" label-width="140">
       <cardVue :collapse="false" title="债务总量">
-        <van-field type="number" maxlength="12" v-model="inf.debtPrincipal" name="debtPrincipal" label="银行贷款" placeholder="请输入银行贷款" :rules="[{ required: true, message: '请填写银行贷款' }]">
+        <van-field type="number" maxlength="12" v-model="inf.bankLoan" name="bankLoan" label="银行贷款" placeholder="请输入银行贷款" :rules="[{ required: true, message: '请填写银行贷款' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="小额贷款" placeholder="请输入小额贷款" :rules="[{ required: true, message: '请填写小额贷款' }]">
+        <van-field type="number" maxlength="12" v-model="inf.smallLoan" name="smallLoan" label="小额贷款" placeholder="请输入小额贷款" :rules="[{ required: true, message: '请填写小额贷款' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="已欠税金" placeholder="请输入已欠税金" :rules="[{ required: true, message: '请填写已欠税金' }]">
+        <van-field type="number" maxlength="12" v-model="inf.owedTaxMoney" name="owedTaxMoney" label="已欠税金" placeholder="请输入已欠税金" :rules="[{ required: true, message: '请填写已欠税金' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="未售部分核定税金" placeholder="请输入未售部分核定税金" :rules="[{ required: true, message: '请填写未售部分核定税金' }]">
+        <van-field type="number" maxlength="12" v-model="inf.unSaleMoney" name="unSaleMoney" label="未售部分核定税金" placeholder="请输入未售部分核定税金" :rules="[{ required: true, message: '请填写未售部分核定税金' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="对外担保金额" placeholder="请输入对外担保金额" :rules="[{ required: true, message: '请填写对外担保金额' }]">
+        <van-field type="number" maxlength="12" v-model="inf.ensureMoney" name="ensureMoney" label="对外担保金额" placeholder="请输入对外担保金额" :rules="[{ required: true, message: '请填写对外担保金额' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="担保人数/企业户数" placeholder="请输入担保人数/企业户数" :rules="[{ required: true, message: '请填写担保人数/企业户数' }]"> </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="欠工人工资" placeholder="请输入欠工人工资" :rules="[{ required: true, message: '请填写欠工人工资' }]">
+        <van-field type="number" maxlength="12" v-model="inf.ensureCount" name="ensureCount" label="担保人数/企业户数" placeholder="请输入担保人数/企业户数" :rules="[{ required: true, message: '请填写担保人数/企业户数' }]"> </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.owedWorkerMoney" name="owedWorkerMoney" label="欠工人工资" placeholder="请输入欠工人工资" :rules="[{ required: true, message: '请填写欠工人工资' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="工人人数" placeholder="请输入工人人数" :rules="[{ required: true, message: '请填写工人人数' }]"> </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="民间借贷数额" placeholder="请输入民间借贷数额" :rules="[{ required: true, message: '请填写民间借贷数额' }]">
+        <van-field type="number" maxlength="12" v-model="inf.workerCount" name="workerCount" label="工人人数" placeholder="请输入工人人数" :rules="[{ required: true, message: '请填写工人人数' }]"> </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.privateLendAmount" name="privateLendAmount" label="民间借贷数额" placeholder="请输入民间借贷数额" :rules="[{ required: true, message: '请填写民间借贷数额' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="民间借贷人数" placeholder="请输入民间借贷人数" :rules="[{ required: true, message: '请填写民间借贷人数' }]"> </van-field>
-        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.hockIntro" name="hockIntro" label="其他欠款说明" placeholder="请输入其他欠款说明" :rules="[{ required: true, message: '请填写其他欠款说明' }]"> </van-field>
-        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="债务总量统计" placeholder="请输入债务总量统计" :rules="[{ required: true, message: '请填写债务总量统计' }]">
+        <van-field type="number" maxlength="12" v-model="inf.privateLendCount" name="privateLendCount" label="民间借贷人数" placeholder="请输入民间借贷人数" :rules="[{ required: true, message: '请填写民间借贷人数' }]"> </van-field>
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.otherOwed" name="otherOwed" label="其他欠款说明" placeholder="请输入其他欠款说明" :rules="[{ required: true, message: '请填写其他欠款说明' }]"> </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtAmount" name="debtAmount" label="债务总量统计" placeholder="请输入债务总量统计" :rules="[{ required: true, message: '请填写债务总量统计' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="企业诉求" label="企业诉求" placeholder="点击选择企业诉求" :rules="[{ required: true, message: '请填写企业诉求' }]" />
-        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.hockIntro" name="hockIntro" label="" placeholder="请输入其他欠款说明" :rules="[{ required: true, message: '请填写其他欠款说明' }]"> </van-field>
+        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.companyPetition" is-link readonly name="companyPetition" label="企业诉求" placeholder="点击选择企业诉求" :rules="[{ required: true, message: '请填写企业诉求' }]" />
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.companyPetitionOther" name="companyPetitionOther" label="" placeholder="请输入其他欠款说明" :rules="[{ required: true, message: '请填写其他欠款说明' }]"> </van-field>
       </cardVue>
       <div style="height: 12px"></div>
       <cardVue :collapse="false" title="其他资料">
@@ -89,10 +89,21 @@ const debtListItem = {
 }
 
 const inf: any = ref({
-  businessMan: '', // 业务人
-  businessTel: '', // 业务人电话
-  debtList: [], // 债务信息
-  otherInfo: '', // 其他资料（提交时需要转 为字符串 英文逗号分割）
+  bankLoan: '', // 银行贷款
+  smallLoan: '', // 小额贷款
+  owedTaxMoney: '', // 已欠税金
+  unSaleMoney: '', // 未售部分核定税金
+  ensureMoney: '', // 对外担保金额
+  ensureCount: '', // 担保人数/企业户数
+  owedWorkerMoney: '', // 欠工人工资
+  workerCount: '', // 工人人数
+  privateLendAmount: '', // 民间借贷金额
+  privateLendCount: '', // 民间借贷人数
+  otherOwed: '', // 其他欠款说明
+  debtAmount: '', // 债务总量统计
+  companyPetition: '', // 企业诉求
+  companyPetitionOther: '', // 企业其他诉求
+  otherInfo: '', // 其他资料
   sign: '', // 签字
 
   last: false, // 是否为上一步
