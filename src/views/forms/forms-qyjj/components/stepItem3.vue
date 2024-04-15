@@ -1,47 +1,47 @@
 <template>
   <div class="list">
-    <van-form ref="vanFormRef" required="auto" label-width="100">
-      <div class="list-item" v-for="(item, index) in inf.debtList" :key="index">
-        <cardVue :title="`债务信息${item.index}`" :leftIconClick="() => delItem(index)">
-          <van-cell-group inset>
-            <pr-picker-van-field v-model="item.debtType" :columns="dictConfigRes.debtType" is-link readonly name="debtType" label="债务性质" placeholder="请选择" :rules="[{ required: true, message: '请选择债务性质' }]" />
-            <van-field type="number" maxlength="12" v-model="item.debtPrincipal" name="debtPrincipal" label="债务本金" placeholder="请输入债务本金" :rules="[{ required: true, message: '请填写债务本金' }]">
-              <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-            </van-field>
-            <van-field type="number" maxlength="12" v-model="item.debtInterest" name="debtInterest" label="利息加罚息" placeholder="请输入利息加罚息" :rules="[{ required: true, message: '请填写利息加罚息' }]">
-              <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-            </van-field>
-            <van-field maxlength="50" v-model="item.debtCreditUser" name="debtCreditUser" label="债权人名称" placeholder="请输入债权人名称" :rules="[{ required: true, message: '请填写债权人名称' }]"> </van-field>
-            <van-field type="number" maxlength="12" v-model="item.overdue" name="overdue" label="逾期时间" placeholder="例：20，表示逾期20个月" :rules="[{ required: true, message: '请填写逾期时间' }]">
-              <template #right-icon> <span style="margin-right: 12px">月</span> </template>
-            </van-field>
-            <van-field type="number" maxlength="12" v-model="item.hockWorth" name="hockWorth" label="可变现价值" placeholder="请输入可变现价值" :rules="[{ required: true, message: '请填写可变现价值' }]">
-              <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-            </van-field>
-            <van-field maxlength="500" class="textarea-bg" show-word-limit label-width="73" label-align="top" type="textarea" v-model="item.hockIntro" name="hockIntro" label="抵押物介绍" placeholder="请输入抵押物介绍" :rules="[{ required: true, message: '请填写抵押物介绍' }]"> </van-field>
-            <pr-picker-van-field v-model="item.jugProcess" :columns="dictConfigRes.jugProcess" is-link readonly name="jugProcess" label="司法程序进度" placeholder="请选择" :rules="[{ required: true, message: '请选择司法程序进度' }]" />
-            <van-field type="number" maxlength="12" v-model="item.debtSurplus" name="debtSurplus" label="剩余债务" placeholder="请输入抵偿后剩余债务" :rules="[{ required: true, message: '请输入抵偿后剩余债务' }]">
-              <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
-            </van-field>
-          </van-cell-group>
-        </cardVue>
-      </div>
+    <van-form ref="vanFormRef" required="auto" label-width="140">
+      <cardVue :collapse="false" title="债务总量">
+        <van-field type="number" maxlength="12" v-model="inf.debtPrincipal" name="debtPrincipal" label="银行贷款" placeholder="请输入银行贷款" :rules="[{ required: true, message: '请填写银行贷款' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="小额贷款" placeholder="请输入小额贷款" :rules="[{ required: true, message: '请填写小额贷款' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="已欠税金" placeholder="请输入已欠税金" :rules="[{ required: true, message: '请填写已欠税金' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="未售部分核定税金" placeholder="请输入未售部分核定税金" :rules="[{ required: true, message: '请填写未售部分核定税金' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="对外担保金额" placeholder="请输入对外担保金额" :rules="[{ required: true, message: '请填写对外担保金额' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="担保人数/企业户数" placeholder="请输入担保人数/企业户数" :rules="[{ required: true, message: '请填写担保人数/企业户数' }]"> </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="欠工人工资" placeholder="请输入欠工人工资" :rules="[{ required: true, message: '请填写欠工人工资' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="工人人数" placeholder="请输入工人人数" :rules="[{ required: true, message: '请填写工人人数' }]"> </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="民间借贷数额" placeholder="请输入民间借贷数额" :rules="[{ required: true, message: '请填写民间借贷数额' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="民间借贷人数" placeholder="请输入民间借贷人数" :rules="[{ required: true, message: '请填写民间借贷人数' }]"> </van-field>
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.hockIntro" name="hockIntro" label="其他欠款说明" placeholder="请输入其他欠款说明" :rules="[{ required: true, message: '请填写其他欠款说明' }]"> </van-field>
+        <van-field type="number" maxlength="12" v-model="inf.debtInterest" name="debtInterest" label="债务总量统计" placeholder="请输入债务总量统计" :rules="[{ required: true, message: '请填写债务总量统计' }]">
+          <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
+        </van-field>
+        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="企业诉求" label="企业诉求" placeholder="点击选择企业诉求" :rules="[{ required: true, message: '请填写企业诉求' }]" />
+        <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.hockIntro" name="hockIntro" label="" placeholder="请输入其他欠款说明" :rules="[{ required: true, message: '请填写其他欠款说明' }]"> </van-field>
+      </cardVue>
       <div style="height: 12px"></div>
-      <van-button v-if="inf.debtList.length <= 10" round block plain type="default" native-type="submit" @click="addItem"><van-icon name="plus" color="rgba(74, 199, 74, 1)" /> <span style="color: rgba(74, 199, 74, 1)">添加债务信息</span> </van-button>
-      <div style="height: 12px"></div>
-      <cardVue :collapse="true" title="其他资料">
+      <cardVue :collapse="false" title="其他资料">
         <pr-uploader-van-field name="otherInfo" label="" v-model="inf.otherInfo" label-align="top"> </pr-uploader-van-field>
         <div class="tip">建议上传大小不超过5M的PNG、JPG格式</div>
       </cardVue>
       <div style="height: 12px"></div>
-      <cardVue :collapse="true" title="信息确认">
+      <cardVue :collapse="false" title="信息确认">
         <van-cell-group inset>
           <pr-signature-van-field v-model="inf.sign" is-link readonly name="sign" label="法定代表签字" placeholder="去签字" :rules="[{ required: true, message: '请法定代表签字' }]"> </pr-signature-van-field>
-          <van-field maxlength="20" v-model="inf.businessMan" name="businessMan" label="业务人" placeholder="请输入业务人名字" :rules="[{ required: true, message: '请填写业务人' }]" />
-          <van-field type="tel" v-model="inf.businessTel" name="businessTel" label="业务人电话" placeholder="请输入业务人电话" :rules="rules.mobile" />
-          <div class="checkbox">
-            <van-checkbox v-model="checked" @change="(e) => emit('checkedChange', e)"> 承诺：(1) 公司即法定代表人自愿填写此信息统计表，并征得全体股东同意。(2) 公司即法定代表人均保证信息的真实性、完整性；理解和同意业务咨询，并承诺风险自担。 </van-checkbox>
-          </div>
         </van-cell-group>
       </cardVue>
     </van-form>

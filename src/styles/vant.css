@@ -27,6 +27,11 @@
   line-height: 1;
 }
 
+.pr-form .required-hide .van-field__label--required::after {
+  position: absolute;
+  opacity: 0;
+}
+
 .pr-form .pr-form-label-text {
   position: relative;
   width: fit-content;
