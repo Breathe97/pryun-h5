@@ -46,3 +46,6 @@
 .pr-form .van-field__right-icon {
   padding: 2px 0;
 }
+.pr-form .van-picker__confirm {
+  color: rgba(74, 199, 74, 1);
+}

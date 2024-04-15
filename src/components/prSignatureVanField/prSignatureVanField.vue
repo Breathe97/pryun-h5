@@ -11,7 +11,7 @@
       </template>
     </van-field>
     <template v-if="visible">
-      <van-popup v-model:show="showPopup" position="bottom">
+      <van-popup v-model:show="showPopup" position="bottom" safe-area-inset-bottom>
         <div class="signature-content">
           <van-signature class="signature-content-view" @submit="onSubmit" />
         </div>

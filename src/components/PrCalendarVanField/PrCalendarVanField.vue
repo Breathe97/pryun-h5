@@ -3,7 +3,7 @@
     <van-field v-bind="attrs" @click="open" v-model="inValue"> </van-field>
     <template v-if="visible || true">
       <!-- <van-calendar v-model:show="showPicker" :min-date="new Date('1970/01/01')" :max-date="new Date()" lazy-render @confirm="selectConfirm" @unselect="close" /> -->
-      <van-popup v-model:show="showPicker" position="bottom">
+      <van-popup v-model:show="showPicker" position="bottom" safe-area-inset-bottom>
         <van-date-picker v-model="currentDate" title="选择日期" :min-date="new Date('1970/01/01')" :max-date="new Date()" @confirm="selectConfirm" @cancel="close" />
       </van-popup>
     </template>
