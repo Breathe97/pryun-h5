@@ -40,7 +40,9 @@ const init = () => {
   }
   document.title = name
   // 对query参数进行处理 加载用户登录信息
-  storeUser.setToken(token as string)
+  if (!storeUser.token) {
+    storeUser.setToken(token as string)
+  }
   storeUser.usersGetInfo()
 }
 init()
