@@ -2,7 +2,7 @@
   <div class="pr-picker-van-field">
     <van-field v-bind="attrs" v-model="inValue" @click="open"> </van-field>
     <template v-if="visible">
-      <van-popup v-model:show="showPicker" position="bottom" safe-area-inset-bottom>
+      <van-popup v-model:show="showPopup" position="bottom" safe-area-inset-bottom>
         <van-picker v-model="pickerVal" :columns="columns" @confirm="selectConfirm" @cancel="close" />
       </van-popup>
     </template>
@@ -36,16 +36,16 @@ const props = defineProps({
 })
 
 const visible = ref(false)
-const showPicker = ref(false)
+const showPopup = ref(false)
 
 const open = async () => {
   visible.value = true
   await nextTick()
-  showPicker.value = true
+  showPopup.value = true
 }
 
 const close = async () => {
-  showPicker.value = false
+  showPopup.value = false
   await nextTick()
   setTimeout(() => {
     visible.value = false

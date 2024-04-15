@@ -2,9 +2,8 @@
   <div class="pr-picker-van-field">
     <van-field v-bind="attrs" v-model="inValue" @click="open"> </van-field>
     <template v-if="visible">
-      <van-popup v-model:show="showPicker" position="bottom" safe-area-inset-bottom>
-        <van-picker v-if="maxSelect === 1" v-model="pickerVal" :columns="columns" @confirm="selectConfirm" @cancel="close" />
-        <div v-else class="select-multiple">
+      <van-popup v-model:show="showPopup" position="bottom" safe-area-inset-bottom>
+        <div class="select-multiple">
           <div class="van-picker__toolbar">
             <button class="van-picker__cancel van-haptics-feedback" @click="close">取消</button>
             <div class="van-picker__title van-ellipsis">请选择</div>
@@ -51,21 +50,20 @@ const props = defineProps({
     type: [Number],
     require: false,
     default: () => 1
-  },
-  
+  }
 })
 
 const visible = ref(false)
-const showPicker = ref(false)
+const showPopup = ref(false)
 
 const open = async () => {
   visible.value = true
   await nextTick()
-  showPicker.value = true
+  showPopup.value = true
 }
 
 const close = async () => {
-  showPicker.value = false
+  showPopup.value = false
   await nextTick()
   setTimeout(() => {
     visible.value = false
