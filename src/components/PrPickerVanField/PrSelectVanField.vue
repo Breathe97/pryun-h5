@@ -1,8 +1,8 @@
 <template>
-  <div class="pr-select-van-field">
+  <div class="pr-picker-van-field">
     <van-field v-bind="attrs" v-model="inValue" @click="open"> </van-field>
     <template v-if="visible">
-      <van-popup v-model:show="showPicker" position="bottom">
+      <van-popup v-model:show="showPicker" position="bottom" safe-area-inset-bottom>
         <van-picker v-model="pickerVal" :columns="columns" @confirm="selectConfirm" @cancel="close" />
       </van-popup>
     </template>
@@ -22,17 +22,17 @@ const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean],
     require: true,
-    default: () => '',
+    default: () => ''
   },
   columns: {
     type: [Array<Type_column>],
     require: true,
-    default: () => [],
+    default: () => []
   },
   showKey: {
     type: [String],
-    default: () => 'text',
-  },
+    default: () => 'text'
+  }
 })
 
 const visible = ref(false)
@@ -90,7 +90,7 @@ watch(
   () => propsObj.value,
   (a) => init(a),
   {
-    immediate: true,
+    immediate: true
   }
 )
 </script>

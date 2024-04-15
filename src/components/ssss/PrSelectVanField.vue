@@ -1,5 +1,5 @@
 <template>
-  <div class="pr-select-van-field">
+  <div class="pr-picker-van-field">
     <van-field v-bind="attrs" v-model="inValue" @click="open"> </van-field>
     <template v-if="visible">
       <van-popup v-model:show="showPicker" position="bottom" safe-area-inset-bottom>

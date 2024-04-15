@@ -9,7 +9,7 @@
         <van-field maxlength="20" v-model="inf.corpUser" name="法定代表人" label="法定代表人" placeholder="请输入法定代表人" :rules="[{ required: true, message: '请填写法定代表人' }]" />
         <van-field type="tel" v-model="inf.corpMobile" name="联系电话" label="联系电话" placeholder="请输入联系电话" :rules="rules.mobile" />
         <van-field v-model="inf.corpCardNo" name="身份证号" label="身份证号" placeholder="请输入身份证号" :rules="rules.idCard" />
-        <pr-select-van-field v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" is-link readonly name="法人征信情况" label="法人征信情况" placeholder="点击选择征信情况" :rules="[{ required: true, message: '请填写法人征信情况' }]" />
+        <pr-picker-van-field v-model="inf.corpCredit" :columns="dictConfigRes.corpCredit" :max-select="3" is-link readonly name="法人征信情况" label="法人征信情况" placeholder="点击选择征信情况" :rules="[{ required: true, message: '请填写法人征信情况' }]" />
         <van-field v-model="inf.contactUser" name="联系人" label="联系人" placeholder="请输入联系人" :rules="[{ required: true, message: '请填写联系人' }]" />
         <van-field type="tel" v-model="inf.contactMobile" name="联系人电话" label="联系人电话" placeholder="请输入联系人电话" :rules="rules.mobile" />
       </van-cell-group>

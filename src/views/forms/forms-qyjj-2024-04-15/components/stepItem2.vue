@@ -2,14 +2,14 @@
   <cardVue :collapse="false" title="企业简介">
     <van-form ref="vanFormRef" required="auto" label-width="100">
       <van-cell-group inset>
-        <pr-select-van-field v-model="inf.companyAttr" :columns="dictConfigRes.companyAttr" is-link readonly name="企业属性" label="企业属性" placeholder="请选择" :rules="[{ required: true, message: '请选择企业属性' }]" />
-        <pr-select-van-field v-model="inf.isProceed" :columns="dictConfigRes.isProceed" is-link readonly name="企业涉诉情况" label="企业涉诉情况" placeholder="请选择" :rules="[{ required: true, message: '请选择企业涉诉情况' }]" />
-        <pr-select-van-field v-model="inf.businessStatus" :columns="dictConfigRes.businessStatus" is-link readonly name="经营状况" label="经营状况" placeholder="请选择" :rules="[{ required: true, message: '请选择经营状况' }]" />
+        <pr-picker-van-field v-model="inf.companyAttr" :columns="dictConfigRes.companyAttr" is-link readonly name="企业属性" label="企业属性" placeholder="请选择" :rules="[{ required: true, message: '请选择企业属性' }]" />
+        <pr-picker-van-field v-model="inf.isProceed" :columns="dictConfigRes.isProceed" is-link readonly name="企业涉诉情况" label="企业涉诉情况" placeholder="请选择" :rules="[{ required: true, message: '请选择企业涉诉情况' }]" />
+        <pr-picker-van-field v-model="inf.businessStatus" :columns="dictConfigRes.businessStatus" is-link readonly name="经营状况" label="经营状况" placeholder="请选择" :rules="[{ required: true, message: '请选择经营状况' }]" />
         <van-field type="number" maxlength="12" v-model="inf.registerMoney" name="注册资本" label="注册资本" placeholder="请输入注册资本" :rules="[{ required: true, message: '请填写注册资本' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <pr-select-van-field v-model="inf.payType" :columns="dictConfigRes.payType" is-link readonly name="缴纳方式" label="缴纳方式" placeholder="请选择" :rules="[{ required: true, message: '请选择缴纳方式' }]" />
-        <pr-select-van-field v-model="inf.industrialNature" :columns="dictConfigRes.industrialNature" is-link readonly name="产业性质" label="产业性质" placeholder="请选择" :rules="[{ required: true, message: '请选择产业性质' }]" />
+        <pr-picker-van-field v-model="inf.payType" :columns="dictConfigRes.payType" is-link readonly name="缴纳方式" label="缴纳方式" placeholder="请选择" :rules="[{ required: true, message: '请选择缴纳方式' }]" />
+        <pr-picker-van-field v-model="inf.industrialNature" :columns="dictConfigRes.industrialNature" is-link readonly name="产业性质" label="产业性质" placeholder="请选择" :rules="[{ required: true, message: '请选择产业性质' }]" />
         <van-field type="number" maxlength="12" v-model="inf.totalAssets" name="企业总资产" label="企业总资产" placeholder="请输入企业总资产" :rules="[{ required: true, message: '请填写企业总资产' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
