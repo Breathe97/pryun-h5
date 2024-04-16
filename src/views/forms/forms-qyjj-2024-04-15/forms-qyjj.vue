@@ -122,35 +122,32 @@ const init = async () => {
     await orderDetailGet(orderId) // 获取订单详情
   }
 
-  // 尝试获取进件详情
-  {
-    const { caseInId } = orderDetail.value
-
-    // 如果进件id不存在 需要先生成一个进件id
-    if (!caseInId) {
-      await api.step1Post({ data: { orderId } }) // 通过报错一个空的数据来获取一个进件id
-      await orderDetailGet(orderId) // 再次获取订单详情
-    }
-
-    // 获取页面所需选项数据
-    await dictConfigGet()
-
-    // 如果是预览模式
-    if (props.isPreview) {
-      stepsIndex.value = 3
-      loading.value = false
-      return
-    }
-
-    // 查询当前进件填写状态
-    await getDetail(caseInId, ['status']).then((res: any) => {
-      const { status = '' } = res
-      let index = status.replace('STEP', '')
-      index = Math.max(index - 1, 0)
-      stepsIndex.value = index
-      loading.value = false
-    })
+  // 如果进件id不存在 需要先生成一个进件id
+  if (!caseInId) {
+    const { data = '' } = await api.step1Post({ data: { orderId } }) // 通过保存一个空的数据来获取一个进件id
+    orderDetail.value.caseInId = data
   }
+
+  // 获取页面所需选项数据
+  await dictConfigGet()
+
+  // 如果是预览模式
+  if (props.isPreview) {
+    stepsIndex.value = 3
+    loading.value = false
+    return
+  }
+
+  // 查询当前进件填写状态
+  await getDetail(orderDetail.value.caseInId, ['status']).then((res: any) => {
+    const { status = '' } = res
+    let index = status.replace('STEP', '')
+    index = Math.max(index - 1, 0)
+    stepsIndex.value = index
+    // stepsIndex.value = 1
+    // stepsIndex.value = 2
+    loading.value = false
+  })
 }
 init()
 
