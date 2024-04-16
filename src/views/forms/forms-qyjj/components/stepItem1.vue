@@ -91,6 +91,7 @@ const init = async () => {
   let keys = Object.keys(inf.value)
   let obj: any = await getDetail(props.orderDetail.caseInId, keys)
   obj.orderId = props.orderDetail?.orderId
+  console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:obj`, obj);
   inf.value = { ...inf.value, ...obj }
 }
 init()

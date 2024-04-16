@@ -82,7 +82,7 @@ const selectValue = ref<Type_column[]>([])
 
 const showVal = ref('') // 用户看到的数值
 
-const selectConfirm = (e: any) => {
+const selectConfirm = (changeEmit = true) => {
   const { splitInStr, splitOutStr } = props
   let arr = selectValue.value
   let str_true = Array.from(arr, (item: any) => item.value).join(splitInStr) // 真实数值
@@ -91,24 +91,32 @@ const selectConfirm = (e: any) => {
   if (str_false.length >= 16) {
     str_false = `${str_false.slice(0, 9)}等...${arr.length}项`
   }
-
   showVal.value = str_false
-  emit('update:modelValue', str_true)
-  close()
+
+  if (changeEmit) {
+    emit('update:modelValue', str_true)
+    close()
+  }
 }
 
 const init = async (newProps: any = {}) => {
   await nextTick()
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newProps`, newProps)
-  const { modelValue, splitInStr, columns = [] } = newProps
-  let vals = modelValue.split(splitInStr) || []
+  const { modelValue = '', splitInStr, columns = [] } = newProps
+  let vals = modelValue.split(splitInStr)
+  if (vals.length == 1 && vals[0] === '') {
+    vals = [modelValue]
+  }
   let arr = []
   for (const item of columns) {
-    if (vals.includes(item.val)) {
+    let isSelected = vals.includes(item.value)
+    if (isSelected) {
       arr.push(item)
     }
   }
+  // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:arr`, arr)
   selectValue.value = arr
+  selectConfirm(false)
 }
 
 // 选择某一行
