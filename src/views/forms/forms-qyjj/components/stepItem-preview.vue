@@ -94,10 +94,8 @@ const init = async () => {
   }
   {
     const { companyBuildNature1, companyBuildNature2 } = obj
-    let row = [
-      { text: '企业建筑性质 - 工业', value: mapValue(companyBuildNature1, 'companyBuildNature1') },
-      { text: '企业建筑性质 - 房地产', value: mapValue(companyBuildNature2, 'companyBuildNature2') }
-    ]
+    let html = `<div><div>工业: ${mapValue(companyBuildNature1, 'companyBuildNature1')}</div><div>房地产: ${mapValue(companyBuildNature2, 'companyBuildNature2')}</div></div>`
+    let row = [{ text: '企业建筑性质', value: html }]
     cells.value.push(row)
   }
   {
@@ -122,16 +120,10 @@ const init = async () => {
     cells.value.push(row)
   }
   {
-    const { thisYearIncome, thisYearProfit } = obj
+    const { thisYearIncome, thisYearProfit, rentRate, rentMoney } = obj
+    let html = `<div><div>经营毛利: ${thisYearIncome}</div><div>经营净利: ${thisYearProfit}</div></div>`
     let row = [
-      { text: '目前营业额（年） 毛利', value: thisYearIncome },
-      { text: '目前营业额（年） 净利', value: thisYearProfit }
-    ]
-    cells.value.push(row)
-  }
-  {
-    const { rentRate, rentMoney } = obj
-    let row = [
+      { text: '目前营业额（年）', value: html, style: { flex: '2' } },
       { text: '租赁比（年）', value: rentRate },
       { text: '租赁金额（年）', value: rentMoney }
     ]

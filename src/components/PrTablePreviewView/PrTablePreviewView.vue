@@ -2,9 +2,9 @@
   <div class="pr-table-preview-view no-px2vw" ref="prTablePreviewViewRef">
     <div class="preview-view-content">
       <div class="cell-row" v-for="(row, rowIndex) in cells" :index="rowIndex">
-        <div class="cell-row-col" v-for="(col, colIndex) in row" :key="colIndex">
-          <span v-if="col.text" class="cell-item-text" :style="[col.textStyle || {}]">{{ col.text }}</span>
-          <span class="cell-item-value" :style="[col.valueStyle || {}]">{{ col.value || '' }} </span>
+        <div class="cell-row-col" :style="[col.style || {}]" v-for="(col, colIndex) in row" :key="colIndex">
+          <div v-if="col.text" class="cell-item-text" :style="[col.textStyle || {}]">{{ col.text }}</div>
+          <div class="cell-item-value" :style="[col.valueStyle || {}]" v-html="col.value"></div>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@ import type { PropType } from 'vue'
 
 const prTablePreviewViewRef = ref()
 
-type Type_col = { text: string; value: any; textStyle?: {}; valueStyle?: {} }
+type Type_col = { text: string; value: any; style?: {}; textStyle?: {}; valueStyle?: {} }
 
 defineProps({
   cells: {
@@ -95,6 +95,7 @@ const Style = computed(() => {
           font-weight: bold;
         }
         .cell-item-value {
+          min-width: 40%;
           flex: 1;
           width: 0;
           margin-left: 0.5px;
