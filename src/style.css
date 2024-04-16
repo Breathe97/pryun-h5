@@ -1,0 +1,31 @@
+@import './styles/color.css';
+@import './styles/color_dark.css';
+@import './styles/scrollbar.css';
+@import './styles/icon.css';
+@import './styles/vant.css';
+
+html {
+  user-select: none;
+  font-size: 14px;
+  width: 100vw;
+  height: -webkit-fill-available;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: -webkit-fill-available; /* mobile viewport bug fix */
+  overflow-y: overlay;
+  font-size: 14px;
+}
+
+/* 高斯模糊 */
+.g-blur {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* 底部安全距离 */
+.safe-area-inset-bottom {
+  padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
+}

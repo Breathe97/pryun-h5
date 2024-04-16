@@ -1,0 +1,85 @@
+.pr-form {
+  --van-cell-group-inset-padding: 0;
+  --van-button-border-width: 0;
+  --van-button-primary-background: rgba(74, 199, 74, 1);
+  --van-primary-color: rgba(74, 199, 74, 1);
+}
+.pr-form .van-field__label--required {
+  position: relative;
+}
+
+.pr-form .van-field__label--required::before,
+.pr-form .van-field--label-top .van-field__label--required::after {
+  position: absolute;
+  opacity: 0;
+}
+
+.pr-form .van-field__label--required::after,
+.pr-form .van-field--label-top .van-field__label--required .pr-form-label-text::after {
+  color: var(--van-field-required-mark-color);
+  position: relative;
+  content: '*';
+  font-size: 20px;
+  pointer-events: none;
+  right: -2px;
+  top: 5px;
+  width: fit-content;
+  line-height: 1;
+}
+
+.pr-form .required-hide .van-field__label--required::after {
+  position: absolute;
+  opacity: 0;
+}
+
+.pr-form .pr-form-label-text {
+  position: relative;
+  width: fit-content;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.pr-form .pr-form-tip-text {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 18px;
+  opacity: 0.5;
+  width: fit-content;
+}
+
+.pr-form .textarea-bg .van-field__control {
+  padding: 12px;
+  background-color: rgba(246, 246, 246, 1);
+  border-radius: 8px;
+}
+.pr-form .van-field__label {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.pr-form .textarea-bg .van-field__word-limit {
+  position: absolute;
+  right: 12px;
+  top: 44px;
+  pointer-events: none;
+}
+.pr-form .van-calendar__selected-day {
+  background: rgba(74, 199, 74, 1);
+}
+/* 修复对不齐 */
+.pr-form .van-field__control {
+  padding: 2px 0;
+}
+.pr-form .van-cell__right-icon::after {
+  padding: 2px 0;
+}
+.pr-form .van-cell__right-icon::before {
+  padding: 2px 0;
+}
+.pr-form .van-field__right-icon {
+  padding: 2px 0;
+}
+.pr-form .van-picker__confirm {
+  color: rgba(74, 199, 74, 1);
+}
