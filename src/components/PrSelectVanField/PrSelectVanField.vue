@@ -114,11 +114,16 @@ const init = async (newProps: any = {}) => {
 // 选择某一行
 const selectRow = (row: any) => {
   let arr = JSON.parse(JSON.stringify(selectValue.value))
+  const { multipleNum } = props
+  if (multipleNum === 1) {
+    selectValue.value = [row]
+    return
+  }
   let index = arr.findIndex((item: any) => item.value === row.value)
   if (index !== -1) {
     arr.splice(index, 1)
   } else {
-    if (arr.length >= props.multipleNum && props.multipleNum !== 0) return
+    if (arr.length >= multipleNum && multipleNum !== 0) return
     arr.push(row)
   }
   selectValue.value = arr
@@ -162,8 +167,9 @@ watch(
 
 .list {
   border-top: 0.5px solid #f0f0f0;
-  max-height: 400px;
+  max-height: 60vh;
   min-height: 200px;
+  overflow-y: auto;
 }
 .row {
   padding: 0 20px;

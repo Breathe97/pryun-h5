@@ -30,7 +30,7 @@
         <van-field type="number" maxlength="12" v-model="inf.debtAmount" name="debtAmount" label="债务总量统计" placeholder="请输入债务总量统计" :rules="[{ required: true, message: '请填写债务总量统计' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>
-        <PrSelectVanField v-model="inf.corpCredit" :columns="dictConfigRes.companyPetition" is-link readonly name="companyPetition" label="企业诉求" placeholder="点击选择企业诉求" :rules="[{ required: true, message: '请填写企业诉求' }]" />
+        <PrSelectVanField :multipleNum="0" v-model="inf.corpCredit" :columns="dictConfigRes.companyPetition" is-link readonly name="companyPetition" label="企业诉求" placeholder="点击选择企业诉求" :rules="[{ required: true, message: '请填写企业诉求' }]" />
         <van-field maxlength="500" class="textarea-bg" show-word-limit label-align="top" type="textarea" v-model="inf.companyPetitionOther" name="companyPetitionOther" label="" placeholder="请输入其他欠款说明" :rules="[{ required: true, message: '请填写其他欠款说明' }]"> </van-field>
       </cardVue>
       <div style="height: 12px"></div>
