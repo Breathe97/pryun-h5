@@ -12,32 +12,20 @@ export const rules = {
   ]
 }
 
-// 定义转换规则
-const mapValue: any = {
-  companyAttr: 'companyType',
-  corpCredit: 'creditType',
-  businessStatus: 'businessStatus',
-  industrialNature: 'industrialType',
-  isProceed: '',
-  payType: 'payType',
-  debtType: 'debtType',
-  jugProcess: 'jugProcess'
-}
-
 export const dictConfigRes: any = {
   // 第一步
-  corpCredit: [], // 法人征信情况（提交时需要转为 KEY）
+  corpCredit: { columns: [], name: '法人征信情况', targetKey: 'creditType' },
 
   // 第二步
-  companyAttr: [], // 企业属性（提交时需要转为 KEY）
-  businessStatus: [], // 企业经营状况（提交时需要转为 KEY）
-  industrialNature: [], // 产业性质（提交时需要转为 KEY）
-  isProceed: [], // 企业涉诉情况（提交时需要转为 boolean）
-  payType: [], // 缴纳方式（提交时需要转为 KEY）
+  companyAttr: { columns: [], name: '企业属性', targetKey: 'companyType' },
+  businessStatus: { columns: [], name: '企业经营状况', targetKey: 'businessStatus' },
+  industrialNature: { columns: [], name: '产业性质', targetKey: 'industrialType' },
+  isProceed: { columns: [], name: '企业涉诉情况', targetKey: '' },
+  payType: { columns: [], name: '缴纳方式', targetKey: 'payType' },
 
   // 第三步
-  debtType: [], // 债务性质（提交时需要转为 KEY）
-  jugProcess: [] // 司法程序进展（提交时需要转为 KEY）
+  debtType: { columns: [], name: '债务性质', targetKey: 'debtType' },
+  jugProcess: { columns: [], name: '司法程序进展', targetKey: 'jugProcess' }
 }
 
 // 获取字典表

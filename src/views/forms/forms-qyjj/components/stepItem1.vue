@@ -10,10 +10,11 @@
         <van-field maxlength="200" v-model="inf.projectAddr" name="projectAddr" label="项目地址" placeholder="项目地址（省/市/区/门牌号）" :rules="[{ required: true, message: '请填写项目地址' }]" />
         <van-field maxlength="20" v-model="inf.corpUser" name="corpUser" label="法人/实际控制人" placeholder="请输入法人/实际控制人" :rules="[{ required: true, message: '请填写法人/实际控制人' }]" />
         <van-field maxlength="12" type="tel" v-model="inf.corpMobile" name="corpMobile" label="联系方式" placeholder="请输入联系方式" :rules="rules.mobile" />
-        <PrSelectVanField :multipleNum="1" v-model="inf.ownership" :columns="dictConfigRes.ownership" is-link readonly name="ownership" label="股权情况" placeholder="点击选择股权情况" :rules="[{ required: true, message: '请填写股权情况' }]" />
-        <PrSelectVanField :multipleNum="1" v-model="inf.landNature" :columns="dictConfigRes.landNature" is-link readonly name="landNature" label="土地性质" placeholder="点击选择土地性质" :rules="[{ required: true, message: '请填写土地性质' }]" />
-        <PrSelectVanField :multipleNum="1" v-model="inf.companyBuildNature1" :columns="dictConfigRes.companyBuildNature1" is-link readonly name="companyBuildNature1" label="企业建筑性质" placeholder="点击选择工业类型" :rules="[{ required: true, message: '请填写工业类型' }]" />
-        <PrSelectVanField :multipleNum="1" class="required-hide" v-model="inf.corpCredit" :columns="dictConfigRes.companyBuildNature2" is-link readonly name="companyBuildNature2" label=" " placeholder="点击选择房地产类型" :rules="[{ required: true, message: '请填写房地产类型' }]" />
+        <PrSelectVanField :multipleNum="1" v-model="inf.ownership" :columns="dictConfigRes.ownership.columns" is-link readonly name="ownership" label="股权情况" placeholder="点击选择股权情况" :rules="[{ required: true, message: '请填写股权情况' }]" />
+        <PrSelectVanField :multipleNum="1" v-model="inf.landNature" :columns="dictConfigRes.landNature.columns" is-link readonly name="landNature" label="土地性质" placeholder="点击选择土地性质" :rules="[{ required: true, message: '请填写土地性质' }]" />
+        <PrSelectVanField :multipleNum="0" v-model="inf.landUseNature" :columns="dictConfigRes.landUseNature.columns" is-link readonly name="landUseNature" label="土地使用性质" placeholder="点击选择土地使用性质" :rules="[{ required: true, message: '请填写土地使用性质' }]" />
+        <PrSelectVanField :multipleNum="1" v-model="inf.companyBuildNature1" :columns="dictConfigRes.companyBuildNature1.columns" is-link readonly name="companyBuildNature1" label="企业建筑性质" placeholder="点击选择工业类型" :rules="[{ required: true, message: '请填写工业类型' }]" />
+        <PrSelectVanField :multipleNum="1" class="required-hide" v-model="inf.corpCredit" :columns="dictConfigRes.companyBuildNature2.columns" is-link readonly name="companyBuildNature2" label=" " placeholder="点击选择房地产类型" :rules="[{ required: true, message: '请填写房地产类型' }]" />
         <van-field maxlength="12" type="number" v-model="inf.landArea" name="landArea" label="土地面积" placeholder="请输入土地面积" :rules="[{ required: true, message: '请填写土地面积' }]">
           <template #right-icon>
             <span style="margin-right: 12px">M <sup>2</sup> </span>
@@ -21,8 +22,8 @@
         </van-field>
         <van-field maxlength="100" v-model="inf.landUnit" name="landUnit" label="土地所属单位" placeholder="请输入土地所属单位" :rules="[{ required: true, message: '请填写土地所属单位' }]" />
         <van-field maxlength="20" v-model="inf.owner" name="owner" label="产权人" placeholder="请输入产权人" :rules="[{ required: true, message: '请填写产权人' }]" />
-        <PrSelectVanField :multipleNum="1" v-model="inf.companyCurrInfo" :columns="dictConfigRes.companyCurrInfo" is-link readonly name="companyCurrInfo" label="公司目前情况" placeholder="点击选择公司目前情况" :rules="[{ required: true, message: '请填写公司目前情况' }]" />
-        <PrSelectVanField :multipleNum="1" v-model="inf.lawCategory" :columns="dictConfigRes.lawCategory" is-link readonly name="lawCategory" label="司法类别" placeholder="点击选择司法类别" :rules="[{ required: true, message: '请填写司法类别' }]" />
+        <PrSelectVanField :multipleNum="1" v-model="inf.companyCurrInfo" :columns="dictConfigRes.companyCurrInfo.columns" is-link readonly name="companyCurrInfo" label="公司目前情况" placeholder="点击选择公司目前情况" :rules="[{ required: true, message: '请填写公司目前情况' }]" />
+        <PrSelectVanField :multipleNum="1" v-model="inf.lawCategory" :columns="dictConfigRes.lawCategory.columns" is-link readonly name="lawCategory" label="司法类别" placeholder="点击选择司法类别" :rules="[{ required: true, message: '请填写司法类别' }]" />
         <van-field v-model="inf.thisYearIncome" name="thisYearIncome" label="目前营业额(年)" placeholder="请输入经营毛利" :rules="[{ required: true, message: '请输入经营毛利' }]">
           <template #right-icon> <span style="margin-right: 12px">万元</span> </template>
         </van-field>

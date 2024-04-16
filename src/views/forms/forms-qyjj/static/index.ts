@@ -12,33 +12,18 @@ export const rules = {
   ]
 }
 
-// 定义转换规则
-const mapValue: any = {
-  // 第一步
-  ownership: 'ownership',
-  landNature: 'landNature',
-  landUseNature: 'landUseNature',
-  companyBuildNature1: 'buildType1',
-  companyBuildNature2: 'buildType2',
-  companyCurrInfo: 'companyInfo',
-  lawCategory: 'layType',
-
-  // 第三步
-  companyPetition: 'companyPetition'
-}
-
 export const dictConfigRes: any = {
   // 第一步
-  ownership: [], // 股权情况
-  landNature: [], // 土地性质
-  landUseNature: [], // 土地使用性质
-  companyBuildNature1: [], // 企业建筑性质 - 工业
-  companyBuildNature2: [], // 企业建筑性质 - 房地产
-  companyCurrInfo: '', // 公司目前情况
-  lawCategory: '', // 司法类别
+  ownership: { columns: [], name: '股权情况', targetKey: 'ownership' },
+  landNature: { columns: [], name: '土地性质', targetKey: 'landNature' },
+  landUseNature: { columns: [], name: '土地使用性质', targetKey: 'landUseNature' },
+  companyBuildNature1: { columns: [], name: '企业建筑性质 - 工业', targetKey: 'buildType1' },
+  companyBuildNature2: { columns: [], name: '企业建筑性质 - 房地产', targetKey: 'buildType2' },
+  companyCurrInfo: { columns: [], name: '公司目前情况', targetKey: 'companyInfo' },
+  lawCategory: { columns: [], name: '司法类别', targetKey: 'layType' },
 
   // 第三步
-  companyPetition: [] // 企业诉求
+  companyPetition: { columns: [], name: '企业诉求', targetKey: 'companyPetition' }
 }
 
 // 获取字典表
@@ -74,8 +59,8 @@ export const dictConfigGet = async () => {
     // 生成 dictConfigRes
     const keys = Object.keys(dictConfigRes)
     for (const key of keys) {
-      let targetKey = mapValue[key] || key
-      dictConfigRes[key] = data[targetKey] || defaultArr
+      const { targetKey = key } = dictConfigRes[key]
+      dictConfigRes[key]['columns'] = data[targetKey] || defaultArr
     }
     // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:dictConfigRes`, dictConfigRes)
   })
