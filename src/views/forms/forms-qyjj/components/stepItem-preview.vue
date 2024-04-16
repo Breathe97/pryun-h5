@@ -25,10 +25,10 @@ const props = defineProps({
 
 type Type_col = { text: string; value: any; textStyle?: {}; valueStyle?: {} }
 
-// 企业债务纾困信息登记表
+// 企业项目申报表
 const cells = ref<Array<Type_col[]>>([
   // 行
-  [{ text: '', value: '企业债务纾困信息登记表', valueStyle: { 'font-size': '12px', 'font-weight': 'bold' } }]
+  [{ text: '', value: '企业项目申报表', valueStyle: { 'font-size': '12px', 'font-weight': 'bold' } }]
 ])
 
 const detail: any = ref({
@@ -48,137 +48,193 @@ const init = async () => {
   obj.orderId = props.orderDetail?.orderId
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:obj`, obj)
   {
-    const { companyName, companyCreditCode } = obj
+    const { companyName, companyAddr } = obj
     let row = [
-      { text: '企业名称', value: companyName },
-      { text: '统一社会信用代码', value: companyCreditCode }
+      { text: '提交机构', value: companyName },
+      { text: '机构地址', value: companyAddr }
     ]
     cells.value.push(row)
   }
 
   {
-    const { companyAddr, companyRegisterAt } = obj
+    const { projectName, projectAddr } = obj
     let row = [
-      { text: '公司地址', value: companyAddr },
-      { text: '注册时间', value: companyRegisterAt }
+      { text: '项目单位名称', value: projectName },
+      { text: '项目地址', value: projectAddr }
     ]
     cells.value.push(row)
   }
   {
     const { corpUser, corpMobile } = obj
     let row = [
-      { text: '法定代表人姓名', value: corpUser },
+      { text: '法人姓名', value: corpUser },
       { text: '法定代表人电话', value: corpMobile }
     ]
     cells.value.push(row)
   }
   {
-    const { corpCardNo, corpCredit } = obj
+    const { ownership } = obj
+    let row = [{ text: '股权情况', value: mapValue(ownership, 'ownership') }]
+    cells.value.push(row)
+  }
+  {
+    const { landNature } = obj
+    let row = [{ text: '土地性质', value: mapValue(landNature, 'landNature') }]
+    cells.value.push(row)
+  }
+  {
+    const { landUseNature } = obj
+    let row = [{ text: '土地使用性质', value: mapValue(landUseNature, 'landUseNature') }]
+    cells.value.push(row)
+  }
+  {
+    const { companyBuildNature1, companyBuildNature2 } = obj
     let row = [
-      { text: '法定代表人身份证号', value: corpCardNo },
-      { text: '法人征信情况', value: mapValue(corpCredit, 'corpCredit') }
+      { text: '企业建筑性质 - 工业', value: mapValue(companyBuildNature1, 'companyBuildNature1') },
+      { text: '企业建筑性质 - 房地产', value: mapValue(companyBuildNature2, 'companyBuildNature2') }
     ]
     cells.value.push(row)
   }
   {
-    const { contactUser, contactMobile } = obj
+    const { landArea, landUnit } = obj
     let row = [
-      { text: '联系人', value: contactUser },
-      { text: '联系人电话', value: contactMobile }
+      { text: '土地面积', value: landArea },
+      { text: '土地所属单位', value: landUnit }
     ]
     cells.value.push(row)
   }
   {
-    let row = [{ text: '', value: '企业简介', valueStyle: { 'font-size': '10px' } }]
-    cells.value.push(row)
-  }
-  {
-    const { companyAttr, isProceed, businessStatus } = obj
+    const { owner, companyCurrInfo } = obj
     let row = [
-      { text: '企业属性', value: mapValue(companyAttr, 'companyAttr') },
-      { text: '企业涉诉情况', value: mapValue(isProceed, 'isProceed') },
-      { text: '企业经营状况', value: mapValue(businessStatus, 'businessStatus') }
-    ]
-    cells.value.push(row)
-  }
-
-  {
-    const { registerMoney, payType, industrialNature } = obj
-    let row = [
-      { text: '注册资本', value: registerMoney },
-      { text: '缴纳方式', value: mapValue(payType, 'payType') },
-      { text: '产业性质', value: mapValue(industrialNature, 'industrialNature') }
+      { text: '产权人', value: owner },
+      { text: '公司目前情况', value: mapValue(companyCurrInfo, 'companyCurrInfo') }
     ]
     cells.value.push(row)
   }
   {
-    const { totalAssets, totalDebt, totalProceed } = obj
+    const { lawCategory } = obj
+    let row = [{ text: '司法类别', value: mapValue(lawCategory, 'lawCategory') }]
+    cells.value.push(row)
+  }
+  {
+    const { thisYearIncome, thisYearProfit } = obj
     let row = [
-      { text: '企业总资产', value: totalAssets },
-      { text: '企业总负债', value: totalDebt },
-      { text: '诉讼总金额', value: totalProceed }
+      { text: '目前营业额（年） 毛利', value: thisYearIncome },
+      { text: '目前营业额（年） 净利', value: thisYearProfit }
     ]
     cells.value.push(row)
   }
   {
-    const { lastYearIncome, lastYearTax, lastYearProfit } = obj
+    const { rentRate, rentMoney } = obj
     let row = [
-      { text: '上年度营收', value: lastYearIncome },
-      { text: '上年度纳税', value: lastYearTax },
-      { text: '上年度净利润', value: lastYearProfit }
+      { text: '租赁比（年）', value: rentRate },
+      { text: '租赁金额（年）', value: rentMoney }
     ]
     cells.value.push(row)
   }
   {
-    const { businessScopes } = obj
-    let row = [{ text: '主营业务描述', value: businessScopes }]
+    let row = [{ text: '', value: '资产总量', valueStyle: { 'font-size': '10px' } }]
     cells.value.push(row)
   }
-
   {
-    const { debtList = [] } = obj
-    for (const [index, debtItem] of debtList.entries()) {
-      {
-        let row = [{ text: '', value: `债务信息(${index + 1})`, valueStyle: { 'font-size': '10px' } }]
-        cells.value.push(row)
-      }
-
-      {
-        const { debtType, debtPrincipal, debtInterest } = debtItem
-        let row = [
-          { text: '债务性质', value: mapValue(debtType, 'debtType') },
-          { text: '债务本金', value: debtPrincipal },
-          { text: '利息加罚息', value: debtInterest }
-        ]
-        cells.value.push(row)
-      }
-      {
-        const { debtCreditUser, overdue } = debtItem
-        let row = [
-          { text: '债权人名称', value: debtCreditUser },
-          { text: '逾期时间', value: overdue }
-        ]
-        cells.value.push(row)
-      }
-      {
-        const { hockIntro, hockWorth } = debtItem
-        let row = [
-          { text: '抵押物介绍', value: hockIntro },
-          { text: '抵押物可变现价值', value: hockWorth }
-        ]
-        cells.value.push(row)
-      }
-      {
-        const { jugProcess, debtSurplus } = debtItem
-        let row = [
-          { text: '司法程序进展', value: mapValue(jugProcess, 'jugProcess') },
-          { text: '抵偿后剩余债务', value: debtSurplus }
-        ]
-        cells.value.push(row)
-      }
-    }
+    const { unMoveAssets } = obj
+    let row = [{ text: '不动产说明', value: unMoveAssets }]
+    cells.value.push(row)
   }
-
+  {
+    const { fixedAssets } = obj
+    let row = [{ text: '固定资产说明', value: fixedAssets }]
+    cells.value.push(row)
+  }
+  {
+    const { flowAssets } = obj
+    let row = [{ text: '流动资产说明', value: flowAssets }]
+    cells.value.push(row)
+  }
+  {
+    const { invisibleAssets } = obj
+    let row = [{ text: '无形资产', value: invisibleAssets }]
+    cells.value.push(row)
+  }
+  {
+    const { fixedAssetsTotal } = obj
+    let row = [{ text: '固定资产总价', value: fixedAssetsTotal }]
+    cells.value.push(row)
+  }
+  {
+    const { flowAssetsTotal } = obj
+    let row = [{ text: '流动/无形资产总价', value: flowAssetsTotal }]
+    cells.value.push(row)
+  }
+  {
+    const { totalAssets } = obj
+    let row = [{ text: '资产合计', value: totalAssets }]
+    cells.value.push(row)
+  }
+  {
+    let row = [{ text: '', value: '债务总量', valueStyle: { 'font-size': '10px' } }]
+    cells.value.push(row)
+  }
+  {
+    const { bankLoan, smallLoan } = obj
+    let row = [
+      { text: '银行贷款', value: bankLoan },
+      { text: '小额贷款', value: smallLoan }
+    ]
+    cells.value.push(row)
+  }
+  {
+    const { owedTaxMoney, unSaleMoney } = obj
+    let row = [
+      { text: '已欠税金', value: owedTaxMoney },
+      { text: '未售部分核定税金', value: unSaleMoney }
+    ]
+    cells.value.push(row)
+  }
+  {
+    const { ensureMoney, ensureCount } = obj
+    let row = [
+      { text: '对外担保金额', value: ensureMoney },
+      { text: '担保人数/企业户数', value: ensureCount }
+    ]
+    cells.value.push(row)
+  }
+  {
+    const { owedWorkerMoney, workerCount } = obj
+    let row = [
+      { text: '欠工人工资', value: owedWorkerMoney },
+      { text: '工人人数', value: workerCount }
+    ]
+    cells.value.push(row)
+  }
+  {
+    const { privateLendAmount, privateLendCount } = obj
+    let row = [
+      { text: '民间借贷金额', value: privateLendAmount },
+      { text: '民间借贷人数', value: privateLendCount }
+    ]
+    cells.value.push(row)
+  }
+  {
+    const { otherOwed } = obj
+    let row = [{ text: '其他欠款说明', value: otherOwed }]
+    cells.value.push(row)
+  }
+  {
+    const { debtAmount } = obj
+    let row = [{ text: '债务总量统计', value: debtAmount }]
+    cells.value.push(row)
+  }
+  {
+    const { companyPetition } = obj
+    let row = [{ text: '企业诉求', value: mapValue(companyPetition, 'companyPetition') }]
+    cells.value.push(row)
+  }
+  {
+    const { companyPetitionOther } = obj
+    let row = [{ text: '企业其他诉求', value: companyPetitionOther }]
+    cells.value.push(row)
+  }
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:cells.value`, cells.value)
   detail.value = obj
 }

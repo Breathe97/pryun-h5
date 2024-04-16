@@ -75,19 +75,6 @@ const props = defineProps({
 const checked = ref(false)
 emit('checkedChange', checked.value)
 
-const debtListItem = {
-  index: 0,
-  debtCreditUser: '', // 债权人名称
-  debtInterest: '', // 利息加罚息
-  debtPrincipal: '', // 债务本金
-  debtSurplus: '', // 抵偿后剩余债务
-  debtType: '', // 债务性质
-  hockIntro: '', // 抵押物介绍
-  hockWorth: '', // 抵押物可变现价值
-  jugProcess: '', // 司法程序进展
-  overdue: '' // 逾期时间
-}
-
 const inf: any = ref({
   bankLoan: '', // 银行贷款
   smallLoan: '', // 小额贷款
