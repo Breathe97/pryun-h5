@@ -7,7 +7,7 @@
           <div class="van-picker__toolbar">
             <button class="van-picker__cancel van-haptics-feedback" @click="close">取消</button>
             <div class="van-picker__title van-ellipsis">请选择</div>
-            <button class="van-picker__confirm van-haptics-feedback" @click="selectConfirm">确认</button>
+            <button class="van-picker__confirm van-haptics-feedback" @click="selectConfirm(true)">确认</button>
           </div>
           <div class="list no-px2vw">
             <div class="row" v-for="(item, index) in columns" :key="index" @click="selectRow(item)">

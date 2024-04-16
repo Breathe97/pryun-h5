@@ -61,8 +61,8 @@ export const dictConfigGet = async () => {
     // 生成 dictConfigRes
     const keys = Object.keys(dictConfigRes)
     for (const key of keys) {
-      let targetKey = mapValue[key] || key
-      dictConfigRes[key] = data[targetKey] || defaultArr
+      const { targetKey = key } = dictConfigRes[key]
+      dictConfigRes[key]['columns'] = data[targetKey] || defaultArr
     }
     // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:dictConfigRes`, dictConfigRes)
   })
