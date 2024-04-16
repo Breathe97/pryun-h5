@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
-import { getDetail, throttle } from '../../static/index'
+import { getDetail, throttle } from '../static/index'
 
 const vanFormRef = ref()
 

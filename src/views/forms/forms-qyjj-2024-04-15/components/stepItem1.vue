@@ -20,7 +20,7 @@
 import cardVue from '../../components/card/card.vue'
 import { ref, watch, nextTick } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
-import { dictConfigRes, getDetail, throttle, rules } from '../../static/index'
+import { dictConfigRes, getDetail, throttle, rules } from '../static/index'
 
 const vanFormRef = ref()
 

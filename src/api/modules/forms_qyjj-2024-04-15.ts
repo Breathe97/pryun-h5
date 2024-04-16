@@ -7,7 +7,7 @@ const { VITE_BASE } = import.meta.env // 以下请求为直连模式 当url为�
 export const dictConfigGet = (options?: AxiosRequestConfig) => {
   return http({
     method: 'GET',
-    url: `${VITE_BASE}/api/biz/case/company/v2/dict/config`,
+    url: `${VITE_BASE}/api/biz/case/company/dict/config`,
     ...options
   })
 }
@@ -47,7 +47,7 @@ export const step1Post = (options?: AxiosRequestConfig) => {
   }
   return http({
     method: 'POST',
-    url: `${VITE_BASE}/api/biz/case/company/v2/step1`,
+    url: `${VITE_BASE}/api/biz/case/company/step1`,
     showErrMsg: false,
     ...options
   })
@@ -59,7 +59,7 @@ export const step2Post = (options?: AxiosRequestConfig) => {
   return http({
     method: 'POST',
     showErrMsg: false,
-    url: `${VITE_BASE}/api/biz/case/company/v2/step2`,
+    url: `${VITE_BASE}/api/biz/case/company/step2`,
     ...options
   })
 }
@@ -70,7 +70,7 @@ export const step3Post = (options?: AxiosRequestConfig) => {
   return http({
     method: 'POST',
     showErrMsg: false,
-    url: `${VITE_BASE}/api/biz/case/company/v2/step3`,
+    url: `${VITE_BASE}/api/biz/case/company/step3`,
     ...options
   })
 }

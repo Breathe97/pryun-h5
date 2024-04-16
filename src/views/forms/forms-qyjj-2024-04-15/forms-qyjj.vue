@@ -36,7 +36,7 @@ import stepItem2Vue from './components/stepItem2.vue'
 import stepItem3Vue from './components/stepItem3.vue'
 import { ref } from 'vue'
 import * as api from '@/api/modules/forms_qyjj'
-import { getDetail, dictConfigGet } from '../static/index'
+import { getDetail, dictConfigGet } from './static/index'
 
 const route = useRoute()
 

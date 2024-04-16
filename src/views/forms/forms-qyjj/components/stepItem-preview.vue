@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { showImagePreview } from 'vant'
-import { getDetail, dictConfigRes } from '../../static/index'
+import { getDetail, dictConfigRes } from '../static/index'
 import { filePreviewUrl } from '@/api/modules/common'
 
 const props = defineProps({
