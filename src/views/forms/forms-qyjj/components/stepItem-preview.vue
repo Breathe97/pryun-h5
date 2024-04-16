@@ -38,9 +38,14 @@ const detail: any = ref({
 type Type_info = { text: string; value: any }
 
 const mapValue = (val: string, key = '') => {
-  let arr: Type_info[] = dictConfigRes[key]
-  let { text = val } = arr.find((item) => item.value) || {}
-  return text
+  try {
+    let arr: Type_info[] = dictConfigRes[key].columns
+    let { text = val } = arr.find((item) => item.value) || {}
+    return text
+  } catch (error) {
+    // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:key`, key, dictConfigRes)
+    console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:error`, error)
+  }
 }
 
 const init = async () => {

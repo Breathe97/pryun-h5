@@ -34,7 +34,7 @@ const active = ref(0)
 const token = 'eyJhbGciOiJIUzUxMiJ9.eyJwayI6IjE3Njc4NjMwOTAxNDAwMzcxMjAiLCJ0eXBlIjoiU0hPUCIsInRlbmFudElkIjpudWxsLCJuYW1lIjoi6ZW_5a2Z5pePIiwiaW1Vc2VySWQiOm51bGwsImV4cCI6MTcxMzUzMDExMX0.Rtiwb4JRiwwMmcpd-zbLmKfj6biDcM-VYeDbgAOcYPoKuHkEJkmKlUtYAMrYFxmIKH8LTKBUFj6U4Fe8XyyL1g'
 
 const query = ref({ token, orderId: '1780055382785216512', navbar: 'show' })
-const query2 = ref({ token, caseInId: '1778330859544477696', navbar: 'show', mode: 'preview' })
+const query2 = ref({ token, caseInId: '1780056214482145280', navbar: 'show', mode: 'preview' })
 
 const aaa = ref(new Date().getTime())
 
