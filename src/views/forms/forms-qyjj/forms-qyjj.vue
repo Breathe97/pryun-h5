@@ -90,7 +90,12 @@ const stepClick = async (newIndex = 0) => {
     return
   }
   // console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:newIndex`, newIndex, obj)
-  await saveFunc(obj).then(() => {
+  await saveFunc(obj).then((res: any) => {
+    const { code = 0, message, data } = res
+    if (code !== 200) {
+      console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:err`, res)
+      return
+    }
     stepsIndex.value = newIndex
   })
 }
