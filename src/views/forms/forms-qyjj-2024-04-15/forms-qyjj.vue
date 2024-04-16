@@ -123,7 +123,7 @@ const init = async () => {
   }
 
   // 如果进件id不存在 需要先生成一个进件id
-  if (!caseInId) {
+  if (!orderDetail.value.caseInId) {
     const { data = '' } = await api.step1Post({ data: { orderId } }) // 通过保存一个空的数据来获取一个进件id
     orderDetail.value.caseInId = data
   }

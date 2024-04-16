@@ -112,53 +112,11 @@ const inf: any = ref({
   orderId: '' // 订单ID
 })
 
-// 删除债务信息
-const delItem = (index: number) => {
-  if (inf.value.debtList.length <= 1) {
-    return showDialog({ message: '请至少填写一条债务信息。', theme: 'round-button', confirmButtonText: '好的', confirmButtonColor: 'rgba(74, 199, 74, 1)' })
-  }
-  if (index >= 0) {
-    showConfirmDialog({
-      title: '温馨提示',
-      message: '确定要删除这条债务信息吗？',
-      confirmButtonColor: 'rgba(74, 199, 74, 1)',
-      theme: 'round-button'
-    })
-      .then(() => {
-        // on confirm
-        inf.value.debtList.splice(index, 1)
-      })
-      .catch(() => {
-        // on cancel
-      })
-  }
-}
-
-// 新增债务信息
-const addItem = () => {
-  let obj = JSON.parse(JSON.stringify(debtListItem))
-  let lastIndex = 0
-  let listLength = inf.value.debtList.length
-  if (listLength) {
-    lastIndex = inf.value.debtList[listLength - 1].index
-  }
-  obj.index = lastIndex + 1
-  inf.value.debtList.push(obj)
-}
-
 const init = async () => {
   let keys = Object.keys(inf.value)
   let obj: any = await getDetail(props.orderDetail.caseInId, keys)
   obj.orderId = props.orderDetail?.orderId
-  // 生成序号
-  for (const [index, item] of obj.debtList.entries()) {
-    item.index = index + 1
-  }
   inf.value = { ...inf.value, ...obj }
-  // 如果没有 债务信息 添加一个
-  if (inf.value.debtList.length === 0) {
-    addItem()
-  }
 }
 init()
 
@@ -177,7 +135,7 @@ const validate = () => {
 // 监听当前表单
 watch(
   () => inf.value,
-  (a, b) => b.id && throttle(save, 500),
+  (a, b) => a.id && throttle(save, 500),
   { deep: true }
 )
 

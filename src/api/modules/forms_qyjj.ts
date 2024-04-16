@@ -29,7 +29,7 @@ export const caseDetailGet = (options?: AxiosRequestConfig) => {
   return http({
     method: 'GET',
     showErrMsg: false,
-    url: `${VITE_BASE}/api/biz/case/company/detail/${caseInId}`,
+    url: `${VITE_BASE}/api/biz/case/company/v2/detail/${caseInId}`,
     ...options
   })
 }
